@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<Questions>
+  <Question id="01">Frågan lyder så här
+    <Answer1>Svaret på frågan</Answer1>
+    <Answer2>Svar på frågoan</Answer2>
+    <Answer3>Svarpåfråga</Answer3>
+    <Answer4>Svar pfrågan</Answer4>
+    <Facit>Detta är svaret</Facit>
+  </Question>
+</Questions>
