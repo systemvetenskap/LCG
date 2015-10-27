@@ -17,15 +17,16 @@
 
         <br /><br />
         <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label> 
-        <br />
+        
 
         <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
-        <br />
+        
 
         <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
-        <br />
-
-        
+       
+            <br /><br />
+            <asp:Button ID="ButtonPrevious" runat="server" Text="Föregående fråga" OnClick="ButtonPrevious_Click" />
+            <asp:Button ID="ButtonNext" runat="server" Text="Nästa fråga" OnClick="ButtonNext_Click" />
         </section> 
     </section>
   
