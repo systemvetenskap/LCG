@@ -1,10 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Licensiering.aspx.cs" Inherits="LCGBanking.Licensiering" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <br /><br />
-
-    <section id="booking">  
+    <section>
         <h1>Licenseringstest</h1>
-        <br /> <br />
+        <section id="booking"> 
+
 
 
         <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="23px" OnClick="ButtonStart_Click" />
@@ -25,7 +24,7 @@
         <br />
 
         
-
+        </section> 
     </section>
   
 </asp:Content>
