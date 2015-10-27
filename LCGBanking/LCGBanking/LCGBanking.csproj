@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Admin.aspx" />
+    <Content Include="APP_CODE\XML_QueryKunskap.xml" />
     <Content Include="APP_CODE\XML_Query.xml" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />

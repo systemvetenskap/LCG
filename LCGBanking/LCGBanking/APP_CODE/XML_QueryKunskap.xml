@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-  <!-- Licenseringstest -->
-  <Licenseringstest>
+  <!-- Kunskapstest -->
+  <Kunskapstest>
     <Question id="1">
-      <Fraga>Hur ser finanserna bra ut?</Fraga>
+      <Fraga>Kunskap?</Fraga>
       <Svarsalternativ1 facit="true">Ja</Svarsalternativ1>
       <Svarsalternativ2>Nej</Svarsalternativ2>
       <Svarsalternativ3>Vet ej</Svarsalternativ3>
@@ -26,5 +26,6 @@
       <Svarsalternativ2>Inget</Svarsalternativ2>
       <Svarsalternativ3>Köper finanser</Svarsalternativ3>
    </Question>
-  </Licenseringstest>
+  
+  </Kunskapstest>
 

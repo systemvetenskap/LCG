@@ -21,14 +21,14 @@ namespace LCGBanking
 
 
 
-        private void XML(int index)
+        private void XML(string path, string level, int index)
         {
 
-            string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
+            string xmlfil = Server.MapPath(path);
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlfil);
 
-            XmlNodeList fraga = doc.SelectNodes("/Licenseringstest/Question[@id=" + index + "]");
+            XmlNodeList fraga = doc.SelectNodes(level + "/Question[@id=" + index + "]");
 
             // Hämtar vissa info i element
             foreach (XmlNode nod in fraga)
@@ -37,7 +37,7 @@ namespace LCGBanking
             }
 
             // Hämta noder utifrån namn
-            XmlNodeList svar = doc.SelectNodes("/Licenseringstest/Question[@id=" + index + "]");
+            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]");
             // Hämtar vissa info i element
             foreach (XmlNode nod in svar)
             {
@@ -106,7 +106,8 @@ Label1.Text += nod[”namn”].InnerText + ” ";
 
         protected void ButtonStart_Click(object sender, EventArgs e)
         {
-            XML(1);
+
+            XML("APP_CODE/XML_Query.xml", "/Licenseringstest", 1);
         }
 
         protected void ButtonNext_Click(object sender, EventArgs e)
@@ -116,7 +117,7 @@ Label1.Text += nod[”namn”].InnerText + ” ";
             int nr = GlobalValues.FrageNr += 1;
             if(nr <= maxNr)
             {
-                XML(nr);
+                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
             }
             else
             {
@@ -131,7 +132,7 @@ Label1.Text += nod[”namn”].InnerText + ” ";
             int nr = GlobalValues.FrageNr -= 1;
             if (nr != 1)
             {
-                XML(nr);
+                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
             }
             else
             {
