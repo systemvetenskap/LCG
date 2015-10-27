@@ -1,11 +1,12 @@
-﻿<?xml version="1.0" encoding="utf-8" ?> 
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<Questions>
-  <Question id="01">Frågan lyder så här
-    <Answer1>Svaret på frågan</Answer1>
-    <Answer2>Svar på frågoan</Answer2>
-    <Answer3>Svarpåfråga</Answer3>
-    <Answer4>Svar pfrågan</Answer4>
-    <Facit>Detta är svaret</Facit>
+  <!-- Licenseringstest -->
+  <Licenseringstest>
+    <Question id="1">
+      <Fraga>Hur ser finanserna bra ut?</Fraga>
+      <Svarsalternativ1 facit="true">Ja</Svarsalternativ1>
+      <Svarsalternativ2>Nej</Svarsalternativ2>
+      <Svarsalternativ3>Vet ej</Svarsalternativ3>
   </Question>
-</Questions>
+  </Licenseringstest>
+

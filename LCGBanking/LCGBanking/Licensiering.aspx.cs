@@ -14,9 +14,48 @@ namespace LCGBanking
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            visaXML();
+           
 
         }
+
+        private void XML()
+            {
+                string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
+                XmlDocument doc = new XmlDocument();
+                doc.Load(xmlfil);
+
+                XmlNodeList fraga = doc.SelectNodes("/Licenseringstest/Question[@id=1]");
+
+                // Hämtar vissa info i element
+                foreach (XmlNode nod in fraga)
+                {
+                    LabelQuestion.Text = nod["Fraga"].InnerText + "<br /> ";
+                }
+
+                // Hämta noder utifrån namn
+                XmlNodeList svar = doc.SelectNodes("/Licenseringstest/Question[@id=1]");
+                // Hämtar vissa info i element
+	            foreach(XmlNode nod in svar)
+	            {
+                    Label1.Text = nod["Svarsalternativ1"].InnerText + "<br /> ";
+                    Label2.Text = nod["Svarsalternativ2"].InnerText + "<br /> ";
+                    Label3.Text = nod["Svarsalternativ3"].InnerText + "<br /> ";
+	            }
+
+}
+
+        /*
+// Hämta noder utifrån attribut
+xmlNodeList musikintrument = doc.SelectNodes(”/musikinstrument/instrumen”);
+// Hämtar vissa info i element
+foreach(XmlNode nod in musikinstrument)
+{
+Label1.Text += nod[”namn”].InnerText + ” ";
+ }
+       */ 
+        
+        
+        
     
 
     private void visaXML()
@@ -25,7 +64,7 @@ namespace LCGBanking
         XmlTextReader reader = new XmlTextReader(xmlfil);
         StringBuilder str = new StringBuilder();
 
-        reader.ReadStartElement("Questions");
+        reader.ReadStartElement("Test/Licenseringstest");
 
         while (reader.Read())
         {
@@ -57,7 +96,12 @@ namespace LCGBanking
                     break;
             }
         }
-        Label1.Text = str.ToString();
+        LabelQuestion.Text = str.ToString();
+    }
+
+    protected void ButtonStart_Click(object sender, EventArgs e)
+    {
+        XML();
     }
     
     }

@@ -36,6 +36,7 @@ header {
 	}
 	
 section {
+    margin-left:45px;
 	font-family:"Lucida Grande", sans-serif;
 	height:auto;
 	display:block;
