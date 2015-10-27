@@ -18,13 +18,14 @@ namespace LCGBanking
 
         }
 
-        private void XML()
-            {
+        private void XML(int index)
+        {
+            
                 string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
                 XmlDocument doc = new XmlDocument();
                 doc.Load(xmlfil);
 
-                XmlNodeList fraga = doc.SelectNodes("/Licenseringstest/Question[@id=1]");
+                XmlNodeList fraga = doc.SelectNodes("/Licenseringstest/Question[@id="+ index +"]");
 
                 // Hämtar vissa info i element
                 foreach (XmlNode nod in fraga)
@@ -33,16 +34,17 @@ namespace LCGBanking
                 }
 
                 // Hämta noder utifrån namn
-                XmlNodeList svar = doc.SelectNodes("/Licenseringstest/Question[@id=1]");
+                XmlNodeList svar = doc.SelectNodes("/Licenseringstest/Question[@id=" + index + "]");
                 // Hämtar vissa info i element
 	            foreach(XmlNode nod in svar)
 	            {
                     Label1.Text = nod["Svarsalternativ1"].InnerText + "<br /> ";
                     Label2.Text = nod["Svarsalternativ2"].InnerText + "<br /> ";
                     Label3.Text = nod["Svarsalternativ3"].InnerText + "<br /> ";
-	            }
+                }
+        }
 
-}
+   
 
         /*
 // Hämta noder utifrån attribut
@@ -101,7 +103,7 @@ Label1.Text += nod[”namn”].InnerText + ” ";
 
     protected void ButtonStart_Click(object sender, EventArgs e)
     {
-        XML();
+        XML(2);
     }
     
     }

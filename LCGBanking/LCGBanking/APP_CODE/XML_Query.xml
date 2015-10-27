@@ -8,5 +8,11 @@
       <Svarsalternativ2>Nej</Svarsalternativ2>
       <Svarsalternativ3>Vet ej</Svarsalternativ3>
   </Question>
+      <Question id="2">
+      <Fraga>Vad gör du idag</Fraga>
+      <Svarsalternativ1 facit="true">Vet inte</Svarsalternativ1>
+      <Svarsalternativ2>Inget</Svarsalternativ2>
+      <Svarsalternativ3>Köper finanser</Svarsalternativ3>
+  </Question>
   </Licenseringstest>
 
