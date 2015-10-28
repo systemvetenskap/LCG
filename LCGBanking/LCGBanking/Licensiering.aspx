@@ -15,8 +15,12 @@
             <asp:RadioButton ID="Svar2" runat="server" />
             <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label> <br />
             <asp:RadioButton ID="Svar3" runat="server" />
-            <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label> <br />                   
+            <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label> <br />  
+            <asp:RadioButton ID="Svar4" runat="server" />
+            <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label> <br />                   
         </div>
+
+        <br /><br/ />
 
         <div id="knappar">
             <asp:Button ID="ButtonPrevious" runat="server" Text="Föregående fråga" OnClick="ButtonPrevious_Click" />

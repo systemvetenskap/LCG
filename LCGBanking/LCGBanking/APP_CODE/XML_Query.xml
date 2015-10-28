@@ -2,29 +2,213 @@
 
   <!-- Licenseringstest -->
   <Licenseringstest>
+    <!-- Fråga 1-10 har lånats från sidan: http://www.fei.se/testa-dina-kunskaper# -->
     <Question id="1">
-      <Fraga>Hur ser finanserna bra ut?</Fraga>
-      <Svarsalternativ1 facit="true">Ja</Svarsalternativ1>
-      <Svarsalternativ2>Nej</Svarsalternativ2>
-      <Svarsalternativ3>Vet ej</Svarsalternativ3>
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga>Vad är eget kapital i ett AB?</Fraga>
+      <Svar alt="a" facit="false">Inlånat kapital</Svar>
+      <Svar alt="b" facit="false">Saldot på banken</Svar>
+      <Svar alt="c" facit="false">Vinst innan skatt</Svar>
+      <Svar alt="d" facit="true">Satsat kapital från ägaren/ägarna</Svar>
    </Question>
    <Question id="2">
-      <Fraga>Vad gör du idag</Fraga>
-      <Svarsalternativ1 facit="true">Vet inte</Svarsalternativ1>
-      <Svarsalternativ2>Inget</Svarsalternativ2>
-      <Svarsalternativ3>Köper finanser</Svarsalternativ3>
+     <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+     <Fraga>Vad är exempel på finansiella poster i bolagets resultaträkning?</Fraga>
+     <Svar alt="a" facit="false">Banktillgodohavanden</Svar>
+     <Svar alt="b" facit="false">Lån från ett moderbolag</Svar>
+     <Svar alt="c" facit="false">Aktier och obligationer</Svar>
+     <Svar alt="d" facit="true">Ränteintäkter och/eller Räntekostnader</Svar>
    </Question>
    <Question id="3">
-      <Fraga>Nô rolit</Fraga>
-      <Svarsalternativ1 facit="true">Vet inte</Svarsalternativ1>
-      <Svarsalternativ2>Inget</Svarsalternativ2>
-      <Svarsalternativ3>Köper finanser</Svarsalternativ3>
+     <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+     <Fraga>Vad visar Rörelseresultatet i en resultaträkning?</Fraga>
+     <Svar alt="a" facit="false">Bolagets skulder i rörelsen</Svar>
+     <Svar alt="b" facit="false">Bolagets vinster ackumulerat i rörelsen</Svar>
+     <Svar alt="c" facit="false">Bolagets resultat på kärnverksamheten</Svar>
+     <Svar alt="d" facit="true">Bolagets resultat efter skatt</Svar>
    </Question>
    <Question id="4">
-      <Fraga>Litte seriös ska en vare</Fraga>
-      <Svarsalternativ1 facit="true">Vet inte</Svarsalternativ1>
-      <Svarsalternativ2>Inget</Svarsalternativ2>
-      <Svarsalternativ3>Köper finanser</Svarsalternativ3>
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga>Är soliditet ett mått på</Fraga>
+      <Svar alt="a" facit="false">betalningsförmåga på kort sikt</Svar>
+      <Svar alt="b" facit="true">betalningsförmåga på lång sikt</Svar>
+      <Svar alt="c" facit="false">hur länge bolaget har funnits</Svar>
+      <Svar alt="d" facit="false">resultat i bolaget</Svar>
    </Question>
+    <Question id="5">
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga>Vad är räntabilitet ett mått på?</Fraga>
+      <Svar alt="a" facit="false">Effektivitet</Svar>
+      <Svar alt="b" facit="false">Kapacitet</Svar>
+      <Svar alt="c" facit="true">Avkastningsförmåga</Svar>
+      <Svar alt="d" facit="false">Likviditet</Svar>
+    </Question>
+    <Question id="6">
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga>Om ett bolag har 10 000 aktier och balansräkningen visar 5 000 000 i balansomslutning varav långa och kort skulder uppgår till 3 650 000. Hur stort är substansvärdet/aktie?</Fraga>
+      <Svar alt="a" facit="false">365 kr</Svar>
+      <Svar alt="b" facit="false">135 kr</Svar>
+      <Svar alt="c" facit="false">13.50 kr</Svar>
+      <Svar alt="d" facit="true">500 kr</Svar>
+    </Question>
+    <Question id="7">
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga>Vad är en ”vendor due dilligens”?</Fraga>
+      <Svar alt="a" facit="false">En säljinriktad företagsbesiktning</Svar>
+      <Svar alt="b" facit="true">En undersökning av den största leverantören i företaget beräknat på inköpsstatistik</Svar>
+      <Svar alt="c" facit="false">Förfallodag för skattebetalningar</Svar>
+      <Svar alt="d" facit="false">En undersökning av den största kunden i företaget beräknat till omsättning</Svar>
+    </Question>
+    <Question id="8">
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga> Vad visar en kassaflödesanalys?</Fraga>
+      <Svar alt="a" facit="false">Företagets avkastning under minst 2 år</Svar>
+      <Svar alt="b" facit="false">Förändringen av företagets resultat under 2 år</Svar>
+      <Svar alt="c" facit="true">Förändringen av likvida medel i företaget</Svar>
+      <Svar alt="d" facit="false">Företagets olika placeringar av likvida medel</Svar>
+    </Question>
+    <Question id="9">
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga>Vilka bolag är tvungna att upprätta en kassaflödesanalys i sin årsredovisning?</Fraga>
+      <Svar alt="a" facit="true">Stora bolag</Svar>
+      <Svar alt="b" facit="false">Alla bolag</Svar>
+      <Svar alt="c" facit="false">K2-bolag</Svar>
+      <Svar alt="d" facit="false">Det är inte tvingande för något bolag</Svar>
+    </Question>
+    <Question id="10">
+      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
+      <Fraga>Ett företag har en uthållig vinstnivå som uppgår till 500 tkr. Ditt avkastningskrav är 20%. Vilket pris bör du därmed vara beredd att betala för företaget enligt avkastningsvärdemetoden?</Fraga>
+      <Svar alt="a" facit="false">500 000</Svar>
+      <Svar alt="b" facit="false">1 000 000</Svar>
+      <Svar alt="c" facit="true">2 000 000</Svar>
+      <Svar alt="d" facit="false">2 500 000</Svar>
+    </Question>
+    <Question id="11">
+      <Kategori>Produkter och hantering av kundens affärer </Kategori>
+      <Fraga>Realkapital kan vara:</Fraga>
+      <Svar alt="a" facit="false">Pengar</Svar>
+      <Svar alt="b" facit="false">Maskiner</Svar>
+      <Svar alt="c" facit="true">Aktier</Svar>
+      <Svar alt="d" facit="false">Frihet</Svar>
+    </Question>
+    <!-- Fråga 11-17 har lånats från sidan: http://www.fei.se/testa-dina-kunskaper# -->
+    <Question id="12">
+      <Kategori>Produkter och hantering av kundens affärer </Kategori>
+      <Fraga>På en faktormarknad bjuds följande ut:</Fraga>
+      <Svar alt="a" facit="false">Konsumtionsvaror</Svar>
+      <Svar alt="b" facit="true">Arbetskraft</Svar>
+      <Svar alt="c" facit="false">Appar för privat bruk</Svar>
+      <Svar alt="d" facit="false">Traktorer</Svar>
+    </Question>
+    <Question id="13">
+      <Kategori>Produkter och hantering av kundens affärer </Kategori>
+      <Fraga>Vad är handelsbalans?</Fraga>
+      <Information>Denna fråga kräver 2 rätta svar för att få rätt på frågan</Information>
+      <Svar alt="a" facit="false">Tidpunkten då utbuds- och efterfrågekurvorna möts.</Svar>
+      <Svar alt="b" facit="true">Differensen mellan värdet av en ekonomis export och dess import.</Svar>
+      <Svar alt="c" facit="false">Ett mått för en marknad som har nått en hållbar nivå.</Svar>
+      <Svar alt="d" facit="true">Det är bytesbalansen. Summan av handelsbalansen och tjänstebalansen</Svar>
+    </Question>
+    <Question id="14">
+      <Kategori>Produkter och hantering av kundens affärer </Kategori>
+      <Fraga>Företagets strategi svarar på frågan:</Fraga>
+      <Information>Denna fråga kräver 2 rätta svar för att få rätt på frågan</Information>
+      <Svar alt="a" facit="true">Hur?</Svar>
+      <Svar alt="b" facit="false">Vem?</Svar>
+      <Svar alt="c" facit="false">Vad?</Svar>
+      <Svar alt="d" facit="false">Vart!</Svar>
+    </Question>
+    <Question id="15">
+      <Kategori>Produkter och hantering av kundens affärer </Kategori>
+      <Fraga>Vad är "kirurgisk marknadsföring"?</Fraga>
+      <Svar alt="a" facit="false">Sådant privata vårdbolag använder för att skära ner på kostnaderna</Svar>
+      <Svar alt="b" facit="false">Sådant läkemedelsbolag använder för att nå så många som möjligt</Svar>
+      <Svar alt="c" facit="true">Sådant ett företag använder för att nå en specifik målgrupp</Svar>
+      <Svar alt="d" facit="false">Ett annat begrepp för Yoshikins försäljningskanaler</Svar>
+    </Question>
+    <Question id="16">
+      <Kategori>Produkter och hantering av kundens affärer </Kategori>
+      <Fraga>Vilken modell används oftast för omvärldsanalyser?</Fraga>
+      <Svar alt="a" facit="false">SWAP-modellen</Svar>
+      <Svar alt="b" facit="false">SWIFT-modellen</Svar>
+      <Svar alt="c" facit="false">SWEDE-modellen</Svar>
+      <Svar alt="d" facit="true">SWOT-modellen</Svar>
+    </Question>
+    <Question id="17">
+      <Kategori>Produkter och hantering av kundens affärer </Kategori>
+      <Fraga>Vad innebär så kallad ”inbound marketing”?</Fraga>
+      <Svar alt="a" facit="false">Via DM-utskick försöker man få kunderna att upptäcka annonsören</Svar>
+      <Svar alt="b" facit="false">Via TV-reklam försöker man få annonsören att förstå konsumenten</Svar>
+      <Svar alt="c" facit="true">Via internet försöker man få kunden att hitta annonsören</Svar>
+      <Svar alt="d" facit="false">Via SMS försöker annonsören boka möten med kunden</Svar>
+    </Question>
+    <!-- Fråga 18-25 har lånats från sidan: http://www.direkthandeln.org/Upload/Docs/etiska_regler_rev_arsmote_2012_kov.pdf -->
+    <Question id="18">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>Vilka ageranden förbjudna enligt uppträdande mot konsumenter</Fraga>
+      <Information>Denna fråga kräver 2 rätta svar för att få rätt på frågan</Information>
+      <Svar alt="a" facit="true">Direktsäljaren får inte använda vilseledande, aggresiva, bedrägliga eller illojala säljmetoder.</Svar>
+      <Svar alt="b" facit="true">Säljkontakter med nyblivna föräldrar får inte tas än 8 veckor efter att barnets fötts</Svar>
+      <Svar alt="c" facit="false">Sälja varor via telefon</Svar>
+      <Svar alt="d" facit="false">Betala kontakt när konsument handlar i affär</Svar>
+    </Question>
+    <Question id="19">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>Vad gäller vid svar på frågor till konsumenten vid köp?</Fraga>
+      <Svar alt="a" facit="true">Direktförsäljaren skall ge klara och begripliga svar på alla frågor från konsument rörande produkten eller erbjudandet</Svar>
+      <Svar alt="b" facit="false">Säljaren behöver inte svara alls</Svar>
+      <Svar alt="c" facit="false">Ett obegripligt svar är även det ett begripligt svar</Svar>
+      <Svar alt="d" facit="false">Säljaren kan uppträda otrevligt och slingrande. Speciellt vid bilköp.</Svar>
+    </Question>
+    <Question id="20">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>Vad gäller vid muntliga köp</Fraga>
+      <Svar alt="a" facit="false">Absolut ingenting, Allt är tillåtet</Svar>
+      <Svar alt="b" facit="false">Finns det muntliga avlta alls? Tveksamt</Svar>
+      <Svar alt="c" facit="true">Direktsäljaren skall endast lämna muntliga löften beträffande produkten och avtal, som godkänts av företaget.</Svar>
+      <Svar alt="d" facit="false">Säljaren behöver inte bry sig om företagets godkännande.</Svar>
+    </Question>
+    <Question id="21">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>Vad gäller för en än direktsförsäljare angående privatlivet?</Fraga>
+      <Svar alt="a">Absolut ingenting, Allt är tillåtet</Svar>
+      <Svar alt="b" facit="false">Att inte bry sig om NIX-registret är okej för en telefonförsäljare</Svar>
+      <Svar alt="c" facit="true">Personlig kontakt, kontakt per telefon eller elektronisk kontakt skall göras enligt god sed och etiska regler på området. Kontakten skall ske ansvarsfullt på rimliga tidpunkter och undvikas vara för påträngande.</Svar>
+      <Svar alt="d" facit="false">Säljaren kan ringa, kontakta och kontakta via elektronisk kontakt när som helst på dygnet.</Svar>
+    </Question>
+    <Question id="22">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>Är det viktigt att hålla på ärlighet och på vilket sätt ärlighet viktigt att följa?</Fraga>
+      <Svar alt="a" facit="false">Företag kan göra lite som de vill. De behöver inte fullfölja kundens beställning i tid</Svar>
+      <Svar alt="b" facit="false">Information behöver ges alla tillfällen. Men är produkten inte tillgänglig behöver direktsäljaren inte ge någon information. Det räcker med att säga att produkten inkommer inom kort.</Svar>
+      <Svar alt="c" facit="true">Direktsäljaren skall söka bilda sig en uppfattning om konsumentens behov och allmänkunskaper beträffande den saluförda varan och tjänsten.</Svar>
+      <Svar alt="d" facit="false">Att sälja en produkt till konsument som bidrar till rädsla är helt ok. </Svar>
+    </Question>
+    <Question id="23">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>Vad menas med "Code Administrator"?</Fraga>
+      <Svar alt="a" facit="true">En samling förhållningssätt som handlar om de etiska reglerna och hur de tillämpas och blir kommunicerade till direktsäljarna, företagets anställda och dess kunder. </Svar>
+      <Svar alt="b" facit="false">Code administrator handlar om företagets klädkod.</Svar>
+      <Svar alt="c" facit="false">Handlar om vilka som har hand om administrationen på företaget/föreningen.</Svar>
+      <Svar alt="d" facit="false">Ett hemligt förhållningssätt till företaget och dess anställda. Den tysta kunskap som företaget/föreningen innehar. Som tar tid att lära sig</Svar>
+    </Question>
+    <Question id="24">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>När gäller konsumenttjänstlagen?</Fraga>
+      <Svar alt="a" facit="false">När en direktsäljare säljer något till slutkund. </Svar>
+      <Svar alt="b" facit="false">Den gäller när konsument köper en vara på internet.</Svar>
+      <Svar alt="c" facit="true">Gäller när en konsument låter en näringsidkare utföra arbete på något som konsumenten äger.</Svar>
+      <Svar alt="d" facit="false">Den gäller ibland eller aldrig.</Svar>
+    </Question>
+    <Question id="25">
+      <Kategori>Etik och regelverk</Kategori>
+      <Fraga>Vad gäller för vilkoren vid garanti och eftermarknadsservice?</Fraga>
+      <Information>Denna fråga kräver 2 rätta svar för att få rätt på frågan</Information>
+      <Svar alt="a" facit="false">Garanti gäller inte vid muntliga avtal</Svar>
+      <Svar alt="b" facit="true">I garanti och liknande utfästelse ska information lämnas om att konsumentens rättigheter enligt lag inte påverkas av utfästelsen.</Svar>
+      <Svar alt="c" facit="true">Villkoren för lämnad garanti, detaljer och begränsningar i eftermarknadsservice, namn och adress på garantigivare, garantitidens längd och de åtgärder som köparen kan eller skall vidta, skall klart framgå av köpekontraktet eller i skriftlig information som bilagts produkten.</Svar>
+      <Svar alt="d" facit="false">Den gäller ibland eller aldrig.</Svar>
+    </Question>
   </Licenseringstest>
 
+ 

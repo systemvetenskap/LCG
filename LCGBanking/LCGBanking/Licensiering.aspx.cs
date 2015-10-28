@@ -37,9 +37,10 @@ namespace LCGBanking
             // Hämtar vissa info i element
             foreach (XmlNode nod in svar)
             {
-                Label1.Text = nod["Svarsalternativ1"].InnerText;
-                Label2.Text = nod["Svarsalternativ2"].InnerText;
-                Label3.Text = nod["Svarsalternativ3"].InnerText;
+                Label1.Text = nod["Svar"].InnerText;
+                Label2.Text = nod["Svar"].InnerText;
+                Label3.Text = nod["Svar"].InnerText;
+                Label4.Text = nod["Svar"].InnerText;
             }
         }
 
