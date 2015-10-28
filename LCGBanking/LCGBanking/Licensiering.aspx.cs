@@ -14,9 +14,58 @@ namespace LCGBanking
         protected void Page_Load(object sender, EventArgs e)
         {
             ButtonPrevious.Enabled = false;
-
+            loadAnswers("APP_CODE/XML_Query.xml", "/Licenseringstest");
         }
 
+        /// <summary>
+        /// laddar in alla frågor och deras svar och lägger dem i en global lista
+        /// svaren innehåller info om svaret är icheckat eller inte
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="level"></param>
+        private void loadAnswers(string path, string level)
+        {
+            //!postback etc., så metoden bara kallas en gång
+            
+            string xmlfil = Server.MapPath(path);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(xmlfil);
+
+            XmlNodeList noder = doc.SelectNodes(level + "/Question");
+
+            foreach (XmlNode nod in noder)
+            {
+                Fraga fr = new Fraga
+                {
+                    fraga = nod["Fraga"].InnerText
+                };
+
+                XmlNodeList subNoder = nod.ChildNodes;
+
+                foreach (XmlNode subNod in subNoder)
+                {
+                    if (subNod.Name == "Svarsalternativ")
+                    {
+                        Svar sv = new Svar
+                        {
+                            svar = subNod.InnerText,
+                            icheckad = false
+                        };
+                        fr.svarLista.Add(sv);
+                    }
+                }
+                GlobalValues.Fragor.Add(fr);
+            }
+
+            //LabelQuestion.Text = GlobalValues.Fragor[1].svarLista.Count.ToString();
+        }
+
+        /// <summary>
+        /// läser in fråga och svarsalternativ från XML-fil
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="level"></param>
+        /// <param name="index"></param>
         private void XML(string path, string level, int index)
         {
 
@@ -33,13 +82,38 @@ namespace LCGBanking
             }
 
             // Hämta noder utifrån namn
-            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]");
-            // Hämtar vissa info i element
+            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]/Svarsalternativ");
+
+            //kontrollera om frågan är en flervalsfråga
+            int rattSvar = 0;
             foreach (XmlNode nod in svar)
             {
-                Label1.Text = nod["Svarsalternativ1"].InnerText;
-                Label2.Text = nod["Svarsalternativ2"].InnerText;
-                Label3.Text = nod["Svarsalternativ3"].InnerText;
+                if(nod.Attributes["facit"].Value == "true")
+                {
+                    rattSvar += 1;
+                }
+            }
+
+            //generera radioknappar/checkboxar för svarsalternativ
+            if (rattSvar > 1)
+            {
+                foreach (XmlNode nod in svar)
+                {
+                    CheckBox cb = new CheckBox();
+                    cb.Text = nod.InnerText;
+                    PanelSvar.Controls.Add(cb);
+                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
+                }
+            }
+            else
+            {
+                foreach (XmlNode nod in svar)
+                {
+                    RadioButton rb = new RadioButton();
+                    rb.Text = nod.InnerText;
+                    PanelSvar.Controls.Add(rb);
+                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
+                }
             }
         }
 

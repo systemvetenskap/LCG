@@ -10,12 +10,7 @@
         </div>
 
         <div id="svar">
-            <asp:RadioButton ID="Svar1" runat="server" />
-            <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label> <br />
-            <asp:RadioButton ID="Svar2" runat="server" />
-            <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label> <br />
-            <asp:RadioButton ID="Svar3" runat="server" />
-            <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label> <br />                   
+            <asp:Panel ID="PanelSvar" runat="server"></asp:Panel>                
         </div>
 
         <div id="knappar">
