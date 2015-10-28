@@ -7,19 +7,15 @@ using System.Xml;
 using System.Web.UI.WebControls;
 using System.Text;
 
-
 namespace LCGBanking
 {
     public partial class Licensiering : System.Web.UI.Page
     {
-        
         protected void Page_Load(object sender, EventArgs e)
         {
             ButtonPrevious.Enabled = false;
 
         }
-
-
 
         private void XML(string path, string level, int index)
         {
@@ -41,27 +37,11 @@ namespace LCGBanking
             // Hämtar vissa info i element
             foreach (XmlNode nod in svar)
             {
-                Label1.Text = nod["Svarsalternativ1"].InnerText + "<br /> ";
-                Label2.Text = nod["Svarsalternativ2"].InnerText + "<br /> ";
-                Label3.Text = nod["Svarsalternativ3"].InnerText + "<br /> ";
+                Label1.Text = nod["Svarsalternativ1"].InnerText;
+                Label2.Text = nod["Svarsalternativ2"].InnerText;
+                Label3.Text = nod["Svarsalternativ3"].InnerText;
             }
         }
-
-
-
-        /*
-// Hämta noder utifrån attribut
-xmlNodeList musikintrument = doc.SelectNodes(”/musikinstrument/instrumen”);
-// Hämtar vissa info i element
-foreach(XmlNode nod in musikinstrument)
-{
-Label1.Text += nod[”namn”].InnerText + ” ";
- }
-       */
-
-
-
-
 
         private void visaXML()
         {
@@ -110,35 +90,40 @@ Label1.Text += nod[”namn”].InnerText + ” ";
             XML("APP_CODE/XML_Query.xml", "/Licenseringstest", 1);
         }
 
+        protected void Move(int maxNr, int nr)
+        {
+            if (GlobalValues.FrageNr == 1)
+            {
+                ButtonNext.Enabled = true;
+                ButtonPrevious.Enabled = false;
+                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+            }
+            else if ((GlobalValues.FrageNr > 1) && (GlobalValues.FrageNr < maxNr))
+            {
+                ButtonNext.Enabled = true;
+                ButtonPrevious.Enabled = true;
+                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+            }
+            else if (GlobalValues.FrageNr == maxNr)
+            {
+                ButtonNext.Enabled = false;
+                ButtonPrevious.Enabled = true;
+                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+            }        
+        }
+
         protected void ButtonNext_Click(object sender, EventArgs e)
         {
             int maxNr = GetNodeCount();
-            
             int nr = GlobalValues.FrageNr += 1;
-            if(nr <= maxNr)
-            {
-                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-            }
-            else
-            {
-                ButtonNext.Enabled = false;
-            }
-            ButtonPrevious.Enabled = true;
-            
+            Move(maxNr, nr);
         }
 
         protected void ButtonPrevious_Click(object sender, EventArgs e)
         {
+            int maxNr = GetNodeCount();
             int nr = GlobalValues.FrageNr -= 1;
-            if (nr != 1)
-            {
-                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-            }
-            else
-            {
-                ButtonPrevious.Enabled = false;
-            }
-            ButtonNext.Enabled = true;
+            Move(maxNr, nr);
         }
 
         private int GetNodeCount(string node = "/Licenseringstest/Question")
@@ -149,7 +134,7 @@ Label1.Text += nod[”namn”].InnerText + ” ";
 
             XmlNodeList nodeList = doc.SelectNodes(node);
             return nodeList.Count;
-
         }
     }
 }
+
