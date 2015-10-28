@@ -30,5 +30,7 @@ namespace LCGBanking
                 _frageNr = value;
             }
         }
+
+        public static List<Fraga> Fragor = new List<Fraga>();
     }
 }
