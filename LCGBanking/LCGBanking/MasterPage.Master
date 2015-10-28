@@ -4,15 +4,11 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-
-
     <title>JE Banken - Kunskapsportalen</title>
-
     <link rel="stylesheet" type="text/css" href="CSS/main.css" />
 </head>
 <body>
     <form id="form1" runat="server">
-
         <header>
             <p>JE BANKEN - KUNSKAPSPORTALEN</p>
             <nav>
@@ -22,11 +18,9 @@
             </nav>
         </header>
     <div>
-        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-        
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">        
         </asp:ContentPlaceHolder>
     </div>
-
         <footer>LCG 2015</footer>
     </form>
 </body>
