@@ -11,6 +11,7 @@ namespace LCGBanking
         public DateTime Datum { get; set; }
         public string Typ_av_test { get; set;}
         public int Fk_person_id { get; set; }
+        public int AnvandarId { get; set; }
         public string Anvandarnamn { get; set; }
     }
 }
