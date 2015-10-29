@@ -260,18 +260,18 @@ nav #selected a {
 #fraga {
     float:left;
     display:block;
-    width: 75%;
-    height: 70px;
+    width: 90%;
+    height: 80px;
 }
 
 #svar {
     float: right;
-    margin-right: 75px;
+    margin-right: 150px;
     padding-top: 45px;
     padding-right:5em;
     height: 250px;
     display:block;
-    width: 45%;
+    width: 65%;
 }
 
 #knappar {
@@ -292,6 +292,15 @@ nav #selected a {
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
+}
+
+#LabelKategori {
+    font-size: 10px; 
+    font-style: italic;
+}
+
+#LabelInfo {
+    font-size: 12px;
 }
 
 

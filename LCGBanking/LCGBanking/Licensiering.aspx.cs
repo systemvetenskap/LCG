@@ -40,29 +40,32 @@ namespace LCGBanking
 
             foreach (XmlNode nod in noder)
             {
-                Fraga fr = new Fraga
+                
                 {
-                    id = Convert.ToInt32(nod.Attributes["id"].Value),
-                    kategori = nod["Kategori"].InnerText,
-                    fraga = nod["Fraga"].InnerText,
-                    flerVal = false
-                };
-
-                XmlNodeList subNoder = nod.ChildNodes;
-
-                foreach (XmlNode subNod in subNoder)
-                {
-                    if (subNod.Name == "Svar")
+                    
+                    Fraga fr = new Fraga
                     {
-                        Svar sv = new Svar
+                        id = Convert.ToInt32(nod.Attributes["id"].Value),
+                        kategori = nod["Kategori"].InnerText,
+                        fraga = nod["Fraga"].InnerText,
+                        flerVal = false    
+                    };
+                    
+                    XmlNodeList subNoder = nod.ChildNodes;
+
+                    foreach (XmlNode subNod in subNoder)
+                    {
+                        if (subNod.Name == "Svar")
                         {
-                            alt = subNod.Attributes["alt"].Value,
-                            svar = subNod.InnerText,
-                            facit = subNod.Attributes["facit"].Value,
-                            icheckad = false
-                        };
-                        fr.svarLista.Add(sv);
-                    }
+                            Svar sv = new Svar
+                            {
+                                alt = subNod.Attributes["alt"].Value,
+                                svar = subNod.InnerText,
+                                facit = subNod.Attributes["facit"].Value,
+                                icheckad = false
+                            };
+                            fr.svarLista.Add(sv);
+                        
                 }
 
                 //kontrollera om frågan är en flervalsfråga
@@ -83,6 +86,8 @@ namespace LCGBanking
                 GlobalValues.Fragor.Add(fr);
             }
         }
+        }
+        }
 
         /// <summary>
         /// laddar in en fråga och dess svar från den globala frågelistan
@@ -92,8 +97,9 @@ namespace LCGBanking
             int index = GlobalValues.FrageNr - 1;
             Fraga question = GlobalValues.Fragor[index];
 
-            LabelKategori.Text = "Kategori: " + question.kategori;
+            LabelKategori.Text = question.kategori;
             LabelQuestion.Text = question.fraga;
+            LabelInfo.Text = question.information;
 
             ////kontrollera om frågan är en flervalsfråga
             //int rattSvar = 0;

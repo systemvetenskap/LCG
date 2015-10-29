@@ -6,6 +6,7 @@
     <Question id="1">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Vad är eget kapital i ett AB?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Inlånat kapital</Svar>
       <Svar alt="b" facit="false">Saldot på banken</Svar>
       <Svar alt="c" facit="false">Vinst innan skatt</Svar>
@@ -14,6 +15,7 @@
    <Question id="2">
      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
      <Fraga>Vad är exempel på finansiella poster i bolagets resultaträkning?</Fraga>
+     <Information></Information>
      <Svar alt="a" facit="false">Banktillgodohavanden</Svar>
      <Svar alt="b" facit="false">Lån från ett moderbolag</Svar>
      <Svar alt="c" facit="false">Aktier och obligationer</Svar>
@@ -22,6 +24,7 @@
    <Question id="3">
      <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
      <Fraga>Vad visar Rörelseresultatet i en resultaträkning?</Fraga>
+     <Information></Information>
      <Svar alt="a" facit="false">Bolagets skulder i rörelsen</Svar>
      <Svar alt="b" facit="false">Bolagets vinster ackumulerat i rörelsen</Svar>
      <Svar alt="c" facit="false">Bolagets resultat på kärnverksamheten</Svar>
@@ -30,6 +33,7 @@
    <Question id="4">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Är soliditet ett mått på</Fraga>
+     <Information></Information>
       <Svar alt="a" facit="false">betalningsförmåga på kort sikt</Svar>
       <Svar alt="b" facit="true">betalningsförmåga på lång sikt</Svar>
       <Svar alt="c" facit="false">hur länge bolaget har funnits</Svar>
@@ -38,6 +42,7 @@
     <Question id="5">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Vad är räntabilitet ett mått på?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Effektivitet</Svar>
       <Svar alt="b" facit="false">Kapacitet</Svar>
       <Svar alt="c" facit="true">Avkastningsförmåga</Svar>
@@ -46,6 +51,7 @@
     <Question id="6">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Om ett bolag har 10 000 aktier och balansräkningen visar 5 000 000 i balansomslutning varav långa och kort skulder uppgår till 3 650 000. Hur stort är substansvärdet/aktie?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">365 kr</Svar>
       <Svar alt="b" facit="false">135 kr</Svar>
       <Svar alt="c" facit="false">13.50 kr</Svar>
@@ -54,6 +60,7 @@
     <Question id="7">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Vad är en ”vendor due dilligens”?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">En säljinriktad företagsbesiktning</Svar>
       <Svar alt="b" facit="true">En undersökning av den största leverantören i företaget beräknat på inköpsstatistik</Svar>
       <Svar alt="c" facit="false">Förfallodag för skattebetalningar</Svar>
@@ -62,6 +69,7 @@
     <Question id="8">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga> Vad visar en kassaflödesanalys?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Företagets avkastning under minst 2 år</Svar>
       <Svar alt="b" facit="false">Förändringen av företagets resultat under 2 år</Svar>
       <Svar alt="c" facit="true">Förändringen av likvida medel i företaget</Svar>
@@ -70,6 +78,7 @@
     <Question id="9">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Vilka bolag är tvungna att upprätta en kassaflödesanalys i sin årsredovisning?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="true">Stora bolag</Svar>
       <Svar alt="b" facit="false">Alla bolag</Svar>
       <Svar alt="c" facit="false">K2-bolag</Svar>
@@ -78,6 +87,7 @@
     <Question id="10">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Ett företag har en uthållig vinstnivå som uppgår till 500 tkr. Ditt avkastningskrav är 20%. Vilket pris bör du därmed vara beredd att betala för företaget enligt avkastningsvärdemetoden?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">500 000</Svar>
       <Svar alt="b" facit="false">1 000 000</Svar>
       <Svar alt="c" facit="true">2 000 000</Svar>
@@ -86,6 +96,7 @@
     <Question id="11">
       <Kategori>Produkter och hantering av kundens affärer </Kategori>
       <Fraga>Realkapital kan vara:</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Pengar</Svar>
       <Svar alt="b" facit="false">Maskiner</Svar>
       <Svar alt="c" facit="true">Aktier</Svar>
@@ -95,6 +106,7 @@
     <Question id="12">
       <Kategori>Produkter och hantering av kundens affärer </Kategori>
       <Fraga>På en faktormarknad bjuds följande ut:</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Konsumtionsvaror</Svar>
       <Svar alt="b" facit="true">Arbetskraft</Svar>
       <Svar alt="c" facit="false">Appar för privat bruk</Svar>
@@ -121,6 +133,7 @@
     <Question id="15">
       <Kategori>Produkter och hantering av kundens affärer </Kategori>
       <Fraga>Vad är "kirurgisk marknadsföring"?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Sådant privata vårdbolag använder för att skära ner på kostnaderna</Svar>
       <Svar alt="b" facit="false">Sådant läkemedelsbolag använder för att nå så många som möjligt</Svar>
       <Svar alt="c" facit="true">Sådant ett företag använder för att nå en specifik målgrupp</Svar>
@@ -129,6 +142,7 @@
     <Question id="16">
       <Kategori>Produkter och hantering av kundens affärer </Kategori>
       <Fraga>Vilken modell används oftast för omvärldsanalyser?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">SWAP-modellen</Svar>
       <Svar alt="b" facit="false">SWIFT-modellen</Svar>
       <Svar alt="c" facit="false">SWEDE-modellen</Svar>
@@ -137,6 +151,7 @@
     <Question id="17">
       <Kategori>Produkter och hantering av kundens affärer </Kategori>
       <Fraga>Vad innebär så kallad ”inbound marketing”?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Via DM-utskick försöker man få kunderna att upptäcka annonsören</Svar>
       <Svar alt="b" facit="false">Via TV-reklam försöker man få annonsören att förstå konsumenten</Svar>
       <Svar alt="c" facit="true">Via internet försöker man få kunden att hitta annonsören</Svar>
@@ -155,6 +170,7 @@
     <Question id="19">
       <Kategori>Etik och regelverk</Kategori>
       <Fraga>Vad gäller vid svar på frågor till konsumenten vid köp?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="true">Direktförsäljaren skall ge klara och begripliga svar på alla frågor från konsument rörande produkten eller erbjudandet</Svar>
       <Svar alt="b" facit="false">Säljaren behöver inte svara alls</Svar>
       <Svar alt="c" facit="false">Ett obegripligt svar är även det ett begripligt svar</Svar>
@@ -163,6 +179,7 @@
     <Question id="20">
       <Kategori>Etik och regelverk</Kategori>
       <Fraga>Vad gäller vid muntliga köp</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Absolut ingenting, Allt är tillåtet</Svar>
       <Svar alt="b" facit="false">Finns det muntliga avlta alls? Tveksamt</Svar>
       <Svar alt="c" facit="true">Direktsäljaren skall endast lämna muntliga löften beträffande produkten och avtal, som godkänts av företaget.</Svar>
@@ -171,6 +188,7 @@
     <Question id="21">
       <Kategori>Etik och regelverk</Kategori>
       <Fraga>Vad gäller för en än direktsförsäljare angående privatlivet?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Absolut ingenting, Allt är tillåtet</Svar>
       <Svar alt="b" facit="false">Att inte bry sig om NIX-registret är okej för en telefonförsäljare</Svar>
       <Svar alt="c" facit="true">Personlig kontakt, kontakt per telefon eller elektronisk kontakt skall göras enligt god sed och etiska regler på området. Kontakten skall ske ansvarsfullt på rimliga tidpunkter och undvikas vara för påträngande.</Svar>
@@ -179,6 +197,7 @@
     <Question id="22">
       <Kategori>Etik och regelverk</Kategori>
       <Fraga>Är det viktigt att hålla på ärlighet och på vilket sätt ärlighet viktigt att följa?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">Företag kan göra lite som de vill. De behöver inte fullfölja kundens beställning i tid</Svar>
       <Svar alt="b" facit="false">Information behöver ges alla tillfällen. Men är produkten inte tillgänglig behöver direktsäljaren inte ge någon information. Det räcker med att säga att produkten inkommer inom kort.</Svar>
       <Svar alt="c" facit="true">Direktsäljaren skall söka bilda sig en uppfattning om konsumentens behov och allmänkunskaper beträffande den saluförda varan och tjänsten.</Svar>
@@ -187,6 +206,7 @@
     <Question id="23">
       <Kategori>Etik och regelverk</Kategori>
       <Fraga>Vad menas med "Code Administrator"?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="true">En samling förhållningssätt som handlar om de etiska reglerna och hur de tillämpas och blir kommunicerade till direktsäljarna, företagets anställda och dess kunder. </Svar>
       <Svar alt="b" facit="false">Code administrator handlar om företagets klädkod.</Svar>
       <Svar alt="c" facit="false">Handlar om vilka som har hand om administrationen på företaget/föreningen.</Svar>
@@ -195,6 +215,7 @@
     <Question id="24">
       <Kategori>Etik och regelverk</Kategori>
       <Fraga>När gäller konsumenttjänstlagen?</Fraga>
+      <Information></Information>
       <Svar alt="a" facit="false">När en direktsäljare säljer något till slutkund. </Svar>
       <Svar alt="b" facit="false">Den gäller när konsument köper en vara på internet.</Svar>
       <Svar alt="c" facit="true">Gäller när en konsument låter en näringsidkare utföra arbete på något som konsumenten äger.</Svar>

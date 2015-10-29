@@ -8,8 +8,9 @@
         
         <div id="fraga">
             <asp:Label ID="LabelKategori" runat="server" Text="Label"></asp:Label>
-            <br />
-            <asp:Label ID="LabelQuestion" runat="server" Text="Label"></asp:Label>
+            <br /><br />
+            <h2><asp:Label ID="LabelQuestion" runat="server" Text="Label"></asp:Label></h2>
+            <asp:Label ID="LabelInfo" runat="server" Text="Label"></asp:Label>
         </div>
         <br />
         <div id="svar">
