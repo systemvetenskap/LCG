@@ -14,7 +14,6 @@ namespace LCGBanking
 {
     public partial class Licensiering : System.Web.UI.Page
     {
-        private const string connectionString = "Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g1;User Id=pgmvaru_g1;Password=enhjuling;SSL=true";
         private const string conString = "cirkus";
 
         protected void Page_Load(object sender, EventArgs e)
