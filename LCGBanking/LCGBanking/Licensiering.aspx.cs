@@ -14,11 +14,8 @@ namespace LCGBanking
 {
     public partial class Licensiering : System.Web.UI.Page
     {
-
-        // string connectionString = "Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g1;User Id=pgmvaru_g1;Password=enhjuling;SSL=true";
         private const string connectionString = "Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g1;User Id=pgmvaru_g1;Password=enhjuling;SSL=true";
         private const string conString = "cirkus";
-        // Suad start
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -251,8 +248,8 @@ namespace LCGBanking
             }
             else
             {
-                foreach (XmlNode nod in svar)
-                {
+            foreach (XmlNode nod in svar)
+            {
                     RadioButton rb = new RadioButton();
                     rb.Text = nod.InnerText;
                     rb.GroupName = "gr" + index;
@@ -338,7 +335,7 @@ namespace LCGBanking
                 //registreraVal();
                 loadQuestion();
                 //laddaVal();
-            }        
+            }
         }
 
         protected void ButtonNext_Click(object sender, EventArgs e)
@@ -370,7 +367,7 @@ namespace LCGBanking
             Lcg_provtillfalle lcg_provtillfalle = new Lcg_provtillfalle();
             lcg_provtillfalle.Datum = DateTime.Now;
             lcg_provtillfalle.Typ_av_test = "Licenseringstest"; // OBS! Hårdkodat värde än så länge. Måste korrigeras.
-            lcg_provtillfalle.Anvandarnamn = "johan1400"; // OBS! Hårdkodat värde än så länge. Måste korrigeras.  
+            lcg_provtillfalle.AnvandarId = 4; // OBS! Hårdkodat värde än så länge. Måste korrigeras.  
             nyProvtillfalle(lcg_provtillfalle);
         }
 
@@ -382,7 +379,7 @@ namespace LCGBanking
         public static int nyProvtillfalle(Lcg_provtillfalle lcg_provtillfalle)
         {
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
-            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
             NpgsqlTransaction tran = null;
             int id = 0;
             try
@@ -392,7 +389,7 @@ namespace LCGBanking
                 
                 string plsql = "";
                 plsql = plsql + "INSERT INTO lcg_provtillfalle (datum, typ_av_test, fk_person_id)";
-                plsql = plsql + "VALUES (:newDatum, :newTypAvTest, (SELECT fk_person_id FROM lcg_konto WHERE anvandarnamn = :newAnvandarnamn))";
+                plsql = plsql + "VALUES (:newDatum, :newTypAvTest, (SELECT fk_person_id FROM lcg_konto WHERE id = :newAnvandarId))";
                 plsql = plsql + " RETURNING id";
 
                 NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
@@ -401,8 +398,8 @@ namespace LCGBanking
                 command.Parameters["newDatum"].Value = lcg_provtillfalle.Datum;
                 command.Parameters.Add(new NpgsqlParameter("newTypAvTest", NpgsqlDbType.Varchar));
                 command.Parameters["newTypAvTest"].Value = lcg_provtillfalle.Typ_av_test;
-                command.Parameters.Add(new NpgsqlParameter("newAnvandarnamn", NpgsqlDbType.Varchar));
-                command.Parameters["newAnvandarnamn"].Value = lcg_provtillfalle.Anvandarnamn;
+                command.Parameters.Add(new NpgsqlParameter("newAnvandarId", NpgsqlDbType.Integer));
+                command.Parameters["newAnvandarId"].Value = lcg_provtillfalle.AnvandarId;
                 
                 Convert.ToInt32(command.ExecuteScalar());
 
@@ -424,6 +421,145 @@ namespace LCGBanking
             SparaProvtillfalle();
         }
 
+        /// <summary>
+        /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
+        /// Anvandarid används för person identifiering och styrning. Bland annat används detta för att 
+        /// bestämma vilken typ av test användaren bör göra - ha tillgång till.
+        /// </summary>
+        /// <param name="anvandarnamn"></param>
+        /// <returns></returns>
+        public static int GeAnvandarId(string anvandarnamn)
+        {
+            int anvandarid = 0;
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT id FROM lcg_konto WHERE anvandarnamn = :anvandarnamn;";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("anvandarnamn", NpgsqlDbType.Varchar));
+                command.Parameters["anvandarnamn"].Value = anvandarnamn;
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    anvandarid = Convert.ToInt32(dr["id"]);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return anvandarid;
+        }
+
+        /// <summary>
+        /// Returnerar personid för respektive användare
+        /// </summary>
+        /// <param name="anvandarid"></param>
+        /// <returns></returns>
+        public static int GePersonId(int anvandarid)
+        {
+            int personid = 0;
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT fk_person_id FROM lcg_konto WHERE id = :anvandarid;";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("anvandarid", NpgsqlDbType.Integer));
+                command.Parameters["anvandarid"].Value = anvandarid;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    personid = Convert.ToInt32(dr["fk_person_id"]);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämplig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return personid;
+        }
+        
+        /// <summary>
+        /// Returnerar true om användare är licencierad annars false 
+        /// </summary>
+        /// <param name="personid"></param>
+        /// <returns></returns>
+        public static bool Licencierad(int personid)
+        {
+            bool licencierad = false;
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT har_licens AS licencierad FROM lcg_person WHERE id = :personid";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("personid", NpgsqlDbType.Integer));
+                command.Parameters["personid"].Value = personid;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    licencierad = (bool)(dr["licencierad"]);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return licencierad;        
+        }
+       
+        public static DateTime GeSistaProvDatum(int personid)
+        {
+            // för att inet returnera inget värde alls 
+            DateTime sistaprovdatum = Convert.ToDateTime("1000-01-01 19:11:11.80779");
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT datum FROM lcg_provtillfalle WHERE fk_person_id = :personid";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("personid", NpgsqlDbType.Integer));
+                command.Parameters["personid"].Value = personid;
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    sistaprovdatum = (DateTime)dr["datum"];
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return sistaprovdatum;
+        }
     }
 }
 
