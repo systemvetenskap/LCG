@@ -171,7 +171,7 @@
     <Question id="21">
       <Kategori>Etik och regelverk</Kategori>
       <Fraga>Vad gäller för en än direktsförsäljare angående privatlivet?</Fraga>
-      <Svar alt="a">Absolut ingenting, Allt är tillåtet</Svar>
+      <Svar alt="a" facit="false">Absolut ingenting, Allt är tillåtet</Svar>
       <Svar alt="b" facit="false">Att inte bry sig om NIX-registret är okej för en telefonförsäljare</Svar>
       <Svar alt="c" facit="true">Personlig kontakt, kontakt per telefon eller elektronisk kontakt skall göras enligt god sed och etiska regler på området. Kontakten skall ske ansvarsfullt på rimliga tidpunkter och undvikas vara för påträngande.</Svar>
       <Svar alt="d" facit="false">Säljaren kan ringa, kontakta och kontakta via elektronisk kontakt när som helst på dygnet.</Svar>

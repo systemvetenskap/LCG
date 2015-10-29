@@ -43,7 +43,7 @@
       <HintPath>\\psf\Home\Downloads\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql">
-      <HintPath>\\psf\Home\Downloads\Npgsql.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\PostgreSQL\Npgsql\ms.net45\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -65,7 +65,9 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="APP_CODE\XML_QueryKunskap.xml" />
-    <Content Include="APP_CODE\XML_Query.xml" />
+    <Content Include="APP_CODE\XML_Query.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />
     <Content Include="Licensiering.aspx" />

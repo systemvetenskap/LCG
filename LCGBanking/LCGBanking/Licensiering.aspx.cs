@@ -23,7 +23,7 @@ namespace LCGBanking
         protected void Page_Load(object sender, EventArgs e)
         {
             ButtonPrevious.Enabled = false;
-            loadAnswers("APP_CODE/XML_Query.xml", "/Licenseringstest");
+            loadXML("APP_CODE/XML_Query.xml", "/Licenseringstest");
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="path"></param>
         /// <param name="level"></param>
-        private void loadAnswers(string path, string level)
+        private void loadXML(string path, string level)
         {
             //!postback etc., så metoden bara kallas en gång
             
@@ -46,27 +46,162 @@ namespace LCGBanking
             {
                 Fraga fr = new Fraga
                 {
-                    fraga = nod["Fraga"].InnerText
+                    id = Convert.ToInt32(nod.Attributes["id"].Value),
+                    kategori = nod["Kategori"].InnerText,
+                    fraga = nod["Fraga"].InnerText,
+                    flerVal = false
                 };
 
                 XmlNodeList subNoder = nod.ChildNodes;
 
                 foreach (XmlNode subNod in subNoder)
                 {
-                    if (subNod.Name == "Svarsalternativ")
+                    if (subNod.Name == "Svar")
                     {
                         Svar sv = new Svar
                         {
+                            alt = subNod.Attributes["alt"].Value,
                             svar = subNod.InnerText,
+                            facit = subNod.Attributes["facit"].Value,
                             icheckad = false
                         };
                         fr.svarLista.Add(sv);
                     }
                 }
+
+                //kontrollera om frågan är en flervalsfråga
+                int rattSvar = 0;
+                foreach (Svar sv in fr.svarLista)
+                {
+                    if (sv.facit == "true")
+                    {
+                        rattSvar += 1;
+                    }
+                }
+
+                if (rattSvar > 1)
+                {
+                    fr.flerVal = true;
+                }
+
                 GlobalValues.Fragor.Add(fr);
             }
+        }
 
-            //LabelQuestion.Text = GlobalValues.Fragor[1].svarLista.Count.ToString();
+        /// <summary>
+        /// laddar in en fråga och dess svar från den globala frågelistan
+        /// </summary>
+        private void loadQuestion()
+        {
+            int index = GlobalValues.FrageNr - 1;
+            Fraga question = GlobalValues.Fragor[index];
+
+            LabelKategori.Text = "Kategori: " + question.kategori;
+            LabelQuestion.Text = question.fraga;
+
+            ////kontrollera om frågan är en flervalsfråga
+            //int rattSvar = 0;
+            //foreach (Svar sv in question.svarLista)
+            //{
+            //    if (sv.facit == "true")
+            //    {
+            //        rattSvar += 1;
+            //    }
+            //}
+
+            //if (rattSvar > 1)
+            //{
+            //    question.flerVal = true;
+            //}
+
+            //generera radioknappar/checkboxar
+            if (question.flerVal)
+            {
+                foreach (Svar sv in question.svarLista)
+                {
+                    CheckBox cb = new CheckBox();
+                    cb.Text = sv.svar;
+                    cb.ID = sv.alt;
+                    PanelSvar.Controls.Add(cb);
+                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
+                }
+            }
+            else
+            {
+                foreach (Svar sv in question.svarLista)
+                {
+                    RadioButton rb = new RadioButton();
+                    rb.Text = sv.svar;
+                    rb.ID = sv.alt;
+                    rb.GroupName = "gr" + index;
+                    PanelSvar.Controls.Add(rb);
+                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
+                }
+            }
+        }
+
+        private void registreraVal()
+        {
+            int index = GlobalValues.FrageNr - 1;
+            Fraga question = GlobalValues.Fragor[index];
+
+            foreach (Svar sv in question.svarLista)
+            {
+                //om radioknappar
+                if (!question.flerVal)
+                {
+                    foreach (RadioButton rb in PanelSvar.Controls)
+                    {
+                        if (rb.ID == sv.alt)
+                        {
+                            sv.icheckad = rb.Checked;
+                        }
+                    }
+                }
+                //om checkboxar
+                else
+                {                    
+                    foreach (CheckBox cb in PanelSvar.Controls)
+                    {
+                        if (cb.ID == sv.alt)
+                        {
+                            sv.icheckad = cb.Checked;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void laddaVal()
+        {
+            int index = GlobalValues.FrageNr - 1;
+            Fraga question = GlobalValues.Fragor[index];
+
+            foreach (Svar sv in question.svarLista)
+            {
+                //om radioknappar
+                if (!question.flerVal)
+                {
+                    foreach (RadioButton rb in PanelSvar.Controls)
+                    {
+                        if (rb.ID == sv.alt)
+                        {
+                            rb.Checked = sv.icheckad;
+                        }
+                    }
+                }
+                //om checkboxar
+                else
+                {
+                    foreach (CheckBox cb in PanelSvar.Controls)
+                    {
+                        if (cb.ID == sv.alt)
+                        {
+                            cb.Checked = sv.icheckad;
+                        }
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -75,7 +210,7 @@ namespace LCGBanking
         /// <param name="path"></param>
         /// <param name="level"></param>
         /// <param name="index"></param>
-        private void XML(string path, string level, int index)
+        /*private void XML(string path, string level, int index)
         {
 
             string xmlfil = Server.MapPath(path);
@@ -91,13 +226,13 @@ namespace LCGBanking
             }
 
             // Hämta noder utifrån namn
-            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]/Svarsalternativ");
+            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]/Svar");
 
             //kontrollera om frågan är en flervalsfråga
             int rattSvar = 0;
             foreach (XmlNode nod in svar)
             {
-                if(nod.Attributes["facit"].Value == "true")
+                if (nod.Attributes["facit"].Value == "true")
                 {
                     rattSvar += 1;
                 }
@@ -116,10 +251,11 @@ namespace LCGBanking
             }
             else
             {
-            foreach (XmlNode nod in svar)
-            {
+                foreach (XmlNode nod in svar)
+                {
                     RadioButton rb = new RadioButton();
                     rb.Text = nod.InnerText;
+                    rb.GroupName = "gr" + index;
                     PanelSvar.Controls.Add(rb);
                     PanelSvar.Controls.Add(new LiteralControl("<br />"));
                 }
@@ -165,12 +301,13 @@ namespace LCGBanking
                 }
             }
             LabelQuestion.Text = str.ToString();
-        }
+        }*/
 
         protected void ButtonStart_Click(object sender, EventArgs e)
         {
-
-            XML("APP_CODE/XML_Query.xml", "/Licenseringstest", 1);
+            //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", 1);
+            GlobalValues.FrageNr = 1;
+            loadQuestion();
         }
 
         protected void Move(int maxNr, int nr)
@@ -179,19 +316,28 @@ namespace LCGBanking
             {
                 ButtonNext.Enabled = true;
                 ButtonPrevious.Enabled = false;
-                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+                //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+                //registreraVal();
+                loadQuestion();
+                //laddaVal();
             }
             else if ((GlobalValues.FrageNr > 1) && (GlobalValues.FrageNr < maxNr))
             {
                 ButtonNext.Enabled = true;
                 ButtonPrevious.Enabled = true;
-                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+                //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+                //registreraVal();
+                loadQuestion();
+                //laddaVal();
             }
             else if (GlobalValues.FrageNr == maxNr)
             {
                 ButtonNext.Enabled = false;
                 ButtonPrevious.Enabled = true;
-                XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+                //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
+                //registreraVal();
+                loadQuestion();
+                //laddaVal();
             }        
         }
 

@@ -6,6 +6,8 @@
         <br /><br />
         
         <div id="fraga">
+            <asp:Label ID="LabelKategori" runat="server" Text="Label"></asp:Label>
+            <br />
             <asp:Label ID="LabelQuestion" runat="server" Text="Label"></asp:Label>
         </div>
 
