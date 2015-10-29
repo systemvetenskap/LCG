@@ -101,21 +101,6 @@ namespace LCGBanking
             LabelQuestion.Text = question.fraga;
             LabelInfo.Text = question.information;
 
-            ////kontrollera om frågan är en flervalsfråga
-            //int rattSvar = 0;
-            //foreach (Svar sv in question.svarLista)
-            //{
-            //    if (sv.facit == "true")
-            //    {
-            //        rattSvar += 1;
-            //    }
-            //}
-
-            //if (rattSvar > 1)
-            //{
-            //    question.flerVal = true;
-            //}
-
             //generera radioknappar/checkboxar
             if (question.flerVal)
             {
@@ -184,6 +169,8 @@ namespace LCGBanking
                 //om radioknappar
                 if (!question.flerVal)
                 {
+                    try
+                    {
                     foreach (RadioButton rb in PanelSvar.Controls)
                     {
                         if (rb.ID == sv.alt)
@@ -191,6 +178,12 @@ namespace LCGBanking
                             rb.Checked = sv.icheckad;
                         }
                     }
+                }
+                    catch
+                    {
+
+                    }
+                    
                 }
                 //om checkboxar
                 else
@@ -253,8 +246,8 @@ namespace LCGBanking
             }
             else
             {
-            foreach (XmlNode nod in svar)
-            {
+                foreach (XmlNode nod in svar)
+                {
                     RadioButton rb = new RadioButton();
                     rb.Text = nod.InnerText;
                     rb.GroupName = "gr" + index;
@@ -340,7 +333,7 @@ namespace LCGBanking
                 //registreraVal();
                 loadQuestion();
                 //laddaVal();
-            }
+            }        
         }
 
         protected void ButtonNext_Click(object sender, EventArgs e)
