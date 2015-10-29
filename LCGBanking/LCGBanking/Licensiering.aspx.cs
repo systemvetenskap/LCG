@@ -99,21 +99,6 @@ namespace LCGBanking
             LabelKategori.Text = "Kategori: " + question.kategori;
             LabelQuestion.Text = question.fraga;
 
-            ////kontrollera om frågan är en flervalsfråga
-            //int rattSvar = 0;
-            //foreach (Svar sv in question.svarLista)
-            //{
-            //    if (sv.facit == "true")
-            //    {
-            //        rattSvar += 1;
-            //    }
-            //}
-
-            //if (rattSvar > 1)
-            //{
-            //    question.flerVal = true;
-            //}
-
             //generera radioknappar/checkboxar
             if (question.flerVal)
             {
@@ -182,13 +167,21 @@ namespace LCGBanking
                 //om radioknappar
                 if (!question.flerVal)
                 {
-                    foreach (RadioButton rb in PanelSvar.Controls)
+                    try
                     {
-                        if (rb.ID == sv.alt)
+                        foreach (RadioButton rb in PanelSvar.Controls)
                         {
-                            rb.Checked = sv.icheckad;
+                            if (rb.ID == sv.alt)
+                            {
+                                rb.Checked = sv.icheckad;
+                            }
                         }
                     }
+                    catch
+                    {
+
+                    }
+                    
                 }
                 //om checkboxar
                 else
@@ -317,27 +310,27 @@ namespace LCGBanking
                 ButtonNext.Enabled = true;
                 ButtonPrevious.Enabled = false;
                 //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-                //registreraVal();
+                registreraVal();
                 loadQuestion();
-                //laddaVal();
+                laddaVal();
             }
             else if ((GlobalValues.FrageNr > 1) && (GlobalValues.FrageNr < maxNr))
             {
                 ButtonNext.Enabled = true;
                 ButtonPrevious.Enabled = true;
                 //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-                //registreraVal();
+                registreraVal();
                 loadQuestion();
-                //laddaVal();
+                laddaVal();
             }
             else if (GlobalValues.FrageNr == maxNr)
             {
                 ButtonNext.Enabled = false;
                 ButtonPrevious.Enabled = true;
                 //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-                //registreraVal();
+                registreraVal();
                 loadQuestion();
-                //laddaVal();
+                laddaVal();
             }        
         }
 
