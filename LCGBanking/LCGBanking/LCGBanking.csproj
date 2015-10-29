@@ -119,7 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APP_CODE\App_LocalResources\" />
-    <Folder Include="PUBLIKT\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
