@@ -22,7 +22,7 @@
                         runat="server"
                         LogoutText=" Logga ut"
                         LoginText=" Logga in"
-                        LogoutPageUrl="/Index.aspx"
+                        LogoutPageUrl="~/Index.aspx"
                         LogoutAction="Redirect" />
                 </li>
             </ul>
