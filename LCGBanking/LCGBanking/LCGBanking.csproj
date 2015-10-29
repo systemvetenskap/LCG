@@ -66,6 +66,7 @@
     <Content Include="Admin.aspx" />
     <Content Include="APP_CODE\XML_QueryKunskap.xml" />
     <Content Include="APP_CODE\XML_Query.xml" />
+    <Content Include="BILDER\bankjelogg.jpg" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />
     <Content Include="Licensiering.aspx" />
@@ -118,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APP_CODE\App_LocalResources\" />
+    <Folder Include="PUBLIKT\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

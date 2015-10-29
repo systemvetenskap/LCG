@@ -10,18 +10,30 @@
 <body>
     <form id="form1" runat="server">
         <header>
-            <p>JE BANKEN - KUNSKAPSPORTALEN</p>
-            <nav>
-                <a href="Index.aspx" target="_top" class="menydesign">Hem</a>
-                <a href="Licensiering.aspx" target="_top" class="menydesign">Licensiering</a>
-                <a href="Admin.aspx" target="_top" class="menydesign">Admin</a>
-            </nav>
+            JE BANKEN - KUNSKAPSPORTALEN
         </header>
+        <nav>
+            <ul>
+                <li><a href="Index.aspx" target="_top">Hem</a></li>
+                <li><a href="Licensiering.aspx" target="_top">Licensiering</a></li>
+                <li><a href="Admin.aspx" target="_top">Admin</a></li>
+                <li>
+                    <asp:LoginStatus ID="LoginStatus1"
+                        runat="server"
+                        LogoutText=" Logga ut"
+                        LoginText=" Logga in"
+                        LogoutPageUrl="/Index.aspx"
+                        LogoutAction="Redirect" />
+                </li>
+            </ul>
+        </nav>      
     <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">        
         </asp:ContentPlaceHolder>
     </div>
-        <footer>LCG 2015</footer>
+        <footer>| JE BANKEN KUNSKAPSPORTALEN |<br />All rights reserved &copy; LCG 2015<br />
+            <asp:LoginName ID="LoginName1" runat="server" FormatString="Du är inloggad som:  {0}" />
+           </footer>
     </form>
 </body>
 </html>

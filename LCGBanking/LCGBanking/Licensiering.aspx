@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Licensiering.aspx.cs" Inherits="LCGBanking.Licensiering" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <section>        
+    <section>
+    <section id="main">
         <h1>Tester</h1>
         <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="23px" OnClick="ButtonStart_Click" />
         <br /><br />
@@ -8,7 +9,7 @@
         <div id="fraga">
             <asp:Label ID="LabelQuestion" runat="server" Text="Label"></asp:Label>
         </div>
-
+        <br />
         <div id="svar">
             <asp:Panel ID="PanelSvar" runat="server"></asp:Panel>                
         </div>
@@ -20,6 +21,7 @@
             <asp:Button ID="ButtonNext" runat="server" Text="Nästa fråga" OnClick="ButtonNext_Click" />
             <asp:Button ID="ButtonSparaProv" runat="server" OnClick="ButtonSparaProv_Click" Text="Spara prov" />
         </div>
+        </section>
     </section>  
 </asp:Content>
 

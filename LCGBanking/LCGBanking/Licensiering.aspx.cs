@@ -15,8 +15,7 @@ namespace LCGBanking
     public partial class Licensiering : System.Web.UI.Page
     {
 
-        // string connectionString = "Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g1;User Id=pgmvaru_g1;Password=enhjuling;SSL=true";
-        private const string connectionString = "Server=webblabb.miun.se;Port=5432;Database=pgmvaru_g1;User Id=pgmvaru_g1;Password=enhjuling;SSL=true";
+        // string connectionString = "";
         private const string conString = "cirkus";
         // Suad start
 
@@ -236,7 +235,7 @@ namespace LCGBanking
         public static int nyProvtillfalle(Lcg_provtillfalle lcg_provtillfalle)
         {
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
-            NpgsqlConnection conn = new NpgsqlConnection(connectionString);
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
             NpgsqlTransaction tran = null;
             int id = 0;
             try
