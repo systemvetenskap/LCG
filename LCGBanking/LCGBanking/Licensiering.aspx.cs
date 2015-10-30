@@ -107,7 +107,7 @@ namespace LCGBanking
                 foreach (Svar sv in question.svarLista)
                 {
                     CheckBox cb = new CheckBox();
-                    cb.Text = sv.svar;
+                    cb.Text = " " + sv.svar;
                     cb.ID = sv.alt;
                     PanelSvar.Controls.Add(cb);
                     PanelSvar.Controls.Add(new LiteralControl("<br />"));
@@ -118,7 +118,7 @@ namespace LCGBanking
                 foreach (Svar sv in question.svarLista)
                 {
                     RadioButton rb = new RadioButton();
-                    rb.Text = sv.svar;
+                    rb.Text = " " + sv.svar;
                     rb.ID = sv.alt;
                     rb.GroupName = "gr" + index;
                     PanelSvar.Controls.Add(rb);
