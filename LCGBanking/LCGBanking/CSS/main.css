@@ -294,6 +294,45 @@ nav #selected a {
     -webkit-border-radius: 2px;
 }
 
+/* denna delen av filen gäller admin form */
+.admin {
+    min-height: 400px;
+    margin: 0;
+    padding: 0; 
+    width: 100%;
+}
+
+.admin-tabell {
+    margin: 0;
+    margin-top: 15px; 
+    padding: 0; 
+    width: 100%;
+    font-family: "Lucida Grande", sans-serif;
+    font-size: 10px;
+    background-color: white;
+}
+
+.admin-tabell tr th {
+    font-weight:bold; 
+    padding-top: 15px;
+    padding-left: 5px;
+    padding-right: 5px; 
+    padding-bottom: 15px;
+    color: black;
+    font-family: "Lucida Grande", sans-serif;
+    font-size: 9px;
+    background-color: white;
+}
+
+.admin-tabell tr td {
+    padding-left: 2px;
+    padding-right: 2px; 
+    color: black;    
+    font-family: "Lucida Grande", sans-serif;
+    font-size: 9px;
+    background-color: white;
+}
+
 #LabelKategori {
     font-size: 10px; 
     font-style: italic;
