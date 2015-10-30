@@ -17,7 +17,7 @@ namespace LCGBanking
             path = "Test/Kunskapstest";
         }
         */
-        string nyProvtillfalle = String.Empty;
+        public static string nyProvtillfalle = String.Empty;
 
         static int _frageNr = 1;
         public static int FrageNr
