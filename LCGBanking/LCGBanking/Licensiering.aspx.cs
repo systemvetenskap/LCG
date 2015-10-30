@@ -19,7 +19,15 @@ namespace LCGBanking
         protected void Page_Load(object sender, EventArgs e)
         {
             ButtonPrevious.Enabled = false;
+            if (!Page.IsPostBack)
+            {
             loadXML("APP_CODE/XML_Query.xml", "/Licenseringstest");
+        }
+            else
+            {
+                //fråga & svar återskapas temporärt så att valda svar kan registreras
+                loadQuestion();
+            }
         }
 
         /// <summary>
@@ -30,8 +38,6 @@ namespace LCGBanking
         /// <param name="level"></param>
         private void loadXML(string path, string level)
         {
-            //!postback etc., så metoden bara kallas en gång
-            
             string xmlfil = Server.MapPath(path);
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlfil);
@@ -43,30 +49,30 @@ namespace LCGBanking
                 
                 {
                     
-                    Fraga fr = new Fraga
-                    {
-                        id = Convert.ToInt32(nod.Attributes["id"].Value),
-                        kategori = nod["Kategori"].InnerText,
-                        fraga = nod["Fraga"].InnerText,
-                        flerVal = false    
-                    };
-                    
-                    XmlNodeList subNoder = nod.ChildNodes;
+                Fraga fr = new Fraga
+                {
+                    id = Convert.ToInt32(nod.Attributes["id"].Value),
+                    kategori = nod["Kategori"].InnerText,
+                    fraga = nod["Fraga"].InnerText,
+                    flerVal = false
+                };
 
-                    foreach (XmlNode subNod in subNoder)
+                XmlNodeList subNoder = nod.ChildNodes;
+
+                foreach (XmlNode subNod in subNoder)
+                {
+                    if (subNod.Name == "Svar")
                     {
-                        if (subNod.Name == "Svar")
+                        Svar sv = new Svar
                         {
-                            Svar sv = new Svar
-                            {
-                                alt = subNod.Attributes["alt"].Value,
-                                svar = subNod.InnerText,
-                                facit = subNod.Attributes["facit"].Value,
-                                icheckad = false
-                            };
-                            fr.svarLista.Add(sv);
+                            alt = subNod.Attributes["alt"].Value,
+                            svar = subNod.InnerText,
+                            facit = subNod.Attributes["facit"].Value,
+                            icheckad = false
+                        };
+                        fr.svarLista.Add(sv);
                         
-                }
+                    }
 
                 //kontrollera om frågan är en flervalsfråga
                 int rattSvar = 0;
@@ -107,10 +113,9 @@ namespace LCGBanking
                 foreach (Svar sv in question.svarLista)
                 {
                     CheckBox cb = new CheckBox();
-                    cb.Text = " " + sv.svar;
-                    cb.ID = sv.alt;
+                    cb.Text = "  " + sv.svar + "<br /><br />";
+                    cb.ID = sv.alt + GlobalValues.FrageNr;
                     PanelSvar.Controls.Add(cb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
                 }
             }
             else
@@ -118,15 +123,17 @@ namespace LCGBanking
                 foreach (Svar sv in question.svarLista)
                 {
                     RadioButton rb = new RadioButton();
-                    rb.Text = " " + sv.svar;
-                    rb.ID = sv.alt;
-                    rb.GroupName = "gr" + index;
+                    rb.Text = "  " + sv.svar + "<br /><br />";
+                    rb.ID = sv.alt +  GlobalValues.FrageNr;
+                    rb.GroupName = "gr" + GlobalValues.FrageNr;
                     PanelSvar.Controls.Add(rb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
                 }
             }
         }
 
+        /// <summary>
+        /// registrerar valda svarsalternativ i global lista
+        /// </summary>
         private void registreraVal()
         {
             int index = GlobalValues.FrageNr - 1;
@@ -139,7 +146,7 @@ namespace LCGBanking
                 {
                     foreach (RadioButton rb in PanelSvar.Controls)
                     {
-                        if (rb.ID == sv.alt)
+                        if (rb.ID == sv.alt + GlobalValues.FrageNr)
                         {
                             sv.icheckad = rb.Checked;
                         }
@@ -150,15 +157,20 @@ namespace LCGBanking
                 {                    
                     foreach (CheckBox cb in PanelSvar.Controls)
                     {
-                        if (cb.ID == sv.alt)
+                        if (cb.ID == sv.alt + GlobalValues.FrageNr)
                         {
                             sv.icheckad = cb.Checked;
                         }
                     }
                 }
             }
+            //rensa bort radioknapparna
+            PanelSvar.Controls.Clear();
         }
 
+        /// <summary>
+        /// bockar i tidigare valda svarsalternativ
+        /// </summary>
         private void laddaVal()
         {
             int index = GlobalValues.FrageNr - 1;
@@ -169,28 +181,20 @@ namespace LCGBanking
                 //om radioknappar
                 if (!question.flerVal)
                 {
-                    try
-                    {
                     foreach (RadioButton rb in PanelSvar.Controls)
                     {
-                        if (rb.ID == sv.alt)
+                        if (rb.ID == sv.alt + GlobalValues.FrageNr)
                         {
                             rb.Checked = sv.icheckad;
                         }
                     }
-                }
-                    catch
-                    {
-
-                    }
-                    
                 }
                 //om checkboxar
                 else
                 {
                     foreach (CheckBox cb in PanelSvar.Controls)
                     {
-                        if (cb.ID == sv.alt)
+                        if (cb.ID == sv.alt + GlobalValues.FrageNr)
                         {
                             cb.Checked = sv.icheckad;
                         }
@@ -300,8 +304,18 @@ namespace LCGBanking
 
         protected void ButtonStart_Click(object sender, EventArgs e)
         {
-            //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", 1);
             GlobalValues.FrageNr = 1;
+            PanelSvar.Controls.Clear();
+
+            //rensa bort tidigare valda svar
+            foreach (Fraga fr in GlobalValues.Fragor)
+            {
+                foreach (Svar sv in fr.svarLista)
+                {
+                    sv.icheckad = false;
+                }
+            }
+
             loadQuestion();
         }
 
@@ -311,33 +325,32 @@ namespace LCGBanking
             {
                 ButtonNext.Enabled = true;
                 ButtonPrevious.Enabled = false;
-                //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-                //registreraVal();
+
                 loadQuestion();
-                //laddaVal();
+                laddaVal();
             }
             else if ((GlobalValues.FrageNr > 1) && (GlobalValues.FrageNr < maxNr))
             {
                 ButtonNext.Enabled = true;
                 ButtonPrevious.Enabled = true;
-                //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-                //registreraVal();
+
                 loadQuestion();
-                //laddaVal();
+                laddaVal();
             }
             else if (GlobalValues.FrageNr == maxNr)
             {
                 ButtonNext.Enabled = false;
                 ButtonPrevious.Enabled = true;
-                //XML("APP_CODE/XML_Query.xml", "/Licenseringstest", nr);
-                //registreraVal();
+
                 loadQuestion();
-                //laddaVal();
+                laddaVal();
             }        
         }
 
         protected void ButtonNext_Click(object sender, EventArgs e)
         {
+            registreraVal();
+
             int maxNr = GetNodeCount();
             int nr = GlobalValues.FrageNr += 1;
             Move(maxNr, nr);
@@ -345,6 +358,8 @@ namespace LCGBanking
 
         protected void ButtonPrevious_Click(object sender, EventArgs e)
         {
+            registreraVal();
+
             int maxNr = GetNodeCount();
             int nr = GlobalValues.FrageNr -= 1;
             Move(maxNr, nr);
