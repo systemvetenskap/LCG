@@ -87,8 +87,8 @@ namespace LCGBanking
             }
         }
         }
-        }
-
+        }    
+            
         /// <summary>
         /// laddar in en fråga och dess svar från den globala frågelistan
         /// </summary>

@@ -13,6 +13,15 @@ namespace LCGBanking {
     public partial class Index {
         
         /// <summary>
+        /// LabelAnv control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelAnv;
+        
+        /// <summary>
         /// TextBoxAnvnamn control.
         /// </summary>
         /// <remarks>
@@ -20,5 +29,14 @@ namespace LCGBanking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBoxAnvnamn;
+        
+        /// <summary>
+        /// ButtonLogga control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonLogga;
     }
 }

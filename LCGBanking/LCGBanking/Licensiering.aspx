@@ -2,7 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>
     <section id="main">
-        <h1>Tester</h1>
+        <%--<h1>Tester</h1>--%>
         <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="23px" OnClick="ButtonStart_Click" />
         <br /><br />
         

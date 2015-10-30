@@ -4,6 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <title>JE Banken - Kunskapsportalen</title>
     <link rel="stylesheet" type="text/css" href="CSS/main.css" />
 </head>
@@ -14,8 +15,8 @@
         </header>
         <nav>
             <ul>
-                <li><a href="Index.aspx" target="_top">Hem</a></li>
-                <li><a href="Licensiering.aspx" target="_top">Licensiering</a></li>
+                <li><a href="Index.aspx" target="_top"><span class="fontawesome-home"></span></a></li>
+                <li><a href="Licensiering.aspx" target="_top">Prov/Test</a></li>
                 <li><a href="Admin.aspx" target="_top">Admin</a></li>
                 <li>
                     <asp:LoginStatus ID="LoginStatus1"
