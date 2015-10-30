@@ -46,52 +46,47 @@ namespace LCGBanking
 
             foreach (XmlNode nod in noder)
             {
-
+                Fraga fr = new Fraga
                 {
+                    id = Convert.ToInt32(nod.Attributes["id"].Value),
+                    kategori = nod["Kategori"].InnerText,
+                    fraga = nod["Fraga"].InnerText,
+                    flerVal = false
+                };
 
-                    Fraga fr = new Fraga
+                XmlNodeList subNoder = nod.ChildNodes;
+
+                foreach (XmlNode subNod in subNoder)
+                {
+                    if (subNod.Name == "Svar")
                     {
-                        id = Convert.ToInt32(nod.Attributes["id"].Value),
-                        kategori = nod["Kategori"].InnerText,
-                        fraga = nod["Fraga"].InnerText,
-                        flerVal = false
-                    };
-
-                    XmlNodeList subNoder = nod.ChildNodes;
-
-                    foreach (XmlNode subNod in subNoder)
-                    {
-                        if (subNod.Name == "Svar")
+                        Svar sv = new Svar
                         {
-                            Svar sv = new Svar
-                            {
-                                alt = subNod.Attributes["alt"].Value,
-                                svar = subNod.InnerText,
-                                facit = subNod.Attributes["facit"].Value,
-                                icheckad = false
-                            };
-                            fr.svarLista.Add(sv);
-
-                        }
-
-                        //kontrollera om frågan är en flervalsfråga
-                        int rattSvar = 0;
-                        foreach (Svar sv in fr.svarLista)
-                        {
-                            if (sv.facit == "true")
-                            {
-                                rattSvar += 1;
-                            }
-                        }
-
-                        if (rattSvar > 1)
-                        {
-                            fr.flerVal = true;
-                        }
-
-                        GlobalValues.Fragor.Add(fr);
+                            alt = subNod.Attributes["alt"].Value,
+                            svar = subNod.InnerText,
+                            facit = subNod.Attributes["facit"].Value,
+                            icheckad = false
+                        };
+                        fr.svarLista.Add(sv);
                     }
                 }
+
+                //kontrollera om frågan är en flervalsfråga
+                int rattSvar = 0;
+                foreach (Svar sv in fr.svarLista)
+                {
+                    if (sv.facit == "true")
+                    {
+                        rattSvar += 1;
+                    }
+                }
+
+                if (rattSvar > 1)
+                {
+                    fr.flerVal = true;
+                }
+
+                GlobalValues.Fragor.Add(fr);
             }
         }
 
