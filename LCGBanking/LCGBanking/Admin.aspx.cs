@@ -72,44 +72,36 @@ namespace LCGBanking
                 while (dr.Read())
                 {
                     Provdeltagare_listan nyDeltagare = new Provdeltagare_listan{};
-                    nyDeltagare.Person_id = (int)dr["person_id"];
-                    nyDeltagare.Namn = (string)dr["namn"];
-                    if (dr["senaste_prov"] != DBNull.Value)
+                    
+                    nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
+                    nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
+                    nyDeltagare.Namn = Convert.ToString(dr["namn"]);
+                    nyDeltagare.Senaste_prov = Convert.ToString(dr["senaste_prov"]);
+                    if (nyDeltagare.Senaste_prov.Length > 10)
                     {
-                        nyDeltagare.Senaste_prov = (DateTime)dr["senaste_prov"];
+                        nyDeltagare.Senaste_prov = nyDeltagare.Senaste_prov.Substring(0, 10);
                     }
-                    if (dr["senaste_provresultat"] != DBNull.Value)
+                    nyDeltagare.Senaste_provresultat = Convert.ToString(dr["senaste_provresultat"]);
+                    nyDeltagare.Godkand_senast = Convert.ToString(dr["godkand_senast"]);
+                    nyDeltagare.Licencierad = Convert.ToString(dr["licencierad"]);
+                    nyDeltagare.Licencierings_datum = Convert.ToString(dr["licencierings_datum"]);
+                    if (nyDeltagare.Licencierings_datum.Length > 10)
                     {
-                        nyDeltagare.Senaste_provresultat = (int)dr["senaste_provresultat"];
-                    }
-                    if (dr["godkand_senast"] != DBNull.Value)
+                        nyDeltagare.Licencierings_datum = nyDeltagare.Licencierings_datum.Substring(0, 10);
+                    }                    
+                    nyDeltagare.Provtyp = Convert.ToString(dr["provtyp"]);
+                    nyDeltagare.Nasta_prov_tidigast = Convert.ToString(dr["nasta_prov_tidigast"]);
+                    if (nyDeltagare.Nasta_prov_tidigast.Length > 10)
                     {
-                        nyDeltagare.Godkand_senast = (string)dr["godkand_senast"];
+                        nyDeltagare.Nasta_prov_tidigast = nyDeltagare.Nasta_prov_tidigast.Substring(0, 10);
                     }
-                    if (dr["licencierad"] != DBNull.Value)
+                    nyDeltagare.Nasta_prov_senast = Convert.ToString(dr["nasta_prov_senast"]);
+                    if (nyDeltagare.Nasta_prov_senast.Length > 10)
                     {
-                        nyDeltagare.Licencierad = (string)dr["licencierad"];
+                        nyDeltagare.Nasta_prov_senast = nyDeltagare.Nasta_prov_senast.Substring(0, 10);
                     }
-                    if (dr["licencierings_datum"] != DBNull.Value)
-                    {
-                        nyDeltagare.Licencierings_datum = (DateTime)dr["licencierings_datum"];                    
-                    }
-                    if (dr["provtyp"] != DBNull.Value)
-                    {
-                        nyDeltagare.Provtyp = (string)dr["provtyp"];                    
-                    }
-                    if (dr["nasta_prov_tidigast"] != DBNull.Value)
-                    {
-                        nyDeltagare.Nasta_prov_tidigast = (DateTime)dr["nasta_prov_tidigast"];
-                    }
-                    if (dr["nasta_prov_senast"] != DBNull.Value)
-                    {
-                        nyDeltagare.Nasta_prov_senast = (DateTime)dr["nasta_prov_senast"];
-                    }
-                    if (dr["dagar_kvar"] != DBNull.Value)
-                    {
-                        nyDeltagare.Dagar_kvar = (int)dr["dagar_kvar"];
-                    }
+                    nyDeltagare.Dagar_kvar = Convert.ToString(dr["dagar_kvar"]);
+
                     provdeltagareListan.Add(nyDeltagare);
                 } 
             }
