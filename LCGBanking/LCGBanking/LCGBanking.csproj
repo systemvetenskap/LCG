@@ -43,7 +43,7 @@
       <HintPath>\\psf\Home\Downloads\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql">
-      <HintPath>\\psf\Home\Downloads\Npgsql.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\PostgreSQL\Npgsql\ms.net45\Npgsql.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
