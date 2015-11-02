@@ -2,7 +2,14 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>
     <section id="main">
-        <%--<h1>Tester</h1>--%>
+        <nav id="QuestionNavbar">
+            <asp:Repeater ID="RepeaterQuestNav" runat="server">
+                <ItemTemplate>
+                    <asp:LinkButton ID="LinkButtonQuestNav" CssClass='<%# Eval("value") %>' Text='<%# Eval("key") %>' runat="server" OnClick="LinkButtonQuestNav_Click"></asp:LinkButton>
+                </ItemTemplate>
+            </asp:Repeater>
+        </nav>
+        <h1 id="h1-Licensiering">Tester</h1>
         <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="23px" OnClick="ButtonStart_Click" />
         <br /><br />
         
