@@ -124,7 +124,7 @@
     <Question id="14">
       <Kategori>Produkter och hantering av kundens affärer </Kategori>
       <Fraga>Företagets strategi svarar på frågan:</Fraga>
-      <Information>Denna fråga kräver 2 rätta svar för att få rätt på frågan</Information>
+      <Information></Information>
       <Svar alt="a" facit="true">Hur?</Svar>
       <Svar alt="b" facit="false">Vem?</Svar>
       <Svar alt="c" facit="false">Vad?</Svar>

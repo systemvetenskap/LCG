@@ -74,6 +74,11 @@ p	{
 	font-family:"Lucida Grande", sans-serif;
 	font-size:16px;
 }  
+
+.p-mindretext {
+    font-family:"Lucida Grande", sans-serif;
+	font-size:12px;
+}
 	
 h2	 {
 	font-family:"Lucida Grande", sans-serif;
@@ -269,6 +274,7 @@ nav #selected a {
     display:block;
     width: 90%;
     height: 80px;
+    font-size: 16px;
 }
 
 #svar {
@@ -279,6 +285,7 @@ nav #selected a {
     height: 250px;
     display:block;
     width: 65%;
+    font-size: 14px;
 }
 
 #knappar {

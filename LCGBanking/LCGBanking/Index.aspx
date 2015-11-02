@@ -5,7 +5,7 @@
     </div>
     <section id="main">
             <p id="fraga">Alla personer som är anställda vid JE-banken och som arbetar med värdepapper måste licensieras. 
-                <br />Detta är viktigt för att upprätthålla branschens goda rykte. För att erhålla en licens måste man genomföra <br />ett licensieringstest.
+                <br />Detta är viktigt för att upprätthålla branschens goda rykte. För att erhålla en licens måste man genomföra ett licensieringstest.
             </p>
             <br /><br /><br /><br /><br />
             <p>Behörig inloggning på JE Bankens liceneseringstester och kunskapstester</p>

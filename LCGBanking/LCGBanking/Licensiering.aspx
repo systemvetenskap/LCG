@@ -10,14 +10,15 @@
             </asp:Repeater>
         </nav>
         <h1 id="h1-Licensiering">Tester</h1>
+        <br /><br />
         <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="23px" OnClick="ButtonStart_Click" />
         <br /><br />
         
         <div id="fraga">
-            <asp:Label ID="LabelKategori" runat="server" Text="Label"></asp:Label>
+            <h4><asp:Label ID="LabelKategori" runat="server" Text="Label"></asp:Label></h4>
             <br /><br />
-            <h2><asp:Label ID="LabelQuestion" runat="server" Text="Label"></asp:Label></h2>
-            <asp:Label ID="LabelInfo" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="LabelQuestion" runat="server" Text="Label"></asp:Label>
+            <p class="p-mindretext"><asp:Label ID="LabelInfo" runat="server" Text="Label"></asp:Label></p>
         </div>
         <br />
         <div id="svar">
