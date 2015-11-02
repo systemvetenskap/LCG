@@ -429,23 +429,27 @@ namespace LCGBanking
         /// </summary>
         /// <param name="lcg_provtillfalle"></param>
         /// <returns></returns>
-        public static int nyProvtillfalle(Lcg_provtillfalle lcg_provtillfalle)
+        public void nyProvtillfalle(Lcg_provtillfalle lcg_provtillfalle)
         {
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
             NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
             NpgsqlTransaction tran = null;
-            int id = 0;
+
+            NpgsqlCommand command = new NpgsqlCommand();
+            command.Connection = conn;
+
             try
             {
                 conn.Open();
                 tran = conn.BeginTransaction();
 
-                string plsql = "";
+                command.Connection = conn;
+                command.Transaction = tran;
+
+                string plsql = string.Empty;
                 plsql = plsql + "INSERT INTO lcg_provtillfalle (datum, typ_av_test, fk_person_id)";
                 plsql = plsql + "VALUES (:newDatum, :newTypAvTest, (SELECT fk_person_id FROM lcg_konto WHERE id = :newAnvandarId))";
                 plsql = plsql + " RETURNING id";
-
-                NpgsqlCommand command = new NpgsqlCommand(@plsql, conn);
 
                 command.Parameters.Add(new NpgsqlParameter("newDatum", NpgsqlDbType.Timestamp));
                 command.Parameters["newDatum"].Value = lcg_provtillfalle.Datum;
@@ -453,9 +457,61 @@ namespace LCGBanking
                 command.Parameters["newTypAvTest"].Value = lcg_provtillfalle.Typ_av_test;
                 command.Parameters.Add(new NpgsqlParameter("newAnvandarId", NpgsqlDbType.Integer));
                 command.Parameters["newAnvandarId"].Value = lcg_provtillfalle.AnvandarId;
+                
+                command.CommandText = plsql;
+                int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());                
+                
+                int dbfragaid = 0;
+                int dbsvarid = 0;
 
-                Convert.ToInt32(command.ExecuteScalar());
+                foreach (Fraga nyfraga in GlobalValues.Fragor)
+	            {
+                    dbfragaid = 0;
+                    plsql = string.Empty;
+                    plsql = plsql + "INSERT INTO lcg_fragor (fraga_id, fraga, information, flerval, kategori, fk_provtillfalle_id)";
+                    plsql = plsql + " VALUES (:newFragaId, :newFraga, :newInformation, :newFlerval, :newKategori, :newProvtillfalleId)";
+                    plsql = plsql + " RETURNING id";
 
+                    command.Parameters.Add(new NpgsqlParameter("newFragaId", NpgsqlDbType.Integer));
+                    command.Parameters["newFragaId"].Value = nyfraga.id;
+                    command.Parameters.Add(new NpgsqlParameter("newFraga", NpgsqlDbType.Varchar));
+                    command.Parameters["newFraga"].Value = nyfraga.fraga;
+                    command.Parameters.Add(new NpgsqlParameter("newInformation", NpgsqlDbType.Varchar));
+                    command.Parameters["newInformation"].Value = nyfraga.information;
+                    command.Parameters.Add(new NpgsqlParameter("newFlerval", NpgsqlDbType.Boolean));
+                    command.Parameters["newFlerval"].Value = nyfraga.flerVal;
+                    command.Parameters.Add(new NpgsqlParameter("newKategori", NpgsqlDbType.Varchar));
+                    command.Parameters["newKategori"].Value = nyfraga.kategori;
+                    command.Parameters.Add(new NpgsqlParameter("newProvtillfalleId", NpgsqlDbType.Integer));
+                    command.Parameters["newProvtillfalleId"].Value = provtillfalleid;
+
+                    command.CommandText = plsql;
+                    dbfragaid = Convert.ToInt32(command.ExecuteScalar());
+
+                    foreach (Svar nysvar in nyfraga.svarLista)
+                    {
+                        dbsvarid = 0;
+                        plsql = string.Empty;
+                        plsql = plsql + "INSERT INTO lcg_svar (svar, alt, facit, icheckad, fk_fraga_id)";
+                        plsql = plsql + " VALUES (:newSvar, :newAlt, :newFacit, :newIcheckad, :newFkFragaId)";
+                        plsql = plsql + " RETURNING id";
+
+                        command.Parameters.Add(new NpgsqlParameter("newSvar", NpgsqlDbType.Varchar));
+                        command.Parameters["newSvar"].Value = nysvar.svar;
+                        command.Parameters.Add(new NpgsqlParameter("newAlt", NpgsqlDbType.Varchar));
+                        command.Parameters["newAlt"].Value = nysvar.alt;
+                        command.Parameters.Add(new NpgsqlParameter("newFacit", NpgsqlDbType.Varchar));
+                        command.Parameters["newFacit"].Value = nysvar.facit;
+                        command.Parameters.Add(new NpgsqlParameter("newIcheckad", NpgsqlDbType.Boolean));
+                        command.Parameters["newIcheckad"].Value = nysvar.icheckad;
+                        command.Parameters.Add(new NpgsqlParameter("newFkFragaId", NpgsqlDbType.Integer));
+                        command.Parameters["newFkFragaId"].Value = dbfragaid;
+                        command.CommandText = plsql;
+                        dbsvarid = Convert.ToInt32(command.ExecuteScalar());
+                    }
+                    dbsvarid = 0;
+                }
+                dbfragaid = 0;
                 tran.Commit();
             }
             catch (Exception ex)
@@ -466,7 +522,6 @@ namespace LCGBanking
             {
                 conn.Close();
             }
-            return id;
         }
 
         protected void ButtonSparaProv_Click(object sender, EventArgs e)
