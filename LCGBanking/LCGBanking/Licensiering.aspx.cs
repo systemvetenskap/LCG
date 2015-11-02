@@ -27,6 +27,11 @@ namespace LCGBanking
             {
                 //fråga & svar återskapas temporärt så att valda svar kan registreras
                 loadQuestion();
+
+                //data till RepeaterQuestNav
+                Dictionary<int, string> DSDictionary = createQuestNavData();
+                RepeaterQuestNav.DataSource = DSDictionary;
+                RepeaterQuestNav.DataBind();
             }
         }
 
@@ -88,6 +93,31 @@ namespace LCGBanking
 
                 GlobalValues.Fragor.Add(fr);
             }
+        }
+
+        /// <summary>
+        /// skapar ett dictionary som skickas som datasource till RepeaterQuestNav
+        /// </summary>
+        /// <returns></returns>
+        private Dictionary<int, string> createQuestNavData()
+        {
+            Dictionary<int, string> questNo = new Dictionary<int, string>();
+
+            foreach (Fraga fr in GlobalValues.Fragor)
+            {
+                string selectStatus = "qNavUnselected";
+                foreach (Svar sv in fr.svarLista)
+                {
+                    if (sv.icheckad)
+                    {
+                        selectStatus = "qNavSelected";
+                    }
+                }
+
+                int index = GlobalValues.Fragor.IndexOf(fr) + 1;
+                questNo.Add(index, selectStatus);
+            }
+            return questNo;
         }
 
         /// <summary>
@@ -314,7 +344,7 @@ namespace LCGBanking
             loadQuestion();
         }
 
-        protected void Move(int maxNr, int nr)
+        protected void Move(int maxNr)
         {
             if (GlobalValues.FrageNr == 1)
             {
@@ -342,13 +372,28 @@ namespace LCGBanking
             }
         }
 
+        /// <summary>
+        /// anropas när användare väljer fråga i frågenavigeringsmenyn
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void LinkButtonQuestNav_Click(object sender, EventArgs e)
+        {
+            registreraVal();
+
+            int maxNr = GetNodeCount();
+            LinkButton lb = (LinkButton)sender;
+            GlobalValues.FrageNr = Convert.ToInt32(lb.Text);
+            Move(maxNr);
+        }
+
         protected void ButtonNext_Click(object sender, EventArgs e)
         {
             registreraVal();
 
             int maxNr = GetNodeCount();
-            int nr = GlobalValues.FrageNr += 1;
-            Move(maxNr, nr);
+            GlobalValues.FrageNr += 1;
+            Move(maxNr);
         }
 
         protected void ButtonPrevious_Click(object sender, EventArgs e)
@@ -356,8 +401,8 @@ namespace LCGBanking
             registreraVal();
 
             int maxNr = GetNodeCount();
-            int nr = GlobalValues.FrageNr -= 1;
-            Move(maxNr, nr);
+            GlobalValues.FrageNr -= 1;
+            Move(maxNr);
         }
 
         private int GetNodeCount(string node = "/Licenseringstest/Question")
