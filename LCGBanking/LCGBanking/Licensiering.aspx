@@ -5,9 +5,7 @@
         <nav id="QuestionNavbar">
             <asp:Repeater ID="RepeaterQuestNav" runat="server">
                 <ItemTemplate>
-                    <asp:LinkButton ID="LinkButtonQuestNav" CssClass='<%# Eval("value") %>' Text='<%# Eval("key") %>' runat="server" OnClick="LinkButtonQuestNav_Click">
-                        <div class="LinkButtonQuestNavDiv">test</div>                       
-                    </asp:LinkButton>
+                    <asp:LinkButton ID="LinkButtonQuestNav" CssClass='<%# Eval("value") %>' Text='<%# Eval("key") %>' runat="server" OnClick="LinkButtonQuestNav_Click"></asp:LinkButton>
                 </ItemTemplate>
             </asp:Repeater>
         </nav>
