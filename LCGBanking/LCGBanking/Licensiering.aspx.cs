@@ -28,10 +28,6 @@ namespace LCGBanking
                 //fråga & svar återskapas temporärt så att valda svar kan registreras
                 loadQuestion();
 
-                //data till RepeaterQuestNav
-                Dictionary<int, string> DSDictionary = createQuestNavData();
-                RepeaterQuestNav.DataSource = DSDictionary;
-                RepeaterQuestNav.DataBind();
             }
         }
 
@@ -43,6 +39,8 @@ namespace LCGBanking
         /// <param name="level"></param>
         private void loadXML(string path, string level)
         {
+            GlobalValues.Fragor.Clear();
+
             string xmlfil = Server.MapPath(path);
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlfil);
@@ -56,6 +54,7 @@ namespace LCGBanking
                     id = Convert.ToInt32(nod.Attributes["id"].Value),
                     kategori = nod["Kategori"].InnerText,
                     fraga = nod["Fraga"].InnerText,
+                    information = nod["Information"].InnerText,
                     flerVal = false
                 };
 
@@ -342,6 +341,7 @@ namespace LCGBanking
             }
 
             loadQuestion();
+            updateQuestNav();
         }
 
         protected void Move(int maxNr)
@@ -369,6 +369,40 @@ namespace LCGBanking
 
                 loadQuestion();
                 laddaVal();
+            }
+
+            updateQuestNav();
+        }
+
+        /// <summary>
+        /// uppdaterar frågenavigeringsmenyn
+        /// </summary>
+        private void updateQuestNav()
+        {
+            //data till RepeaterQuestNav
+            Dictionary<int, string> DSDictionary = createQuestNavData();
+            RepeaterQuestNav.DataSource = DSDictionary;
+            RepeaterQuestNav.DataBind();
+
+            //finn den aktuella knappen och märk den som aktiv
+            foreach (RepeaterItem item in RepeaterQuestNav.Items)
+            {
+                if (item.ItemType == ListItemType.Item || item.ItemType == ListItemType.AlternatingItem)
+                {
+                    try
+                    {
+                        LinkButton lb = (LinkButton)item.FindControl("LinkButtonQuestNav");
+
+                        if(lb.Text == GlobalValues.FrageNr.ToString())
+                        {
+                            lb.CssClass = "qNavActive";
+                        }                        
+                    }
+                    catch
+                    {
+
+                    }
+                }
             }
         }
 

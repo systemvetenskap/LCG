@@ -342,4 +342,36 @@ nav #selected a {
     font-size: 12px;
 }
 
+/* stilregler för frågenavigeringsmeny (licensiering) */
+#QuestionNavbar {
+    overflow: auto;
+    margin-bottom: 2%;
+}
 
+#QuestionNavbar a {
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    width: 21px;
+    margin: 1px;
+    padding: 0.48%;
+    float: left;
+}
+
+#QuestionNavbar a:hover {
+    background-color: #68AED1;
+}
+
+.qNavSelected {
+    background-color: #3B6C84;
+}
+
+.qNavUnselected {
+    background-color: #0073AD;
+}
+
+.qNavActive {
+    background-color: #68AED1;
+}

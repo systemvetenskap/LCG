@@ -40,7 +40,7 @@
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Security">
-      <HintPath>\\psf\Home\Downloads\Mono.Security.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files\PostgreSQL\Npgsql\ms.net45\Mono.Security.dll</HintPath>
     </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\..\..\..\..\..\..\Program Files\PostgreSQL\Npgsql\ms.net45\Npgsql.dll</HintPath>
@@ -65,7 +65,9 @@
   <ItemGroup>
     <Content Include="Admin.aspx" />
     <Content Include="APP_CODE\XML_QueryKunskap.xml" />
-    <Content Include="APP_CODE\XML_Query.xml" />
+    <Content Include="APP_CODE\XML_Query.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="BILDER\bankjelogg.jpg" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />
