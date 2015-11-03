@@ -470,19 +470,19 @@ namespace LCGBanking
 
         public void SparaProvtillfalle()
         {
-            Lcg_provtillfalle lcg_provtillfalle = new Lcg_provtillfalle();
-            lcg_provtillfalle.Datum = DateTime.Now;
-            lcg_provtillfalle.Typ_av_test = GlobalValues.testtyp; 
-            lcg_provtillfalle.AnvandarId = GlobalValues.anvandarid; 
-            nyProvtillfalle(lcg_provtillfalle);
+            Provtillfalle provtillfalle = new Provtillfalle();
+            provtillfalle.Datum = DateTime.Now;
+            provtillfalle.Typ_av_test = GlobalValues.testtyp; 
+            provtillfalle.Anvandar_id = GlobalValues.anvandarid; 
+            nyProvtillfalle(provtillfalle);
         }
 
         /// <summary>
         /// Metod som används för att skapa ett ny Provtillfalle
         /// </summary>
-        /// <param name="lcg_provtillfalle"></param>
+        /// <param name="provtillfalle"></param>
         /// <returns></returns>
-        public void nyProvtillfalle(Lcg_provtillfalle lcg_provtillfalle)
+        public void nyProvtillfalle(Provtillfalle provtillfalle)
         {
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
             NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
@@ -505,11 +505,11 @@ namespace LCGBanking
                 plsql = plsql + " RETURNING id";
 
                 command.Parameters.Add(new NpgsqlParameter("newDatum", NpgsqlDbType.Timestamp));
-                command.Parameters["newDatum"].Value = lcg_provtillfalle.Datum;
+                command.Parameters["newDatum"].Value = provtillfalle.Datum;
                 command.Parameters.Add(new NpgsqlParameter("newTypAvTest", NpgsqlDbType.Varchar));
-                command.Parameters["newTypAvTest"].Value = lcg_provtillfalle.Typ_av_test;
+                command.Parameters["newTypAvTest"].Value = provtillfalle.Typ_av_test;
                 command.Parameters.Add(new NpgsqlParameter("newAnvandarId", NpgsqlDbType.Integer));
-                command.Parameters["newAnvandarId"].Value = lcg_provtillfalle.AnvandarId;
+                command.Parameters["newAnvandarId"].Value = provtillfalle.Anvandar_id;
                 
                 command.CommandText = plsql;
                 int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());                
@@ -669,11 +669,10 @@ namespace LCGBanking
                 conn.Open();
                 string sql = "SELECT har_licens AS licencierad FROM lcg_person WHERE id = :personid";
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
-
                 command.Parameters.Add(new NpgsqlParameter("personid", NpgsqlDbType.Integer));
                 command.Parameters["personid"].Value = personid;
-
                 NpgsqlDataReader dr = command.ExecuteReader();
+
                 while (dr.Read())
                 {
                     licencierad = (bool)(dr["licencierad"]);

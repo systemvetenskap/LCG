@@ -117,5 +117,148 @@ namespace LCGBanking
             }
             return provdeltagareListan;
         }
+
+        /// <summary>
+        /// Metod för att hämta senaste prov tillfälle för respektive person  
+        /// </summary>
+        /// <param name="person_id"></param>
+        /// <returns></returns>
+        public static Provtillfalle GeSistaTillfalleId(int person_id)
+        {   
+            Provtillfalle nyProvtillfalle = new Provtillfalle();
+
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+
+            try
+            {
+                conn.Open();
+                string sql = "";
+                sql = sql + "SELECT lcg_provtillfalle.id, datum, typ_av_test, provresultat, godkand, fk_person_id ";
+                sql = sql + " FROM lcg_person ";
+                sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
+                sql = sql + " WHERE lcg_provtillfalle.fk_person_id = :newFkPersonId";
+                sql = sql + " AND ( (lcg_provtillfalle.datum = (SELECT MAX(c.datum) ";
+                sql = sql + "                                   FROM lcg_provtillfalle c";
+                sql = sql + "                                   WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id)) OR lcg_provtillfalle.datum IS NULL ) ";
+
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);                
+                command.Parameters.Add(new NpgsqlParameter("newFkPersonId", NpgsqlDbType.Integer));
+                command.Parameters["newFkPersonId"].Value = person_id;
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    nyProvtillfalle.Id = (int)(dr["id"]);
+                    nyProvtillfalle.Datum = (DateTime)(dr["datum"]);
+                    nyProvtillfalle.Typ_av_test = (string)(dr["typ_av_test"]);
+                    nyProvtillfalle.Provresultat = (int)(dr["provresultat"]);
+                    nyProvtillfalle.Godkand = (bool)(dr["godkand"]);
+                    nyProvtillfalle.Fk_person_id = (int)(dr["fk_person_id"]);
+                    // nyProvtillfalle.Anvandar_id = (int)(dr["anvandar_id"]);
+                    // nyProvtillfalle.Anvandarnamn = (string)(dr["anvandarnamn"]);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return nyProvtillfalle;
+        }
+        
+        /// <summary>
+        /// Hämtar en lista med frågor för en specifikt prov tillfalle
+        /// </summary>
+        /// <param name="tillfalleid"></param>
+        /// <returns></returns>
+        public static List<Fraga> GeFrageListan(int tillfalleid)
+        {
+            List<Fraga> frageListan = new List<Fraga>();
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "";
+                sql = sql + "SELECT id, fraga_id, fraga, information, flerval, kategori, fk_provtillfalle_id";
+                sql = sql + " FROM lcg_fragor ";
+                sql = sql + " WHERE fk_provtillfalle_id = :fk_provtillfalle_id";
+
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newFkProvtillfalleId", NpgsqlDbType.Integer));
+                command.Parameters["newFkProvtillfalleId"].Value = tillfalleid;
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Fraga nyFraga = new Fraga { };
+                    nyFraga.id_db = (int)(dr["id"]);
+                    nyFraga.id = (int)(dr["fraga_id"]);
+                    nyFraga.fraga = (string)(dr["fraga"]);
+                    nyFraga.information = (string)(dr["information"]);
+                    nyFraga.flerVal = (bool)(dr["flerval"]);
+                    nyFraga.kategori = (string)(dr["kategori"]);
+                    nyFraga.fk_provtillfalle_id = (int)(dr["fk_provtillfalle_id"]);
+                    frageListan.Add(nyFraga);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return frageListan;
+        }
+        /// <summary>
+        /// Hämtar en lista med svar som användare har lämnat på respektive fråga  
+        /// </summary>
+        /// <param name="frageid"></param>
+        /// <returns></returns>
+        public static List<Svar> GeSvarLista(int frageid)
+        {
+            List <Svar> svarLista = new List<Svar>();
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "";
+                sql = sql + "SELECT id, svar, alt, facit, icheckad, fk_fraga_id";
+                sql = sql + " FROM lcg_svar WHERE fk_fraga_id = :fk_fraga_id";
+                
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("newFkFragaId", NpgsqlDbType.Integer));
+                command.Parameters["newFkFragaId"].Value = frageid;
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Svar nySvar = new Svar{};
+                    nySvar.id_db = (int)(dr["id"]);
+                    nySvar.svar = (string)(dr["svar"]);
+                    nySvar.alt = (string)(dr["alt"]);
+                    nySvar.facit = (string)(dr["facit"]);
+                    nySvar.icheckad = (bool)(dr["icheckad"]);
+                    nySvar.fk_fraga_id = (int)(dr["fk_fraga_id"]);
+                    svarLista.Add(nySvar);
+                } 
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return svarLista;
+        }
     }
 }
