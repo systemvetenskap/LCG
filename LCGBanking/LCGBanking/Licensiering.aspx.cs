@@ -16,22 +16,24 @@ namespace LCGBanking
     {
         private const string conString = "cirkus";
 
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            Welcome.Text = "Tjenare, din gamle indianbanker, " + Context.User.Identity.Name;
-            int behorighet = Convert.ToInt32(Session["lcg_roll"]);
-
             ButtonPrevious.Enabled = false;
             if (!Page.IsPostBack)
             {
-                if (behorighet == 3)
+                Welcome.Text = "Välkommen, " + Context.User.Identity.Name;
+                int personid = GePersonId(GlobalValues.anvandarid);
+                bool har_licens = Licencierad(personid);
+
+                if (har_licens == false)
                 {
                     GlobalValues.testtyp = "Licenseringstest";
                     GlobalValues.xmlfilename = "APP_CODE/XML_Query.xml";
                     loadXML(GlobalValues.xmlfilename, "/Licenseringstest");
                     
                 }
-                else if (behorighet == 1)
+                else if (har_licens == true)
                 {
                     GlobalValues.testtyp = "Kunskapstest";
                     GlobalValues.xmlfilename = "APP_CODE/XML_QueryKunskap.xml";

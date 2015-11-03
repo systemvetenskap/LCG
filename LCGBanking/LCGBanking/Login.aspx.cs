@@ -35,7 +35,8 @@ namespace LCGBanking
             try
             {
                 conn.Open();
-                string sql = "SELECT * FROM lcg_konto WHERE anvandarnamn = '" + anvNamn + "' AND losenord = '" + anvLosen + "'";
+                string sql = "SELECT * FROM lcg_konto, lcg_person WHERE  anvandarnamn = '" + anvNamn + "' AND losenord = '" + anvLosen + "' AND fk_person_id = lcg_person.id";
+                //string sql = "SELECT * FROM lcg_konto WHERE anvandarnamn = '" + anvNamn + "' AND losenord = '" + anvLosen + "'";
                 
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 NpgsqlDataReader datareader = command.ExecuteReader();
@@ -43,7 +44,7 @@ namespace LCGBanking
                 while (datareader.Read())
                 {
                     Session["id"] = (int)datareader["id"];
-                    Session["lcg_roll"] = (int)datareader["id"];
+                    Session["lcg_roll"] = (int)datareader["fk_roll_id"];
                 }
             }
 
@@ -76,14 +77,14 @@ namespace LCGBanking
             {
                 int behorighet = Convert.ToInt32(Session["lcg_roll"]);
                 
-                if (behorighet == 1 || behorighet == 3)
+                if (behorighet == 1)
                 {
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
                     Response.Redirect("Licensiering.aspx");
                 }
                 else if (behorighet == 2)
                 {
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
                     Response.Redirect("Admin.aspx");
                 }
                 else
