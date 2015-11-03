@@ -293,6 +293,7 @@ namespace LCGBanking
             dt.Columns.Add("poang", typeof( int ));
 
             //rader
+            int summaPoang = 0;
             foreach (Fraga fr in testlist)
             {
                 DataRow dr = dt.NewRow();
@@ -304,7 +305,33 @@ namespace LCGBanking
                     dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
                 }
 
-                dr["poang"] = 1;
+                //poänguträkning
+                int poang = 0;
+                int antalKorrektaSvar = 0;
+                foreach (Svar sv in fr.svarLista)
+                {
+                    if (sv.facit == "true")
+                    {
+                        antalKorrektaSvar++;
+                    }
+                }
+
+                int givnaKorrektaSvar = 0;
+                foreach (Svar sv in fr.svarLista)
+                {
+                    if (sv.icheckad.ToString() == sv.facit && sv.facit == "true")
+                    {
+                        givnaKorrektaSvar++;
+                    }
+                }
+
+                if (antalKorrektaSvar == givnaKorrektaSvar)
+                {
+                    poang++;
+                    summaPoang++;
+                }
+                
+                dr["poang"] = poang;
 
                 dt.Rows.Add(dr);
             }
@@ -334,6 +361,53 @@ namespace LCGBanking
 
             GridViewIndividResultat.HeaderRow.Controls.Clear();
             GridViewIndividResultat.HeaderRow.Parent.Controls.AddAt(0, gvr);
+
+            //färgläggning
+            List<Fraga> testlist = GlobalValues.Fragor;
+
+            foreach (GridViewRow gr in GridViewIndividResultat.Rows)
+            {
+                foreach (Fraga fr in testlist)
+                {
+                    string cellFraga = Server.HtmlDecode(gr.Cells[0].Text);
+                    if (cellFraga == fr.fraga)
+                    {
+                        //rad har kopplats till fråga
+                        if (Convert.ToInt32(gr.Cells[gr.Cells.Count-1].Text) > 0)
+                        {
+                            //den är korrekt besvarad
+                            foreach (TableCell tc in gr.Cells)
+                            {
+                                foreach (Svar sv in fr.svarLista)
+                                {
+                                    if (Server.HtmlDecode(tc.Text) == sv.alt && sv.facit == "true")
+                                    {
+                                        tc.CssClass = "GVIndRes_rattsvar";
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            //DU HAR SVARAT FEL!!!
+                            foreach (TableCell tc in gr.Cells)
+                            {
+                                foreach (Svar sv in fr.svarLista)
+                                {
+                                    if (Server.HtmlDecode(tc.Text) == sv.alt && sv.facit == "true")
+                                    {
+                                        tc.CssClass = "GVIndRes_korrektsvar";
+                                    }
+                                    else if (Server.HtmlDecode(tc.Text) == sv.alt && sv.icheckad == true)
+                                    {
+                                        tc.CssClass = "GVIndRes_felsvar";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
