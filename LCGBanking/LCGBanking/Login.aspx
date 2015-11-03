@@ -2,20 +2,20 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section id="main">
         <p>Behörig inloggning på JE Bankens licensieringsprov och kunskapstest krävs!</p>
-        <br />
+        <br /><br />
         <asp:Label ID="LabelAnv" runat="server" Text="Användarnamn"></asp:Label>
         <br />
-        <asp:TextBox ID="TextBoxAnvId" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged"></asp:TextBox>
+        <asp:TextBox ID="TextBoxAnvId" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged" Height="20px" Width="120px"></asp:TextBox>
         <br />
         <br />
         <asp:Label ID="LabelLosen" runat="server" Text="Lösenord"></asp:Label>
         <br />
-        <asp:TextBox ID="TextBoxLosen" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged" TextMode="Password"></asp:TextBox>
+        <asp:TextBox ID="TextBoxLosen" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged" TextMode="Password" Height="20px" Width="120px"></asp:TextBox>
         <br />
         <br />
-        <asp:Button ID="ButtonLogga" runat="server" Text="Logga in" OnClick="ButtonLogga_Click"></asp:Button>
+        <asp:Button ID="ButtonLogga" runat="server" Text="Logga in" OnClick="ButtonLogga_Click" CssClass="roundCorner" Height="35px" Width="125px"></asp:Button>
         <br />
-        <asp:Label ID="Msg" runat="server"></asp:Label>
+        <asp:Label ID="Msg" runat="server" CssClass="Msg"></asp:Label>
         <br />
         <asp:Label ID="Welcome" runat="server"></asp:Label>
         </section>

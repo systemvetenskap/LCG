@@ -16,7 +16,7 @@ namespace LCGBanking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Welcome.Text = "Tjenare, din gamle indianbanker, " + Context.User.Identity.Name;
+            Welcome.Text = "Tjenare " + Context.User.Identity.Name;
             List<Provdeltagare_listan> provdeltagareListan = new List<Provdeltagare_listan>();
             GridViewDeltagarLista.CssClass = "admin-tabell";
 

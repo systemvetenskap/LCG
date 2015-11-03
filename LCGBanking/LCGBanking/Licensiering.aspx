@@ -10,14 +10,14 @@
                 </ItemTemplate>
             </asp:Repeater>
         </nav>
-        <h1 id="h1-Licensiering">Tester</h1>
-        <br /><br />
-        <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="23px" OnClick="ButtonStart_Click" />
+        <h1 id="h1-Licensiering">Test: </h1>
+        <br />
+        <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="35px" OnClick="ButtonStart_Click" Width="220px" CssClass="roundCorner" />
         <br /><br />
         
         <div id="fraga">
             <h4><asp:Label ID="LabelKategori" runat="server"></asp:Label></h4>
-            <br /><br />
+            <br />
             <asp:Label ID="LabelQuestion" runat="server"></asp:Label>
             <p class="p-mindretext"><asp:Label ID="LabelInfo" runat="server"></asp:Label></p>
         </div>
@@ -29,9 +29,10 @@
         <br /><br/ />
 
         <div id="knappar">
-            <asp:Button ID="ButtonPrevious" runat="server" Text="Föregående fråga" OnClick="ButtonPrevious_Click" />
-            <asp:Button ID="ButtonNext" runat="server" Text="Nästa fråga" OnClick="ButtonNext_Click" />
-            <asp:Button ID="ButtonSparaProv" runat="server" OnClick="ButtonSparaProv_Click" Text="Spara prov" />
+            <asp:Button ID="ButtonPrevious" runat="server" Text="&larr;  Föregående fråga" OnClick="ButtonPrevious_Click" CssClass="roundCorner" Height="35px" Width="175px" />
+            <asp:Button ID="ButtonNext" runat="server" Text="Nästa fråga  &rarr;" OnClick="ButtonNext_Click" CssClass="roundCorner" Height="35px" TabIndex="1" Width="175px" />
+            <asp:Button ID="ButtonSparaProv" runat="server" OnClick="ButtonSparaProv_Click" Text="Spara prov" CssClass="roundCorner" Height="35px" TabIndex="2" Width="175px" />
+            <asp:Label ID="Msg" runat="server" CssClass="Msg"></asp:Label>
         </div>
         </section>
     </section>  

@@ -9,7 +9,7 @@
 
 /* CSS Document */
 * {
-	margin: 0px;
+	margin: 4px 0px 0px 0px;
 	padding: 0px;
 }
 	
@@ -35,7 +35,7 @@ header {
 	height: 60px;
 	font-family:"Lucida Grande", sans-serif;
     font-size:20px;
-    margin-bottom: 10px;
+
 }
 	
 section {
@@ -52,6 +52,12 @@ section {
 #main {
     margin-left: 20px;
     min-height: 300px;
+}
+
+#main2 {
+    margin-left: 150px;
+    margin-right:150px;
+    min-height: 200px;
 }
 	
 footer {
@@ -393,3 +399,18 @@ nav #selected a {
 #Welcome {
     font-size: 12px;
 }
+
+.Msg {
+    color: #fc1414;
+}
+.roundCorner
+{
+    border-radius: 5px;
+    -moz-border-radius:5px;
+    -webkit-border-radius: 5px;
+    background-color: #d5d5d5;
+    color: black;
+    text-align :center;
+    font-family:arial, helvetica, sans-serif;
+    padding: 5px 10px 10px 10px;
+    } 

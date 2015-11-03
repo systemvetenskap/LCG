@@ -475,6 +475,7 @@ namespace LCGBanking
             provtillfalle.Typ_av_test = GlobalValues.testtyp; 
             provtillfalle.Anvandar_id = GlobalValues.anvandarid; 
             nyProvtillfalle(provtillfalle);
+            Msg.Text = "  Ditt prov är sparat.";
         }
 
         /// <summary>
