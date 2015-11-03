@@ -18,10 +18,25 @@ namespace LCGBanking
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Welcome.Text = "Tjenare, din gamle indianbanker, " + Context.User.Identity.Name;
+            int behorighet = Convert.ToInt32(Session["lcg_roll"]);
+
             ButtonPrevious.Enabled = false;
             if (!Page.IsPostBack)
             {
-                loadXML("APP_CODE/XML_Query.xml", "/Licenseringstest");
+                if (behorighet == 3)
+                {
+                    GlobalValues.testtyp = "Licenseringstest";
+                    GlobalValues.xmlfilename = "APP_CODE/XML_Query.xml";
+                    loadXML(GlobalValues.xmlfilename, "/Licenseringstest");
+                    
+                }
+                else if (behorighet == 1)
+                {
+                    GlobalValues.testtyp = "Kunskapstest";
+                    GlobalValues.xmlfilename = "APP_CODE/XML_QueryKunskap.xml";
+                    loadXML(GlobalValues.xmlfilename, "/Kunskapstest");
+                }
             }
             else
             {
@@ -30,6 +45,7 @@ namespace LCGBanking
 
             }
         }
+        
 
         /// <summary>
         /// laddar in alla frågor och deras svar och lägger dem i en global lista
@@ -439,9 +455,10 @@ namespace LCGBanking
             Move(maxNr);
         }
 
-        private int GetNodeCount(string node = "/Licenseringstest/Question")
+        private int GetNodeCount()
         {
-            string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
+            string node = "/" + GlobalValues.testtyp + "/Question"; 
+            string xmlfil = Server.MapPath(GlobalValues.xmlfilename);
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlfil);
 
@@ -453,8 +470,8 @@ namespace LCGBanking
         {
             Lcg_provtillfalle lcg_provtillfalle = new Lcg_provtillfalle();
             lcg_provtillfalle.Datum = DateTime.Now;
-            lcg_provtillfalle.Typ_av_test = "Licenseringstest"; // OBS! Hårdkodat värde än så länge. Måste korrigeras.
-            lcg_provtillfalle.AnvandarId = 4; // OBS! Hårdkodat värde än så länge. Måste korrigeras.  
+            lcg_provtillfalle.Typ_av_test = GlobalValues.testtyp; 
+            lcg_provtillfalle.AnvandarId = GlobalValues.anvandarid; 
             nyProvtillfalle(lcg_provtillfalle);
         }
 

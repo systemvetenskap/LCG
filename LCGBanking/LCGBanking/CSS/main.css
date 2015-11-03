@@ -51,7 +51,7 @@ section {
 
 #main {
     margin-left: 20px;
-    min-height: 400px;
+    min-height: 300px;
 }
 	
 footer {
@@ -388,4 +388,8 @@ nav #selected a {
 
 .qNavActive {
     background-color: #68AED1;
+}
+
+#Welcome {
+    font-size: 12px;
 }

@@ -73,7 +73,9 @@
     <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />
     <Content Include="Licensiering.aspx" />
+    <Content Include="Login.aspx" />
     <Content Include="MasterPage.Master" />
+    <Content Include="Publik\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -82,7 +84,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Index.aspx" />
+    <Content Include="Publik\Index.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -95,11 +97,11 @@
     </Compile>
     <Compile Include="APP_CODE\GlobalValues.cs" />
     <Compile Include="Fraga.cs" />
-    <Compile Include="Index.aspx.cs">
+    <Compile Include="Publik\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.cs">
+    <Compile Include="Publik\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Lcg_provtillfalle.cs" />
@@ -109,6 +111,13 @@
     </Compile>
     <Compile Include="Licensiering.aspx.designer.cs">
       <DependentUpon>Licensiering.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
