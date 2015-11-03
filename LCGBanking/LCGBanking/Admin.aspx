@@ -9,5 +9,8 @@
             <asp:GridView ID="GridViewDeltagarLista" runat="server">
             </asp:GridView>
         </section>
+        <section>
+            <asp:GridView ID="GridViewIndividResultat" runat="server" OnDataBound="GridViewIndividResultat_DataBound"></asp:GridView>
+        </section>
     </section>
 </asp:Content>
