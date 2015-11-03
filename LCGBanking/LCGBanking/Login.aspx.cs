@@ -35,8 +35,7 @@ namespace LCGBanking
             try
             {
                 conn.Open();
-                string sql = "SELECT * FROM lcg_konto, lcg_person WHERE  anvandarnamn = '" + anvNamn + "' AND losenord = '" + anvLosen + "' AND fk_person_id = lcg_person.id";
-                //string sql = "SELECT * FROM lcg_konto WHERE anvandarnamn = '" + anvNamn + "' AND losenord = '" + anvLosen + "'";
+                string sql = "SELECT lcg_konto.id, fk_roll_id FROM lcg_konto, lcg_person WHERE  anvandarnamn = '" + anvNamn + "' AND losenord = '" + anvLosen + "' AND fk_person_id = lcg_person.id";
                 
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 NpgsqlDataReader datareader = command.ExecuteReader();
