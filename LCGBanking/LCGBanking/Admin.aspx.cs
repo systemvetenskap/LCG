@@ -7,12 +7,14 @@ using System.Web.UI.WebControls;
 using Npgsql;
 using NpgsqlTypes;
 using System.Configuration;
+using System.Data;
 
 namespace LCGBanking
 {
     public partial class Admin : System.Web.UI.Page
     {
         private const string conString = "cirkus";
+        private int svarAntal = 1;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -24,6 +26,8 @@ namespace LCGBanking
             GridViewDeltagarLista.DataSource = provdeltagareListan;
             GridViewDeltagarLista.DataBind();
 
+            GridViewIndividResultat.CssClass = "admin-tabell";
+            fyllGridViewIndividResultat();
         }
         /// <summary>
         /// Metod för att hämta datat och presentera deltagar listan
@@ -72,7 +76,7 @@ namespace LCGBanking
 
                 while (dr.Read())
                 {
-                    Provdeltagare_listan nyDeltagare = new Provdeltagare_listan{};
+                    Provdeltagare_listan nyDeltagare = new Provdeltagare_listan { };
                     
                     nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
                     nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
@@ -259,6 +263,77 @@ namespace LCGBanking
                 conn.Close();
             }
             return svarLista;
+        }
+
+        protected void fyllGridViewIndividResultat()
+        {
+            List<Fraga> testlist = GlobalValues.Fragor;
+
+            Fraga maxSvarFraga = new Fraga();
+
+            foreach (Fraga fr in testlist)
+            {
+                if (fr.svarLista.Count > maxSvarFraga.svarLista.Count)
+                {
+                    maxSvarFraga = fr;
+                }
+            }
+            svarAntal = maxSvarFraga.svarLista.Count();
+
+            DataTable dt = new DataTable();
+
+            //kolumner
+            dt.Columns.Add("fraga", typeof( String ));
+
+            foreach (Svar sv in maxSvarFraga.svarLista)
+            {
+               dt.Columns.Add("svar" + maxSvarFraga.svarLista.IndexOf(sv), typeof( String ));
+            }
+
+            dt.Columns.Add("poang", typeof( int ));
+
+            //rader
+            foreach (Fraga fr in testlist)
+            {
+                DataRow dr = dt.NewRow();
+
+                dr["fraga"] = fr.fraga;
+
+                foreach (Svar sv in fr.svarLista)
+                {
+                    dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
+                }
+
+                dr["poang"] = 1;
+
+                dt.Rows.Add(dr);
+            }
+
+            GridViewIndividResultat.DataSource = dt;
+            GridViewIndividResultat.DataBind();
+        }
+
+        protected void GridViewIndividResultat_DataBound(object sender, EventArgs e)
+        {
+            GridViewRow gvr = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
+
+            TableHeaderCell cell = new TableHeaderCell();
+            cell.Text = "Frågor";
+            cell.ColumnSpan = 1;
+            gvr.Controls.Add(cell);
+
+            cell = new TableHeaderCell();
+            cell.Text = "Svar";
+            cell.ColumnSpan = svarAntal;
+            gvr.Controls.Add(cell);
+
+            cell = new TableHeaderCell();
+            cell.Text = "Poäng";
+            cell.ColumnSpan = 1;
+            gvr.Controls.Add(cell);
+
+            GridViewIndividResultat.HeaderRow.Controls.Clear();
+            GridViewIndividResultat.HeaderRow.Parent.Controls.AddAt(0, gvr);
         }
     }
 }
