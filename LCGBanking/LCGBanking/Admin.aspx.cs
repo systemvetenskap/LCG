@@ -27,7 +27,7 @@ namespace LCGBanking
             GridViewDeltagarLista.DataBind();
 
             GridViewIndividResultat.CssClass = "admin-tabell";
-            fyllGridViewIndividResultat();
+            //fyllGridViewIndividResultat();
         }
         /// <summary>
         /// Metod för att hämta datat och presentera deltagar listan
