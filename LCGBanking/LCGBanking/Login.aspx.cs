@@ -78,12 +78,12 @@ namespace LCGBanking
                 
                 if (behorighet == 1)
                 {
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
                     Response.Redirect("Licensiering.aspx");
                 }
                 else if (behorighet == 2)
                 {
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
                     Response.Redirect("Admin.aspx");
                 }
                 else
