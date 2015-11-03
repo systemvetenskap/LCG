@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="Licensiering.aspx.cs" Inherits="LCGBanking.Licensiering" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>
+        <asp:Label ID="Welcome" runat="server"></asp:Label>
     <section id="main">
         <nav id="QuestionNavbar">
             <asp:Repeater ID="RepeaterQuestNav" runat="server">
@@ -15,10 +16,10 @@
         <br /><br />
         
         <div id="fraga">
-            <h4><asp:Label ID="LabelKategori" runat="server" Text="Label"></asp:Label></h4>
+            <h4><asp:Label ID="LabelKategori" runat="server"></asp:Label></h4>
             <br /><br />
-            <asp:Label ID="LabelQuestion" runat="server" Text="Label"></asp:Label>
-            <p class="p-mindretext"><asp:Label ID="LabelInfo" runat="server" Text="Label"></asp:Label></p>
+            <asp:Label ID="LabelQuestion" runat="server"></asp:Label>
+            <p class="p-mindretext"><asp:Label ID="LabelInfo" runat="server"></asp:Label></p>
         </div>
         <br />
         <div id="svar">

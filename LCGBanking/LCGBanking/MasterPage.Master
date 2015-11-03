@@ -12,18 +12,19 @@
     <form id="form1" runat="server">
         <header>
             JE BANKEN - KUNSKAPSPORTALEN
+
         </header>
         <nav>
             <ul>
-                <li><a href="Index.aspx" target="_top"><span class="fontawesome-home"></span></a></li>
-                <li><a href="Licensiering.aspx" target="_top">Prov/Test</a></li>
-                <li><a href="Admin.aspx" target="_top">Admin</a></li>
+                <li><a href="/Publik/Index.aspx" target="_top"><span class="fontawesome-home"></span></a></li>
+                <li><a href="/Licensiering.aspx" target="_top">Licensiering</a></li>
+                <li><a href="/Admin.aspx" target="_top" >Admin</a></li>
                 <li>
                     <asp:LoginStatus ID="LoginStatus1"
                         runat="server"
                         LogoutText=" Logga ut"
                         LoginText=" Logga in"
-                        LogoutPageUrl="~/Index.aspx"
+                        LogoutPageUrl="~/Publik/Index.aspx"
                         LogoutAction="Redirect" />
                 </li>
             </ul>
