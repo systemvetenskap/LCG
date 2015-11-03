@@ -86,6 +86,7 @@ namespace LCGBanking
                     FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
                     Response.Redirect("Admin.aspx");
                 }
+                    }
                 else
                 {
                     Msg.Text = "Fel inloggningsuppgifter. Snälla, skriv rätt.";
@@ -93,7 +94,7 @@ namespace LCGBanking
             }
            }
        }
-}
+
             
     
     
