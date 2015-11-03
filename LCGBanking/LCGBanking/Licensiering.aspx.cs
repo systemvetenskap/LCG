@@ -645,7 +645,7 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämplig medellande?
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
             }
             finally
             {
@@ -675,12 +675,13 @@ namespace LCGBanking
 
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
-                {
-                    licencierad = (bool)(dr["licencierad"]);
+                {   
+                    licencierad = dr["licencierad"] != DBNull.Value ? (bool)(dr["licencierad"]) : false;
                 }
             }
             catch (NpgsqlException ex)
             {
+                
                 //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
             }
             finally
