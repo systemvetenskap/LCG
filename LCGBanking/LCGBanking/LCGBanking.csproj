@@ -104,7 +104,7 @@
     <Compile Include="Publik\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Lcg_provtillfalle.cs" />
+    <Compile Include="Provtillfalle.cs" />
     <Compile Include="Licensiering.aspx.cs">
       <DependentUpon>Licensiering.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
