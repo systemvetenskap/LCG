@@ -74,19 +74,18 @@ namespace LCGBanking
         {
             if (AuthenticateUser(TextBoxAnvId.Text, TextBoxLosen.Text))
             {
-                int roles = Convert.ToInt32(Session["lcg_roll"]);
+                int anvandare = Convert.ToInt32(Session["lcg_roll"]);
 
 
-                if (roles == 1)
+                if (anvandare == 1)
                 {
                     FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
                     Response.Redirect("Licensiering.aspx");
                    
                 }
-                else if (roles == 2)
+                else if (anvandare == 2)
                 {
                     FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
-
                     Response.Redirect("/Admin/Admin.aspx");
                 }
             }

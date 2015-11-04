@@ -15,15 +15,15 @@ namespace LCGBanking
     {
         private const string conString = "cirkus";
         private int svarAntal = 1;
+        public int anvandare;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            anvandare = Convert.ToInt32(Session["lcg_roll"]);
+
             if (!Page.IsPostBack)
             {
-                ((Label)Master.FindControl("headertext")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
-                Welcome.Text = "Välkommen till Kunskapsportalen " + Context.User.Identity.Name;
+                Welcome.Text = "Välkommen till Kunskapsportalens administrationssida " + Context.User.Identity.Name + anvandare;
             }
             List<Provdeltagare_listan> provdeltagareListan = new List<Provdeltagare_listan>();
             GridViewDeltagarLista.CssClass = "admin-tabell";

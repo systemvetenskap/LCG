@@ -19,14 +19,9 @@ namespace LCGBanking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
-            
-            
             ButtonPrevious.Enabled = false;
             if (!Page.IsPostBack)
             {
-                ((Label)Master.FindControl("headertext")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
                 Welcome.Text = "Välkommen till Kunskapsportalen " + Context.User.Identity.Name;
                 int personid = GePersonId(GlobalValues.anvandarid);
                 bool har_licens = Licencierad(personid);
