@@ -94,12 +94,13 @@ namespace LCGBanking
                 sql = sql + "            ELSE lcg_provtillfalle.datum ::timestamp::date END AS licencierings_datum, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
-                sql = sql + "       CASE WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date ";
-                sql = sql + "          ELSE NULL END AS nasta_prov_tidigast, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "          ELSE NULL END AS nasta_prov_senast, ";
-                sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date - CURRENT_DATE ::timestamp::date ";
-                sql = sql + "          ELSE NULL END AS dagar_kvar ";
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date" ;
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast," ;
+                sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '455 day') ::timestamp::date ";
+                sql = sql + "            ELSE (lcg_provtillfalle.datum + interval '90 day') ::timestamp::date END AS nasta_prov_senast, ";
+                sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '455 day') ::timestamp::date - CURRENT_DATE ::timestamp::date ";
+                sql = sql + "            ELSE NULL END AS dagar_kvar ";
                 sql = sql + "FROM lcg_person ";
                 sql = sql + "     LEFT JOIN lcg_roll AS lcg_roll ON lcg_roll.id = lcg_person.fk_roll_id ";
                 sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
