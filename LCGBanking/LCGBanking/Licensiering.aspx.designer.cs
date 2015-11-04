@@ -22,13 +22,22 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.Label Welcome;
         
         /// <summary>
-        /// RepeaterQuestNav control.
+        /// ImageUser control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater RepeaterQuestNav;
+        protected global::System.Web.UI.WebControls.Image ImageUser;
+        
+        /// <summary>
+        /// LabelKategori control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelKategori;
         
         /// <summary>
         /// ButtonStart control.
@@ -40,13 +49,13 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.Button ButtonStart;
         
         /// <summary>
-        /// LabelKategori control.
+        /// RepeaterQuestNav control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelKategori;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterQuestNav;
         
         /// <summary>
         /// LabelQuestion control.

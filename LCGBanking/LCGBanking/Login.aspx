@@ -5,19 +5,19 @@
         <br /><br />
         <asp:Label ID="LabelAnv" runat="server" Text="Användarnamn"></asp:Label>
         <br />
-        <asp:TextBox ID="TextBoxAnvId" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged" Height="20px" Width="120px"></asp:TextBox>
+        <asp:TextBox ID="TextBoxAnvId" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged" Height="30px" Width="200px" BorderColor="#003366" BorderStyle="Solid" Font-Bold="False" Font-Size="16px" Font-Strikeout="False" Wrap="False"></asp:TextBox>
         <br />
         <br />
         <asp:Label ID="LabelLosen" runat="server" Text="Lösenord"></asp:Label>
         <br />
-        <asp:TextBox ID="TextBoxLosen" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged" TextMode="Password" Height="20px" Width="120px"></asp:TextBox>
+        <asp:TextBox ID="TextBoxLosen" runat="server" MaxLength="20" OnTextChanged="TextBoxAnvId_TextChanged" TextMode="Password" Height="30px" Width="200px" BorderColor="#003366" BorderStyle="Solid" Font-Bold="False" Font-Size="16px" Wrap="False"></asp:TextBox>
         <br />
         <br />
         <asp:Button ID="ButtonLogga" runat="server" Text="Logga in" OnClick="ButtonLogga_Click" CssClass="roundCorner" Height="35px" Width="125px"></asp:Button>
         <br />
         <asp:Label ID="Msg" runat="server" CssClass="Msg"></asp:Label>
         <br />
-        <asp:Label ID="Welcome" runat="server"></asp:Label>
+        
         </section>
         <br /><br />
 </asp:Content>
