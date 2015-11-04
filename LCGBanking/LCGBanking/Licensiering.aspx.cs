@@ -495,6 +495,7 @@ namespace LCGBanking
 
         public void SparaProvtillfalle()
         {
+            registreraVal();
             Provtillfalle provtillfalle = new Provtillfalle();
             provtillfalle.Datum = DateTime.Now;
             provtillfalle.Typ_av_test = GlobalValues.testtyp; 

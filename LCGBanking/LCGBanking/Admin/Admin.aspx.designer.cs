@@ -31,6 +31,24 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.GridView GridViewDeltagarLista;
         
         /// <summary>
+        /// ListBoxGVIndRes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListBox ListBoxGVIndRes;
+        
+        /// <summary>
+        /// TextBoxGVIndRes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBoxGVIndRes;
+        
+        /// <summary>
         /// CheckBoxSvarText control.
         /// </summary>
         /// <remarks>
@@ -40,12 +58,57 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.CheckBox CheckBoxSvarText;
         
         /// <summary>
-        /// GridViewIndividResultat control.
+        /// LabelIndResKategori1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat;
+        protected global::System.Web.UI.WebControls.Label LabelIndResKategori1;
+        
+        /// <summary>
+        /// GridViewIndividResultat1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat1;
+        
+        /// <summary>
+        /// LabelIndResKategori2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelIndResKategori2;
+        
+        /// <summary>
+        /// GridViewIndividResultat2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat2;
+        
+        /// <summary>
+        /// LabelIndResKategori3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelIndResKategori3;
+        
+        /// <summary>
+        /// GridViewIndividResultat3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat3;
     }
 }

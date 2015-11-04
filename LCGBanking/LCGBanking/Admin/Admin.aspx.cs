@@ -32,8 +32,11 @@ namespace LCGBanking
             GridViewDeltagarLista.DataSource = provdeltagareListan;
             GridViewDeltagarLista.DataBind();
 
-            GridViewIndividResultat.CssClass = "admin-tabell";
-            //fyllGridViewIndividResultat();
+            if (!IsPostBack)
+            {
+                populeraListBoxGVIndRes();
+        }
+
         }
 
         /// <summary>
@@ -201,8 +204,8 @@ namespace LCGBanking
                     nyProvtillfalle.Id = (int)(dr["id"]);
                     nyProvtillfalle.Datum = (DateTime)(dr["datum"]);
                     nyProvtillfalle.Typ_av_test = (string)(dr["typ_av_test"]);
-                    nyProvtillfalle.Provresultat = (int)(dr["provresultat"]);
-                    nyProvtillfalle.Godkand = (bool)(dr["godkand"]);
+                    nyProvtillfalle.Provresultat = dr["provresultat"] != DBNull.Value ? (int)(dr["provresultat"]) : 0;
+                    nyProvtillfalle.Godkand = dr["godkand"] != DBNull.Value ? (bool)(dr["godkand"]) : false;
                     nyProvtillfalle.Fk_person_id = (int)(dr["fk_person_id"]);
                     // nyProvtillfalle.Anvandar_id = (int)(dr["anvandar_id"]);
                     // nyProvtillfalle.Anvandarnamn = (string)(dr["anvandarnamn"]);
@@ -235,7 +238,7 @@ namespace LCGBanking
                 string sql = "";
                 sql = sql + "SELECT id, fraga_id, fraga, information, flerval, kategori, fk_provtillfalle_id";
                 sql = sql + " FROM lcg_fragor ";
-                sql = sql + " WHERE fk_provtillfalle_id = :fk_provtillfalle_id";
+                sql = sql + " WHERE fk_provtillfalle_id = :newFkProvtillfalleId";
 
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newFkProvtillfalleId", NpgsqlDbType.Integer));
@@ -244,7 +247,7 @@ namespace LCGBanking
 
                 while (dr.Read())
                 {
-                    Fraga nyFraga = new Fraga { };
+                    Fraga nyFraga = new Fraga();
                     nyFraga.id_db = (int)(dr["id"]);
                     nyFraga.id = (int)(dr["fraga_id"]);
                     nyFraga.fraga = (string)(dr["fraga"]);
@@ -265,6 +268,7 @@ namespace LCGBanking
             }
             return frageListan;
         }
+
         /// <summary>
         /// Hämtar en lista med svar som användare har lämnat på respektive fråga  
         /// </summary>
@@ -280,7 +284,7 @@ namespace LCGBanking
                 conn.Open();
                 string sql = "";
                 sql = sql + "SELECT id, svar, alt, facit, icheckad, fk_fraga_id";
-                sql = sql + " FROM lcg_svar WHERE fk_fraga_id = :fk_fraga_id";
+                sql = sql + " FROM lcg_svar WHERE fk_fraga_id = :newFkFragaId";
                 
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newFkFragaId", NpgsqlDbType.Integer));
@@ -313,13 +317,33 @@ namespace LCGBanking
         /// <summary>
         /// laddar GridViewIndividResultat med information
         /// </summary>
-        protected void fyllGridViewIndividResultat()
+        protected void fyllGridViewIndividResultat(GridView gridview, string kategori)
         {
-            List<Fraga> testlist = GlobalValues.Fragor;
+            if (GlobalValues.GVIndResLista.Count == 0)
+            {
+                Fraga dummy = new Fraga
+                {
+                    id = 0,
+                    fraga = "Ingen data hittades",
+                    kategori = "Ingen data hittades",
+                    information = "Ingen data hittades",
+                    flerVal = false
+                };
+
+                Svar dummysvar = new Svar
+                {
+                    alt = "Ingen data hittades",
+                    svar = "Ingen data hittades",
+                    facit = "Ingen data hittades",
+                    icheckad = false
+                };
+                dummy.svarLista.Add(dummysvar);
+                GlobalValues.GVIndResLista.Add(dummy);
+            }
 
             Fraga maxSvarFraga = new Fraga();
 
-            foreach (Fraga fr in testlist)
+            foreach (Fraga fr in GlobalValues.GVIndResLista)
             {
                 if (fr.svarLista.Count > maxSvarFraga.svarLista.Count)
                 {
@@ -342,8 +366,10 @@ namespace LCGBanking
 
             //rader
             int summaPoang = 0;
-            foreach (Fraga fr in testlist)
+            foreach (Fraga fr in GlobalValues.GVIndResLista)
             {
+                if (fr.kategori == kategori)
+                {
                 DataRow dr = dt.NewRow();
 
                 dr["fraga"] = fr.fraga;
@@ -374,7 +400,8 @@ namespace LCGBanking
                 int givnaKorrektaSvar = 0;
                 foreach (Svar sv in fr.svarLista)
                 {
-                    if (sv.icheckad.ToString() == sv.facit && sv.facit == "true")
+                    string icheckad = sv.icheckad.ToString().ToLower();
+                    if (icheckad == sv.facit && sv.facit == "true")
                     {
                         givnaKorrektaSvar++;
                     }
@@ -390,9 +417,10 @@ namespace LCGBanking
 
                 dt.Rows.Add(dr);
             }
+            }
 
-            GridViewIndividResultat.DataSource = dt;
-            GridViewIndividResultat.DataBind();
+            gridview.DataSource = dt;
+            gridview.DataBind();
         }
 
         /// <summary>
@@ -402,6 +430,9 @@ namespace LCGBanking
         /// <param name="e"></param>
         protected void GridViewIndividResultat_DataBound(object sender, EventArgs e)
         {
+            try
+            {
+                GridView gridview = (GridView)sender;
             GridViewRow gvr = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
 
             TableHeaderCell cell = new TableHeaderCell();
@@ -419,46 +450,31 @@ namespace LCGBanking
             cell.ColumnSpan = 1;
             gvr.Controls.Add(cell);
 
-            GridViewIndividResultat.HeaderRow.Controls.Clear();
-            GridViewIndividResultat.HeaderRow.Parent.Controls.AddAt(0, gvr);
+                gridview.HeaderRow.Controls.Clear();
+                gridview.HeaderRow.Parent.Controls.AddAt(0, gvr);
 
             //färgläggning
-            List<Fraga> testlist = GlobalValues.Fragor;
-
-            foreach (GridViewRow gr in GridViewIndividResultat.Rows)
+                foreach (GridViewRow gr in gridview.Rows)
             {
-                foreach (Fraga fr in testlist)
+                    foreach (Fraga fr in GlobalValues.GVIndResLista)
                 {
                     string cellFraga = Server.HtmlDecode(gr.Cells[0].Text);
                     if (cellFraga == fr.fraga)
                     {
                         //rad har kopplats till fråga
-                        if (Convert.ToInt32(gr.Cells[gr.Cells.Count-1].Text) > 0)
-                        {
-                            //den är korrekt besvarad
                             foreach (TableCell tc in gr.Cells)
                             {
                                 foreach (Svar sv in fr.svarLista)
                                 {
-                                    if (Server.HtmlDecode(tc.Text) == sv.alt && sv.facit == "true")
+                                    if ((Server.HtmlDecode(tc.Text) == sv.alt || Server.HtmlDecode(tc.Text) == sv.svar) && sv.facit == "true" && sv.icheckad == true)
                                     {
                                         tc.CssClass = "GVIndRes_rattsvar";
                                     }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            //DU HAR SVARAT FEL!!!
-                            foreach (TableCell tc in gr.Cells)
-                            {
-                                foreach (Svar sv in fr.svarLista)
-                                {
-                                    if (Server.HtmlDecode(tc.Text) == sv.alt && sv.facit == "true")
+                                    else if ((Server.HtmlDecode(tc.Text) == sv.alt || Server.HtmlDecode(tc.Text) == sv.svar) && sv.facit == "true" && sv.icheckad == false)
                                     {
                                         tc.CssClass = "GVIndRes_korrektsvar";
                                     }
-                                    else if (Server.HtmlDecode(tc.Text) == sv.alt && sv.icheckad == true)
+                                    else if ((Server.HtmlDecode(tc.Text) == sv.alt || Server.HtmlDecode(tc.Text) == sv.svar) && sv.facit == "false" && sv.icheckad == true)
                                     {
                                         tc.CssClass = "GVIndRes_felsvar";
                                     }
@@ -467,6 +483,10 @@ namespace LCGBanking
                         }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
 
@@ -477,7 +497,51 @@ namespace LCGBanking
         /// <param name="e"></param>
         protected void CheckBoxSvarText_CheckedChanged(object sender, EventArgs e)
         {
-            fyllGridViewIndividResultat();
+            LabelIndResKategori1.Text = "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi";
+            LabelIndResKategori2.Text = "Produkter och hantering av kundens affärer";
+            LabelIndResKategori3.Text = "Etik och regelverk";
+            fyllGridViewIndividResultat(GridViewIndividResultat1, "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi");
+            fyllGridViewIndividResultat(GridViewIndividResultat2, "Produkter och hantering av kundens affärer ");
+            fyllGridViewIndividResultat(GridViewIndividResultat3, "Etik och regelverk");
+        }
+
+        private void populeraListBoxGVIndRes()
+        {
+            List<Person> ursprungligLista = GeListaPersoner();
+            List<ListItem> nyLista = new List<ListItem>();
+
+            foreach (Person pe in ursprungligLista)
+            {
+                nyLista.Add(new ListItem(pe.Namn, pe.Id.ToString()));
+            }
+
+            ListBoxGVIndRes.DataTextField = "Text";
+            ListBoxGVIndRes.DataValueField = "Value";
+            ListBoxGVIndRes.DataSource = nyLista;
+            ListBoxGVIndRes.DataBind();
+        }
+
+        protected void ListBoxGVIndRes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListBox lb = (ListBox)sender;
+            ListItem li = lb.SelectedItem;
+
+            int personId = Convert.ToInt32(li.Value);
+            int senasteProv = GeSistaTillfalleId(personId).Id;
+            List<Fraga> fragor = GeFrageListan(senasteProv);
+            foreach (Fraga fr in fragor)
+            {
+                fr.svarLista = GeSvarLista(fr.id_db);
+            }
+
+            GlobalValues.GVIndResLista = fragor;
+
+            LabelIndResKategori1.Text = "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi";
+            LabelIndResKategori2.Text = "Produkter och hantering av kundens affärer";
+            LabelIndResKategori3.Text = "Etik och regelverk";
+            fyllGridViewIndividResultat(GridViewIndividResultat1, "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi");
+            fyllGridViewIndividResultat(GridViewIndividResultat2, "Produkter och hantering av kundens affärer ");
+            fyllGridViewIndividResultat(GridViewIndividResultat3, "Etik och regelverk");
         }
     }
 }

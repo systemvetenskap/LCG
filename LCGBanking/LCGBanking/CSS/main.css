@@ -480,4 +480,16 @@ figure.slider figure:hover + figure figcaption {
     text-align :center;
     font-family: 'Open Sans', sans-serif;
     padding: 5px 10px 10px 10px;
-    } 
+}
+
+.GVIndRes_rattsvar {
+    background-color: green;
+}
+
+.GVIndRes_korrektsvar {
+    background-color: grey;
+}
+
+.GVIndRes_felsvar {
+    background-color: red;
+}
