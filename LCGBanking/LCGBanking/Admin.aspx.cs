@@ -42,7 +42,7 @@ namespace LCGBanking
             try
             {
                 conn.Open();
-                string sql = "SELECT id, namn, roll_id, har_licens FROM lcg_person";
+                string sql = "SELECT id, namn, fk_roll_id, har_licens FROM lcg_person";
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
 
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -51,8 +51,8 @@ namespace LCGBanking
                     Person nyPerson = new Person();
                     nyPerson.Id = (int)(dr["id"]);
                     nyPerson.Namn = (string)(dr["namn"]);
-                    nyPerson.Roll_id = (int)(dr["roll_id"]);
-                    nyPerson.Har_licens = (bool)(dr["roll_id"]);
+                    nyPerson.Roll_id = (int)(dr["fk_roll_id"]);
+                    nyPerson.Har_licens = dr["har_licens"] != DBNull.Value ? (bool)(dr["har_licens"]) : false;
                     listaPersoner.Add(nyPerson);
                 }
             }
