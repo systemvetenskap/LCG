@@ -74,19 +74,22 @@ namespace LCGBanking
         {
             if (AuthenticateUser(TextBoxAnvId.Text, TextBoxLosen.Text))
             {
-                int behorighet = Convert.ToInt32(Session["lcg_roll"]);
-                
-                if (behorighet == 1)
+                int roles = Convert.ToInt32(Session["lcg_roll"]);
+
+
+                if (roles == 1)
                 {
                     FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
                     Response.Redirect("Licensiering.aspx");
+                   
                 }
-                else if (behorighet == 2)
+                else if (roles == 2)
                 {
                     FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
-                    Response.Redirect("Admin.aspx");
+
+                    Response.Redirect("/Admin/Admin.aspx");
                 }
-                    }
+            }
                 else
                 {
                     Msg.Text = "Fel inloggningsuppgifter. Snälla, skriv rätt.";

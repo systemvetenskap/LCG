@@ -63,20 +63,20 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Admin.aspx" />
+    <Content Include="Admin\Admin.aspx" />
     <Content Include="APP_CODE\XML_QueryKunskap.xml" />
     <Content Include="APP_CODE\XML_Query.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="BILDER\bankjelogg.jpg" />
-    <Content Include="BILDER\bankjelogg1.jpg" />
+    <Content Include="BILDER\jebank00.jpg" />
+    <Content Include="BILDER\jebank01.jpg" />
     <Content Include="BILDER\logo_02.png" />
+    <Content Include="BILDER\userpicdummy.jpg" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />
     <Content Include="Licensiering.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MasterPage.Master" />
-    <Content Include="Publik\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -89,11 +89,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Admin.aspx.cs">
+    <Compile Include="Admin\Admin.aspx.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin.aspx.designer.cs">
+    <Compile Include="Admin\Admin.aspx.designer.cs">
       <DependentUpon>Admin.aspx</DependentUpon>
     </Compile>
     <Compile Include="APP_CODE\GlobalValues.cs" />

@@ -19,10 +19,15 @@ namespace LCGBanking
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+            
+            
             ButtonPrevious.Enabled = false;
             if (!Page.IsPostBack)
             {
-                Welcome.Text = "Välkommen, " + Context.User.Identity.Name;
+                ((Label)Master.FindControl("headertext")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                Welcome.Text = "Välkommen till Kunskapsportalen " + Context.User.Identity.Name;
                 int personid = GePersonId(GlobalValues.anvandarid);
                 bool har_licens = Licencierad(personid);
 
@@ -32,6 +37,8 @@ namespace LCGBanking
                     GlobalValues.xmlfilename = "APP_CODE/XML_Query.xml";
                     loadXML(GlobalValues.xmlfilename, "/Licenseringstest");
                     ButtonStart.Text = "Starta licenseringstest";
+                    LabelKategori.Text = "Välkommen att göra licenseringstestet";
+                    LabelKategori.Visible = true;
                     
                 }
                 else if (har_licens == true)
@@ -40,6 +47,8 @@ namespace LCGBanking
                     GlobalValues.xmlfilename = "APP_CODE/XML_QueryKunskap.xml";
                     loadXML(GlobalValues.xmlfilename, "/Kunskapstest");
                     ButtonStart.Text = "Starta kunskapsprov";
+                    LabelKategori.Text = "Nu är det dags att göra kunskapsprov";
+                    LabelKategori.Visible = true;
                 }
             }
             else
@@ -247,6 +256,16 @@ namespace LCGBanking
             }
         }
 
+        private void taframknappar()
+        {
+            ButtonPrevious.Visible = true;
+            ButtonNext.Visible = true;
+            ButtonSparaProv.Visible = true;
+            Msg.Visible = true;
+            ButtonStart.Visible = false;
+
+        }
+
         /// <summary>
         /// läser in fråga och svarsalternativ från XML-fil
         /// </summary>
@@ -362,7 +381,11 @@ namespace LCGBanking
 
             loadQuestion();
             updateQuestNav();
+            taframknappar();
+
         }
+
+
 
         protected void Move(int maxNr)
         {

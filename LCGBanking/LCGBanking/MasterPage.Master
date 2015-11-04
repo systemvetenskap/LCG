@@ -11,14 +11,17 @@
 <body>
     <form id="form1" runat="server">
         <header>
-            <img id="header-logo" src="/BILDER/logo_02.png" />
-            <p id="header-text">KUNSKAPSPORTALEN</p>
+            <asp:Image ID="headerlogo" runat="server" ImageUrl="~/BILDER/logo_02.png" />
+            <asp:Label ID="headertext" runat="server" Text="VÄLKOMMEN TILL KUNSKAPSPORTALEN" Visible="False"></asp:Label>
         </header>
         <nav>
             <ul>
-                <li><a href="Publik/Index.aspx" target="_top"><span class="fontawesome-home"></span></a></li>
-                <li><a href="/Licensiering.aspx" target="_top">Licensiering</a></li>
-                <li><a href="/Admin.aspx" target="_top" >Admin</a></li>
+                <li>
+                    <asp:HyperLink ID="HyperLinkIndex" runat="server" NavigateUrl="~/Publik/Index.aspx" Target="_top"><span class="fontawesome-home"></span></asp:HyperLink></li>
+                <li>
+                    <asp:HyperLink ID="HyperLinkLicens" runat="server" NavigateUrl="~/Licensiering.aspx" Target="_top" Visible="False">Licensiering</asp:HyperLink></li>
+                <li>
+                    <asp:HyperLink ID="HyperLinkAdmin" runat="server" NavigateUrl="~/ADMIN/Admin.aspx" Target="_top" Visible="False">Admin</asp:HyperLink></li>
                 <li>
                     <asp:LoginStatus ID="LoginStatus1"
                         runat="server"
@@ -28,13 +31,18 @@
                         LogoutAction="Redirect" />
                 </li>
             </ul>
-        </nav>      
+        </nav>   
     <div>
         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">        
         </asp:ContentPlaceHolder>
     </div>
         <footer>| JE BANKEN KUNSKAPSPORTALEN |<br />All rights reserved &copy; LCG 2015<br />
             <asp:LoginName ID="LoginName1" runat="server" FormatString="Du är inloggad som:  {0}" />
+            <asp:LoginView ID="LoginView1" runat="server" >
+                <AnonymousTemplate>
+                    Du är inte inloggad i Kunskapsportalen. Klicka på Logga in-länken för att koppla upp dig. 
+                </AnonymousTemplate>  
+            </asp:LoginView>
            </footer>
     </form>
 </body>
