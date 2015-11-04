@@ -11,12 +11,12 @@
 <body>
     <form id="form1" runat="server">
         <header>
-            JE BANKEN - KUNSKAPSPORTALEN
-
+            <img id="header-logo" src="/BILDER/logo_02.png" />
+            <p id="header-text">KUNSKAPSPORTALEN</p>
         </header>
         <nav>
             <ul>
-                <li><a href="/Publik/Index.aspx" target="_top"><span class="fontawesome-home"></span></a></li>
+                <li><a href="Publik/Index.aspx" target="_top"><span class="fontawesome-home"></span></a></li>
                 <li><a href="/Licensiering.aspx" target="_top">Licensiering</a></li>
                 <li><a href="/Admin.aspx" target="_top" >Admin</a></li>
                 <li>
