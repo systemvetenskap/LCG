@@ -36,5 +36,6 @@ namespace LCGBanking
         }
 
         public static List<Fraga> Fragor = new List<Fraga>();
+        public static List<Fraga> GVIndResLista = new List<Fraga>();
     }
 }

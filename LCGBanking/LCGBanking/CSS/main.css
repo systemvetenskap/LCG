@@ -413,4 +413,16 @@ nav #selected a {
     text-align :center;
     font-family:arial, helvetica, sans-serif;
     padding: 5px 10px 10px 10px;
-    } 
+}
+
+.GVIndRes_rattsvar {
+    background-color: green;
+}
+
+.GVIndRes_korrektsvar {
+    background-color: grey;
+}
+
+.GVIndRes_felsvar {
+    background-color: red;
+}
