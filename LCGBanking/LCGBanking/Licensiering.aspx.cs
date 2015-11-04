@@ -691,6 +691,74 @@ namespace LCGBanking
             return licencierad;
         }
 
+        /// <summary>
+        /// Metoden ta reda på en person är behörig för en prov. Används för synliggöra knappen  
+        /// </summary>
+        /// <param name="personid"></param>
+        /// <returns></returns>
+        public static bool BehorigForProv(int personid)
+        {
+            bool behorig = true;
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "";
+                sql = sql + "SELECT lcg_person.id AS person_id, ";
+                sql = sql + "       lcg_person.namn AS namn, ";
+                sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
+                sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
+                sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date" ;
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast" ;
+                sql = sql + "FROM lcg_person ";
+                sql = sql + "     LEFT JOIN lcg_roll AS lcg_roll ON lcg_roll.id = lcg_person.fk_roll_id ";
+                sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
+                sql = sql + "WHERE lcg_person.id = :personid";
+                sql = sql + "AND ( lcg_provtillfalle.DATUM = (SELECT MAX(c.DATUM) ";
+                sql = sql + "                                    FROM lcg_provtillfalle c ";
+                sql = sql + "                                     WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id) ";
+                sql = sql + "      OR lcg_provtillfalle.DATUM IS NULL) ";
+                sql = sql + "ORDER BY lcg_provtillfalle.datum ASC;";
+        
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+
+                command.Parameters.Add(new NpgsqlParameter("personid", NpgsqlDbType.Integer));
+                command.Parameters["personid"].Value = personid;
+
+                DateTime idag = DateTime.Today;
+                DateTime nasta_prov_tidigast = idag;
+                
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    // personid = (int)(dr["id"]);
+                    // namn = (string)(dr["namn"]);
+                    // provtyp = (string)(dr["provtyp"]);
+                    nasta_prov_tidigast = (DateTime)(dr["nasta_prov_tidigast"]);
+                }
+
+                if (nasta_prov_tidigast > idag)
+                {
+                    behorig = false;
+                }
+                else
+                {
+                    behorig = true;
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return behorig;
+        }
+
         public static DateTime GeSistaProvDatum(int personid)
         {
             // för att inet returnera inget värde alls 
