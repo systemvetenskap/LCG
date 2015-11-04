@@ -12,7 +12,7 @@
         </nav>
         <h1 id="h1-Licensiering">Test: </h1>
         <br />
-        <asp:Button ID="ButtonStart" runat="server" Text="Starta licenseringstest" Height="35px" OnClick="ButtonStart_Click" Width="220px" CssClass="roundCorner" />
+        <asp:Button ID="ButtonStart" runat="server" Text="" Height="35px" OnClick="ButtonStart_Click" Width="220px" CssClass="roundCorner" />
         <br /><br />
         
         <div id="fraga">
@@ -31,7 +31,7 @@
         <div id="knappar">
             <asp:Button ID="ButtonPrevious" runat="server" Text="&larr;  Föregående fråga" OnClick="ButtonPrevious_Click" CssClass="roundCorner" Height="35px" Width="175px" />
             <asp:Button ID="ButtonNext" runat="server" Text="Nästa fråga  &rarr;" OnClick="ButtonNext_Click" CssClass="roundCorner" Height="35px" TabIndex="1" Width="175px" />
-            <asp:Button ID="ButtonSparaProv" runat="server" OnClick="ButtonSparaProv_Click" Text="Spara prov" CssClass="roundCorner" Height="35px" TabIndex="2" Width="175px" />
+            <asp:Button ID="ButtonSparaProv" runat="server" OnClick="ButtonSparaProv_Click" Text="Skicka in svar / Spara prov" CssClass="roundCorner" Height="35px" TabIndex="2" Width="200px" />
             <asp:Label ID="Msg" runat="server" CssClass="Msg"></asp:Label>
         </div>
         </section>

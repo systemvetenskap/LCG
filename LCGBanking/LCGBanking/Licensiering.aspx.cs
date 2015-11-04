@@ -31,6 +31,7 @@ namespace LCGBanking
                     GlobalValues.testtyp = "Licenseringstest";
                     GlobalValues.xmlfilename = "APP_CODE/XML_Query.xml";
                     loadXML(GlobalValues.xmlfilename, "/Licenseringstest");
+                    ButtonStart.Text = "Starta licenseringstest";
                     
                 }
                 else if (har_licens == true)
@@ -38,6 +39,7 @@ namespace LCGBanking
                     GlobalValues.testtyp = "Kunskapstest";
                     GlobalValues.xmlfilename = "APP_CODE/XML_QueryKunskap.xml";
                     loadXML(GlobalValues.xmlfilename, "/Kunskapstest");
+                    ButtonStart.Text = "Starta kunskapsprov";
                 }
             }
             else

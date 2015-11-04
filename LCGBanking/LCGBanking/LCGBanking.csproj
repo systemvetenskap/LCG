@@ -70,6 +70,7 @@
     </Content>
     <Content Include="BILDER\bankjelogg.jpg" />
     <Content Include="BILDER\bankjelogg1.jpg" />
+    <Content Include="BILDER\logo_02.png" />
     <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />
     <Content Include="Licensiering.aspx" />

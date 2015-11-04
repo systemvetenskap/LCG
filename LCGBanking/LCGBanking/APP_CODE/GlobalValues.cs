@@ -10,6 +10,7 @@ namespace LCGBanking
         public static string testtyp { get; set; }
         public static string xmlfilename { get; set; }
         public static int anvandarid { get; set; }
+        public static int namn { get; set; }
         /*string path = "Test/Licenseringstest";*/
         
         /*

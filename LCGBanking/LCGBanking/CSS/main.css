@@ -32,7 +32,7 @@ body {
 }
 
 header {
-	height: 60px;
+	height: 85px;
 	font-family:"Lucida Grande", sans-serif;
     font-size:20px;
 
@@ -243,9 +243,18 @@ nav #selected a {
 }
 
 #header-logo {
-    width: 220px;
-    height: 120px;
+    width: 180px;
+    height: 80px;
+    padding-left: 20px;
     float: left;
+}
+
+#header-text {
+    padding-left: 120px;
+    padding-top: 40px;
+    float:left;
+    font-family:"Lucida Grande", sans-serif;
+    font-size:20px;
 }
 
 #header-meny {
