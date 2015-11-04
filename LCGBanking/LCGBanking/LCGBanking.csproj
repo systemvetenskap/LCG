@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="APP_CODE\GlobalValues.cs" />
     <Compile Include="Fraga.cs" />
+    <Compile Include="Person.cs" />
     <Compile Include="Publik\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -29,6 +29,44 @@ namespace LCGBanking
             GridViewIndividResultat.CssClass = "admin-tabell";
             //fyllGridViewIndividResultat();
         }
+
+        /// <summary>
+        /// returnerar en lista med personer 
+        /// </summary>
+        /// <returns></returns>
+        public static List<Person> GeListaPersoner()
+        {
+            List<Person> listaPersoner = new List<Person>();
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT id, namn, roll_id, har_licens FROM lcg_person";
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+
+                NpgsqlDataReader dr = command.ExecuteReader();
+                while (dr.Read())
+                {
+                    Person nyPerson = new Person();
+                    nyPerson.Id = (int)(dr["id"]);
+                    nyPerson.Namn = (string)(dr["namn"]);
+                    nyPerson.Roll_id = (int)(dr["roll_id"]);
+                    nyPerson.Har_licens = (bool)(dr["roll_id"]);
+                    listaPersoner.Add(nyPerson);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return listaPersoner;
+        }
+
         /// <summary>
         /// Metod för att hämta datat och presentera deltagar listan
         /// </summary>
