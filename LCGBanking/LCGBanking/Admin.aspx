@@ -10,6 +10,7 @@
             </asp:GridView>
         </section>
         <section>
+            <asp:CheckBox ID="CheckBoxSvarText" AutoPostBack="true" Text=" Visa hela svar" runat="server" OnCheckedChanged="CheckBoxSvarText_CheckedChanged" />
             <asp:GridView ID="GridViewIndividResultat" runat="server" OnDataBound="GridViewIndividResultat_DataBound"></asp:GridView>
         </section>
     </section>

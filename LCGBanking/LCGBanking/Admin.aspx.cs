@@ -265,6 +265,9 @@ namespace LCGBanking
             return svarLista;
         }
 
+        /// <summary>
+        /// laddar GridViewIndividResultat med information
+        /// </summary>
         protected void fyllGridViewIndividResultat()
         {
             List<Fraga> testlist = GlobalValues.Fragor;
@@ -302,7 +305,14 @@ namespace LCGBanking
 
                 foreach (Svar sv in fr.svarLista)
                 {
-                    dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
+                    if (CheckBoxSvarText.Checked)
+                    {
+                        dr["svar" + fr.svarLista.IndexOf(sv)] = sv.svar;
+                    }
+                    else
+                    {
+                        dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
+                    }
                 }
 
                 //poänguträkning
@@ -340,6 +350,11 @@ namespace LCGBanking
             GridViewIndividResultat.DataBind();
         }
 
+        /// <summary>
+        /// färgkodar GridViewIndividResultat
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void GridViewIndividResultat_DataBound(object sender, EventArgs e)
         {
             GridViewRow gvr = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
@@ -408,6 +423,16 @@ namespace LCGBanking
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// uppdaterar GridViewIndividResultat vid CheckBoxSvarText_CheckedChanged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void CheckBoxSvarText_CheckedChanged(object sender, EventArgs e)
+        {
+            fyllGridViewIndividResultat();
         }
     }
 }
