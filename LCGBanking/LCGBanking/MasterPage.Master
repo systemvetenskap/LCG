@@ -29,7 +29,7 @@
                         LogoutText=" Logga ut"
                         LoginText=" Logga in"
                         LogoutPageUrl="~/Publik/Index.aspx"
-                        LogoutAction="Redirect" />
+                        LogoutAction="Redirect" OnLoggingOut="LoginStatus1_LoggingOut" />
                 </li>
             </ul>
         </nav>   

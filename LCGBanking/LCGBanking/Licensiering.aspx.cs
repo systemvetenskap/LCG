@@ -25,7 +25,7 @@ namespace LCGBanking
             anvandare = Convert.ToInt32(Session["lcg_roll"]);
             if (!Page.IsPostBack)
             {
-                
+
                 Welcome.Text = "Välkommen tillbaka till Kunskapsportalen " + Context.User.Identity.Name;
 
                 if (anvandare == 1)
@@ -50,7 +50,7 @@ namespace LCGBanking
                     ButtonStart.Text = "Starta licenseringstest";
                     LabelKategori.Text = "Välkommen att göra licenseringstestet";
                     LabelKategori.Visible = true;
-                    
+
                 }
                 else if (har_licens == true)
                 {
