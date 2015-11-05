@@ -535,8 +535,3 @@ figure.slider figure:hover + figure figcaption {
     width: 5%;
     text-align: center;
 }
-
-#ContentPlaceHolder1_GridViewIndResOversikt {
-    width: 70% !important;
-    margin-left: 15% !important;
-}
