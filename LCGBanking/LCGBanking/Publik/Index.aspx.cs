@@ -12,11 +12,7 @@ namespace LCGBanking
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-        }
-
-        protected void TextBoxAnvnamn_TextChanged(object sender, EventArgs e)
-        {
-
+            
         }
     }
 }

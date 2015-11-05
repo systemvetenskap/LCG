@@ -13,6 +13,7 @@
         <header>
             <asp:Image ID="headerlogo" runat="server" ImageUrl="~/BILDER/logo_02.png" />
             <asp:Label ID="headertext" runat="server" Text="VÄLKOMMEN TILL KUNSKAPSPORTALEN" Visible="False"></asp:Label>
+            <asp:Label ID="LabelPost" runat="server" CssClass="postbackalabel" Font-Size="10px"></asp:Label>
         </header>
         <nav>
             <ul>

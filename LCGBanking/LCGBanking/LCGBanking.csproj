@@ -77,6 +77,7 @@
     <Content Include="Licensiering.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MasterPage.Master" />
+    <Content Include="Admin\Web.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
