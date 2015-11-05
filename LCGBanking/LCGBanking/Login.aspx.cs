@@ -12,13 +12,13 @@ namespace LCGBanking
 {
     public partial class Login : System.Web.UI.Page
     {
-         
+
         private const string conString = "cirkus";
         public int anvandare;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
             anvandare = Convert.ToInt32(Session["lcg_roll"]);
 
             if (anvandare == 1)
@@ -35,10 +35,6 @@ namespace LCGBanking
 
         }
 
-
-
-        
-       
         private bool AuthenticateUser(string anvNamn, string anvLosen)
         {
             Session["id"] = -1;
@@ -49,7 +45,7 @@ namespace LCGBanking
             {
                 conn.Open();
                 string sql = "SELECT lcg_konto.id, fk_roll_id FROM lcg_konto, lcg_person WHERE  anvandarnamn = '" + anvNamn + "' AND losenord = '" + anvLosen + "' AND fk_person_id = lcg_person.id";
-                
+
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 NpgsqlDataReader datareader = command.ExecuteReader();
 
@@ -92,29 +88,28 @@ namespace LCGBanking
 
                 if (anvandare == 1)
                 {
-                    
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
 
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
                     Response.Redirect("Licensiering.aspx");
-
-                   
                 }
+
                 else if (anvandare == 2)
                 {
-                  
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
 
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
                     Response.Redirect("/Admin/Admin.aspx");
+                }
+            }
+            else
+            {
+                Msg.Text = "Fel inloggningsuppgifter. Snälla, skriv rätt.";
+            }
+        }
+    }
+}
+            
+           
 
-                }
-            }
-                else
-                {
-                    Msg.Text = "Fel inloggningsuppgifter. Snälla, skriv rätt.";
-                }
-            }
-           }
-       }
 
             
     
