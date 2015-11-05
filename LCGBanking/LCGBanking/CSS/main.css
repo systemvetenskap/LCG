@@ -490,26 +490,31 @@ figure.slider figure:hover + figure figcaption {
     padding: 5px 10px 10px 10px;
 }
 
+#ContentPlaceHolder1_IndividuellaResultat,
 #IndividuellaResultat {
     padding-left: 0;
 }
 
+#ContentPlaceHolder1_IndividuellaResultat table,
 #IndividuellaResultat table {
     margin-left: 0;
     width: 100%;
 }
 
+#ContentPlaceHolder1_IndividuellaResultat td, th,
 #IndividuellaResultat td, th {
     border: 1px solid #9E9F8E;
     padding: 0.5%;
     vertical-align: top;
 }
 
+#ContentPlaceHolder1_IndividuellaResultat th,
 #IndividuellaResultat th {
     background-color: #D3D3D3;
     font-size: 15px;
 }
 
+#ContentPlaceHolder1_IndividuellaResultat td,
 #IndividuellaResultat td {
     background-color: #FFF;
     font-size: 13px;

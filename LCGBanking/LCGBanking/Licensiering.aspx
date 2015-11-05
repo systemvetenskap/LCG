@@ -4,7 +4,7 @@
         <asp:Label ID="Welcome" runat="server"></asp:Label>
         <br />
         <asp:Image ID="ImageUser" runat="server" Height="95px" Width="95px" ImageUrl="~/BILDER/userpicdummy.jpg" CssClass="ImageUser" ImageAlign="Right" AlternateText="UserPicDummy" BorderColor="#3366CC" BorderStyle="Double" />
-    <section id="main">
+    <section id="main" runat="server">
         <nav id="QuestionNavbar">
             <h4><asp:Label ID="LabelKategori" runat="server"></asp:Label></h4>
             <br />
@@ -29,6 +29,36 @@
             <asp:Button ID="ButtonSparaProv" runat="server" OnClick="ButtonSparaProv_Click" Text="Skicka in svar / Spara prov" CssClass="roundCorner" Height="35px" TabIndex="2" Width="200px" Visible="False" />
             <asp:Label ID="Msg" runat="server" CssClass="Msg" Visible="False"></asp:Label>
         </div>
+        </section>
+        <section id="IndividuellaResultat" class="admin" runat="server">
+            <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+            <asp:Label ID="LabelIndResNamn" runat="server" Font-Bold="True" Font-Size="Larger"></asp:Label><br />
+            <asp:Label ID="LabelIndResDatum" runat="server" Text=""></asp:Label>
+            <br /><br />
+            <asp:GridView ID="GridViewIndResOversikt" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndResOversikt_DataBound"></asp:GridView>
+            <br /><br />
+            <asp:CheckBox ID="CheckBoxSvarText" AutoPostBack="true" Text=" Visa hela svar" runat="server" OnCheckedChanged="CheckBoxSvarText_CheckedChanged"/>
+            <br /><br />
+            <asp:Label ID="LabelIndResKategori1" runat="server" Font-Bold="True"></asp:Label>
+            <asp:GridView ID="GridViewIndividResultat1" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndividResultat_DataBound"></asp:GridView>
+            <br /><br />
+            <asp:Label ID="LabelIndResKategori3" runat="server" Font-Bold="True"></asp:Label>
+            <asp:GridView ID="GridViewIndividResultat3" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndividResultat_DataBound"></asp:GridView>
+            <br /><br />
+            <asp:Label ID="LabelIndResKategori2" runat="server" Font-Bold="True"></asp:Label>
+            <asp:GridView ID="GridViewIndividResultat2" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndividResultat_DataBound"></asp:GridView>
+            <script>
+                if (document.getElementById("ContentPlaceHolder1_CheckBoxSvarText").checked) {
+                        $(".GVIndRes_fraga").css("width", "25%");
+                    }
+                    else{
+                        $(".GVIndRes_fraga").css("width", "80%");
+                }
+
+                var date = new Date();
+                var datum = date.toLocaleDateString();
+                $("#ContentPlaceHolder1_LabelIndResDatum").text(datum);
+            </script>
         </section>
     </section>  
 </asp:Content>
