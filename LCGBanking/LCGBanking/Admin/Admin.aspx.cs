@@ -221,7 +221,168 @@ namespace LCGBanking
             }
             return nyProvtillfalle;
         }
-        
+
+        /// <summary>
+        /// Metoden returnerar statiskt data per prov fråga.  
+        /// </summary>
+        /// <param name="person_id"></param>
+        /// <returns></returns>
+        public static List<Provstatistik> GeStatistikPerFraga(int person_id)
+        {
+            List<Provstatistik> listaPerFraga = new List<Provstatistik>();
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT person_id, namn, provtillfalle_id, datum, typ_av_test, kategori, db_fraga_id, fraga_id, fraga, ";
+                sql = sql + "SUM(antal_fragor) antal_fragor, ";
+                sql = sql + "SUM(antal_poang) antal_poang, ";
+                sql = sql + "round(SUM(antal_poang)/SUM(antal_fragor),2)*100 antal_ratt ";
+                sql = sql + "FROM lcg_provstatistik ";
+                sql = sql + "WHERE person_id = :person_id ";
+                sql = sql + "GROUP BY person_id, namn, provtillfalle_id, datum, typ_av_test, kategori, db_fraga_id, fraga_id, fraga ";
+                sql = sql + "ORDER BY person_id, namn, provtillfalle_id, datum, typ_av_test, kategori, db_fraga_id, fraga_id, fraga";
+
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("person_id", NpgsqlDbType.Integer));
+                command.Parameters["person_id"].Value = person_id;
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Provstatistik nyProv = new Provstatistik();
+                    nyProv.Person_id = (int)(dr["person_id"]);
+                    nyProv.Namn = (string)(dr["namn"]);
+                    nyProv.Provtillfalle_id = (int)(dr["provtillfalle_id"]);
+                    nyProv.Datum = (DateTime)(dr["datum"]);
+                    nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
+                    nyProv.Kategori = (string)(dr["kategori"]);
+                    // nyProv.Db_fråga_id = (int)(dr["db_fraga_id"]);
+                    nyProv.Fråga_id = (int)(dr["fraga_id"]);
+                    nyProv.Fråga = (string)(dr["fraga"]);
+                    nyProv.Antal_frågor = Convert.ToInt32(dr["antal_fragor"]);
+                    nyProv.Antal_poäng = Convert.ToInt32(dr["antal_poang"]);
+                    nyProv.Antal_rätt = Convert.ToDouble(dr["antal_ratt"]);
+                    listaPerFraga.Add(nyProv);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return listaPerFraga;
+        }
+        /// <summary>
+        /// Hämtar prov datat för respektive person och provtillfälle fördelat på de olika fråge kategorier. 
+        /// </summary>
+        /// <param name="person_id"></param>
+        /// <returns></returns>
+        public static List<Provstatistik> GeStatistikPerKategori(int person_id)
+        {
+            List<Provstatistik> listaPerKategori = new List<Provstatistik>();
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT person_id, namn, provtillfalle_id, datum, typ_av_test, kategori, ";
+                sql = sql + "SUM(antal_fragor) antal_fragor, ";
+                sql = sql + "SUM(antal_poang) antal_poang, ";
+                sql = sql + "round(SUM(antal_poang)/SUM(antal_fragor),2)*100 antal_ratt ";
+                sql = sql + "FROM lcg_provstatistik ";
+                sql = sql + "WHERE person_id = :person_id ";
+                // sql = sql + " AND datum = (SELECT max(datum) FROM lcg_provtillfalle WHERE fk_person_id = person_id)";
+                sql = sql + "GROUP BY person_id, namn, provtillfalle_id, datum, typ_av_test, kategori ";
+                sql = sql + "ORDER BY person_id, namn, provtillfalle_id, datum, typ_av_test, kategori ";
+
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("person_id", NpgsqlDbType.Integer));
+                command.Parameters["person_id"].Value = person_id;
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Provstatistik nyProv = new Provstatistik();
+                    nyProv.Person_id = (int)(dr["person_id"]);
+                    nyProv.Namn = (string)(dr["namn"]);
+                    nyProv.Provtillfalle_id = (int)(dr["provtillfalle_id"]);
+                    nyProv.Datum = (DateTime)(dr["datum"]);
+                    nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
+                    nyProv.Kategori = (string)(dr["kategori"]);
+                    nyProv.Antal_frågor = Convert.ToInt32(dr["antal_fragor"]);
+                    nyProv.Antal_poäng = Convert.ToInt32(dr["antal_poang"]);
+                    nyProv.Antal_rätt = Convert.ToDouble(dr["antal_ratt"]);
+                    listaPerKategori.Add(nyProv);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return listaPerKategori;
+        }
+        /// <summary>
+        /// Hämtar prov datat för respektive person och provtillfälle. 
+        /// </summary>
+        /// <param name="person_id"></param>
+        /// <returns></returns>
+        public static List<Provstatistik> GeStatistikPerProv(int person_id)
+        {
+            List<Provstatistik> listaPerProv = new List<Provstatistik>();
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            try
+            {
+                conn.Open();
+                string sql = "SELECT person_id, namn, provtillfalle_id, datum, typ_av_test, ";
+                sql = sql + "SUM(antal_fragor) antal_fragor, ";
+                sql = sql + "SUM(antal_poang) antal_poang, ";
+                sql = sql + "round(SUM(antal_poang)/SUM(antal_fragor),2)*100 antal_ratt ";
+                sql = sql + "FROM lcg_provstatistik ";
+                sql = sql + "WHERE person_id = :person_id ";
+                // sql = sql + " AND datum = (SELECT max(datum) FROM lcg_provtillfalle WHERE fk_person_id = person_id)";
+                sql = sql + "GROUP BY person_id, namn, provtillfalle_id, datum, typ_av_test ";
+                sql = sql + "ORDER BY person_id, namn, provtillfalle_id, datum, typ_av_test ";
+
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
+                command.Parameters.Add(new NpgsqlParameter("person_id", NpgsqlDbType.Integer));
+                command.Parameters["person_id"].Value = person_id;
+                NpgsqlDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    Provstatistik nyProv = new Provstatistik();
+                    nyProv.Person_id = (int)(dr["person_id"]);
+                    nyProv.Namn = (string)(dr["namn"]);
+                    nyProv.Provtillfalle_id = (int)(dr["provtillfalle_id"]);
+                    nyProv.Datum = (DateTime)(dr["datum"]);
+                    nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
+                    nyProv.Antal_frågor = Convert.ToInt32(dr["antal_fragor"]);
+                    nyProv.Antal_poäng = Convert.ToInt32(dr["antal_poang"]);
+                    nyProv.Antal_rätt = Convert.ToDouble(dr["antal_ratt"]);
+                    listaPerProv.Add(nyProv);
+                }
+            }
+            catch (NpgsqlException ex)
+            {
+                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return listaPerProv;
+        }
+
         /// <summary>
         /// Hämtar en lista med frågor för en specifikt prov tillfalle
         /// </summary>
