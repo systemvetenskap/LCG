@@ -482,14 +482,48 @@ figure.slider figure:hover + figure figcaption {
     padding: 5px 10px 10px 10px;
 }
 
-.GVIndRes_rattsvar {
-    background-color: green;
+#IndividuellaResultat {
+    padding-left: 0;
 }
 
-.GVIndRes_korrektsvar {
-    background-color: grey;
+#IndividuellaResultat table {
+    margin-left: 0;
+    width: 100%;
+}
+
+#IndividuellaResultat td, th {
+    border: 1px solid #9E9F8E;
+    padding: 0.5%;
+    vertical-align: top;
+}
+
+#IndividuellaResultat th {
+    background-color: #D3D3D3;
+    font-size: 15px;
+}
+
+#IndividuellaResultat td {
+    background-color: #FFF;
+    font-size: 13px;
+}
+
+.GVIndRes_fraga {
+    font-weight: bold;
 }
 
 .GVIndRes_felsvar {
-    background-color: red;
+    background-color: #FF5050 !important;
+}
+
+.GVIndRes_korrektsvar {
+    background-color: #EAEDB9 !important;
+}
+
+.GVIndRes_rattsvar {
+    background-color: #28E358 !important;
+}
+
+.GVIndRes_poang {
+    width: 5%;
+    text-align: center;
 }

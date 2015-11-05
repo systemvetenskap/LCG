@@ -35,7 +35,7 @@ namespace LCGBanking
             if (!IsPostBack)
             {
                 populeraListBoxGVIndRes();
-        }
+            }
 
         }
 
@@ -104,8 +104,8 @@ namespace LCGBanking
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date" ;
-                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast," ;
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date";
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast,";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '455 day') ::timestamp::date ";
                 sql = sql + "            ELSE (lcg_provtillfalle.datum + interval '90 day') ::timestamp::date END AS nasta_prov_senast, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '455 day') ::timestamp::date - CURRENT_DATE ::timestamp::date ";
@@ -125,7 +125,7 @@ namespace LCGBanking
                 while (dr.Read())
                 {
                     Provdeltagare_listan nyDeltagare = new Provdeltagare_listan { };
-                    
+
                     nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
                     nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
                     nyDeltagare.Namn = Convert.ToString(dr["namn"]);
@@ -141,7 +141,7 @@ namespace LCGBanking
                     if (nyDeltagare.Licencierings_datum.Length > 10)
                     {
                         nyDeltagare.Licencierings_datum = nyDeltagare.Licencierings_datum.Substring(0, 10);
-                    }                    
+                    }
                     nyDeltagare.Provtyp = Convert.ToString(dr["provtyp"]);
                     nyDeltagare.Nasta_prov_tidigast = Convert.ToString(dr["nasta_prov_tidigast"]);
                     if (nyDeltagare.Nasta_prov_tidigast.Length > 10)
@@ -156,9 +156,9 @@ namespace LCGBanking
                     nyDeltagare.Dagar_kvar = Convert.ToString(dr["dagar_kvar"]);
 
                     provdeltagareListan.Add(nyDeltagare);
-                } 
+                }
             }
-            
+
             catch (NpgsqlException ex)
             {
                 //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
@@ -176,7 +176,7 @@ namespace LCGBanking
         /// <param name="person_id"></param>
         /// <returns></returns>
         public static Provtillfalle GeSistaTillfalleId(int person_id)
-        {   
+        {
             Provtillfalle nyProvtillfalle = new Provtillfalle();
 
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -194,7 +194,7 @@ namespace LCGBanking
                 sql = sql + "                                   FROM lcg_provtillfalle c";
                 sql = sql + "                                   WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id)) OR lcg_provtillfalle.datum IS NULL ) ";
 
-                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);                
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newFkPersonId", NpgsqlDbType.Integer));
                 command.Parameters["newFkPersonId"].Value = person_id;
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -221,7 +221,7 @@ namespace LCGBanking
             }
             return nyProvtillfalle;
         }
-        
+
         /// <summary>
         /// Hämtar en lista med frågor för en specifikt prov tillfalle
         /// </summary>
@@ -276,7 +276,7 @@ namespace LCGBanking
         /// <returns></returns>
         public static List<Svar> GeSvarLista(int frageid)
         {
-            List <Svar> svarLista = new List<Svar>();
+            List<Svar> svarLista = new List<Svar>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
             NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
             try
@@ -285,7 +285,7 @@ namespace LCGBanking
                 string sql = "";
                 sql = sql + "SELECT id, svar, alt, facit, icheckad, fk_fraga_id";
                 sql = sql + " FROM lcg_svar WHERE fk_fraga_id = :newFkFragaId";
-                
+
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newFkFragaId", NpgsqlDbType.Integer));
                 command.Parameters["newFkFragaId"].Value = frageid;
@@ -293,7 +293,7 @@ namespace LCGBanking
 
                 while (dr.Read())
                 {
-                    Svar nySvar = new Svar{};
+                    Svar nySvar = new Svar { };
                     nySvar.id_db = (int)(dr["id"]);
                     nySvar.svar = (string)(dr["svar"]);
                     nySvar.alt = (string)(dr["alt"]);
@@ -301,7 +301,7 @@ namespace LCGBanking
                     nySvar.icheckad = (bool)(dr["icheckad"]);
                     nySvar.fk_fraga_id = (int)(dr["fk_fraga_id"]);
                     svarLista.Add(nySvar);
-                } 
+                }
             }
             catch (NpgsqlException ex)
             {
@@ -355,14 +355,14 @@ namespace LCGBanking
             DataTable dt = new DataTable();
 
             //kolumner
-            dt.Columns.Add("fraga", typeof( String ));
+            dt.Columns.Add("fraga", typeof(String));
 
             foreach (Svar sv in maxSvarFraga.svarLista)
             {
-               dt.Columns.Add("svar" + maxSvarFraga.svarLista.IndexOf(sv), typeof( String ));
+                dt.Columns.Add("svar" + maxSvarFraga.svarLista.IndexOf(sv), typeof(String));
             }
 
-            dt.Columns.Add("poang", typeof( int ));
+            dt.Columns.Add("poang", typeof(int));
 
             //rader
             int summaPoang = 0;
@@ -370,53 +370,53 @@ namespace LCGBanking
             {
                 if (fr.kategori == kategori)
                 {
-                DataRow dr = dt.NewRow();
+                    DataRow dr = dt.NewRow();
 
-                dr["fraga"] = fr.fraga;
+                    dr["fraga"] = fr.fraga;
 
-                foreach (Svar sv in fr.svarLista)
-                {
-                    if (CheckBoxSvarText.Checked)
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        dr["svar" + fr.svarLista.IndexOf(sv)] = sv.svar;
+                        if (CheckBoxSvarText.Checked)
+                        {
+                            dr["svar" + fr.svarLista.IndexOf(sv)] = sv.svar;
+                        }
+                        else
+                        {
+                            dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
+                        }
                     }
-                    else
+
+                    //poänguträkning
+                    int poang = 0;
+                    int antalKorrektaSvar = 0;
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
+                        if (sv.facit == "true")
+                        {
+                            antalKorrektaSvar++;
+                        }
                     }
-                }
 
-                //poänguträkning
-                int poang = 0;
-                int antalKorrektaSvar = 0;
-                foreach (Svar sv in fr.svarLista)
-                {
-                    if (sv.facit == "true")
+                    int givnaKorrektaSvar = 0;
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        antalKorrektaSvar++;
+                        string icheckad = sv.icheckad.ToString().ToLower();
+                        if (icheckad == sv.facit && sv.facit == "true")
+                        {
+                            givnaKorrektaSvar++;
+                        }
                     }
-                }
 
-                int givnaKorrektaSvar = 0;
-                foreach (Svar sv in fr.svarLista)
-                {
-                    string icheckad = sv.icheckad.ToString().ToLower();
-                    if (icheckad == sv.facit && sv.facit == "true")
+                    if (antalKorrektaSvar == givnaKorrektaSvar)
                     {
-                        givnaKorrektaSvar++;
+                        poang++;
+                        summaPoang++;
                     }
-                }
 
-                if (antalKorrektaSvar == givnaKorrektaSvar)
-                {
-                    poang++;
-                    summaPoang++;
-                }
-                
-                dr["poang"] = poang;
+                    dr["poang"] = poang;
 
-                dt.Rows.Add(dr);
-            }
+                    dt.Rows.Add(dr);
+                }
             }
 
             gridview.DataSource = dt;
@@ -433,35 +433,37 @@ namespace LCGBanking
             try
             {
                 GridView gridview = (GridView)sender;
-            GridViewRow gvr = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
+                GridViewRow gvr = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
 
-            TableHeaderCell cell = new TableHeaderCell();
-            cell.Text = "Frågor";
-            cell.ColumnSpan = 1;
-            gvr.Controls.Add(cell);
+                TableHeaderCell cell = new TableHeaderCell();
+                cell.Text = "Frågor";
+                cell.ColumnSpan = 1;
+                gvr.Controls.Add(cell);
 
-            cell = new TableHeaderCell();
-            cell.Text = "Svar";
-            cell.ColumnSpan = svarAntal;
-            gvr.Controls.Add(cell);
+                cell = new TableHeaderCell();
+                cell.Text = "Svar";
+                cell.ColumnSpan = svarAntal;
+                gvr.Controls.Add(cell);
 
-            cell = new TableHeaderCell();
-            cell.Text = "Poäng";
-            cell.ColumnSpan = 1;
-            gvr.Controls.Add(cell);
+                cell = new TableHeaderCell();
+                cell.Text = "Poäng";
+                cell.ColumnSpan = 1;
+                gvr.Controls.Add(cell);
 
                 gridview.HeaderRow.Controls.Clear();
                 gridview.HeaderRow.Parent.Controls.AddAt(0, gvr);
 
-            //färgläggning
+                //färgläggning
                 foreach (GridViewRow gr in gridview.Rows)
-            {
-                    foreach (Fraga fr in GlobalValues.GVIndResLista)
                 {
-                    string cellFraga = Server.HtmlDecode(gr.Cells[0].Text);
-                    if (cellFraga == fr.fraga)
+                    gr.Cells[0].CssClass = "GVIndRes_fraga";
+                    gr.Cells[gr.Cells.Count-1].CssClass = "GVIndRes_poang";
+                    foreach (Fraga fr in GlobalValues.GVIndResLista)
                     {
-                        //rad har kopplats till fråga
+                        string cellFraga = Server.HtmlDecode(gr.Cells[0].Text);
+                        if (cellFraga == fr.fraga)
+                        {
+                            //rad har kopplats till fråga
                             foreach (TableCell tc in gr.Cells)
                             {
                                 foreach (Svar sv in fr.svarLista)
