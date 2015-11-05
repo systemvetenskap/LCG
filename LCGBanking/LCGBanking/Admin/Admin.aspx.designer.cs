@@ -49,6 +49,33 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.TextBox TextBoxGVIndRes;
         
         /// <summary>
+        /// LabelIndResNamn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelIndResNamn;
+        
+        /// <summary>
+        /// LabelIndResDatum control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelIndResDatum;
+        
+        /// <summary>
+        /// GridViewIndResOversikt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIndResOversikt;
+        
+        /// <summary>
         /// CheckBoxSvarText control.
         /// </summary>
         /// <remarks>
@@ -76,24 +103,6 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat1;
         
         /// <summary>
-        /// LabelIndResKategori2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelIndResKategori2;
-        
-        /// <summary>
-        /// GridViewIndividResultat2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat2;
-        
-        /// <summary>
         /// LabelIndResKategori3 control.
         /// </summary>
         /// <remarks>
@@ -110,5 +119,23 @@ namespace LCGBanking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat3;
+        
+        /// <summary>
+        /// LabelIndResKategori2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelIndResKategori2;
+        
+        /// <summary>
+        /// GridViewIndividResultat2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat2;
     }
 }

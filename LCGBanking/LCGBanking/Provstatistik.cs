@@ -13,12 +13,12 @@ namespace LCGBanking
         public DateTime Datum { get; set; }
         public string Typ_av_test { get; set; }
         public string Kategori { get; set; }
-        public int Db_fråga_id { get; set; }
-        public int Fråga_id { get; set; }
-        public string Fråga { get; set; }
-        public int Antal_frågor { get; set; }
-        public int Antal_poäng { get; set; }
-        public double Antal_rätt { get; set; }
+        public int Db_fraga_id { get; set; }
+        public int Fraga_id { get; set; }
+        public string Fraga { get; set; }
+        public int Antal_fragor { get; set; }
+        public int Antal_poang { get; set; }
+        public double Antal_ratt { get; set; }
 
     }
 }

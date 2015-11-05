@@ -259,11 +259,11 @@ namespace LCGBanking
                     nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
                     nyProv.Kategori = (string)(dr["kategori"]);
                     // nyProv.Db_fråga_id = (int)(dr["db_fraga_id"]);
-                    nyProv.Fråga_id = (int)(dr["fraga_id"]);
-                    nyProv.Fråga = (string)(dr["fraga"]);
-                    nyProv.Antal_frågor = Convert.ToInt32(dr["antal_fragor"]);
-                    nyProv.Antal_poäng = Convert.ToInt32(dr["antal_poang"]);
-                    nyProv.Antal_rätt = Convert.ToDouble(dr["antal_ratt"]);
+                    nyProv.Fraga_id = (int)(dr["fraga_id"]);
+                    nyProv.Fraga = (string)(dr["fraga"]);
+                    nyProv.Antal_fragor = Convert.ToInt32(dr["antal_fragor"]);
+                    nyProv.Antal_poang = Convert.ToInt32(dr["antal_poang"]);
+                    nyProv.Antal_ratt = Convert.ToDouble(dr["antal_ratt"]);
                     listaPerFraga.Add(nyProv);
                 }
             }
@@ -314,9 +314,9 @@ namespace LCGBanking
                     nyProv.Datum = (DateTime)(dr["datum"]);
                     nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
                     nyProv.Kategori = (string)(dr["kategori"]);
-                    nyProv.Antal_frågor = Convert.ToInt32(dr["antal_fragor"]);
-                    nyProv.Antal_poäng = Convert.ToInt32(dr["antal_poang"]);
-                    nyProv.Antal_rätt = Convert.ToDouble(dr["antal_ratt"]);
+                    nyProv.Antal_fragor = Convert.ToInt32(dr["antal_fragor"]);
+                    nyProv.Antal_poang = Convert.ToInt32(dr["antal_poang"]);
+                    nyProv.Antal_ratt = Convert.ToDouble(dr["antal_ratt"]);
                     listaPerKategori.Add(nyProv);
                 }
             }
@@ -366,9 +366,9 @@ namespace LCGBanking
                     nyProv.Provtillfalle_id = (int)(dr["provtillfalle_id"]);
                     nyProv.Datum = (DateTime)(dr["datum"]);
                     nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
-                    nyProv.Antal_frågor = Convert.ToInt32(dr["antal_fragor"]);
-                    nyProv.Antal_poäng = Convert.ToInt32(dr["antal_poang"]);
-                    nyProv.Antal_rätt = Convert.ToDouble(dr["antal_ratt"]);
+                    nyProv.Antal_fragor = Convert.ToInt32(dr["antal_fragor"]);
+                    nyProv.Antal_poang = Convert.ToInt32(dr["antal_poang"]);
+                    nyProv.Antal_ratt = Convert.ToDouble(dr["antal_ratt"]);
                     listaPerProv.Add(nyProv);
                 }
             }
@@ -475,6 +475,73 @@ namespace LCGBanking
             return svarLista;
         }
 
+        protected void fyllGridViewIndResOversikt(int personId)
+        {
+            List<Provstatistik> provStatistik = GeStatistikPerProv(personId);
+            List<Provstatistik> kategorier = GeStatistikPerKategori(personId);
+            Provstatistik prov = new Provstatistik();
+            Provtillfalle senasteProv = GeSistaTillfalleId(personId);
+
+            foreach (Provstatistik pr in provStatistik)
+            {
+                if (pr.Provtillfalle_id == senasteProv.Id)
+                {
+                    prov = pr;
+                }
+            }
+
+            foreach (Provstatistik pr in kategorier)
+            {
+                if (pr.Provtillfalle_id != senasteProv.Id)
+                {
+                    kategorier.Remove(pr);
+                }
+            }
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Kategori", typeof(String));
+            dt.Columns.Add("Antal frågor", typeof(int));
+            dt.Columns.Add("Poäng", typeof(int));
+            dt.Columns.Add("Procent rätt", typeof(String));
+            dt.Columns.Add("Godkänd", typeof(String));
+
+            foreach (Provstatistik pr in kategorier)
+            {
+                DataRow dr = dt.NewRow();
+                dr["Kategori"] = pr.Kategori;
+                dr["Antal frågor"] = pr.Antal_fragor;
+                dr["Poäng"] = pr.Antal_poang;
+                dr["Procent rätt"] = Convert.ToInt32(pr.Antal_ratt) + "%";
+                if (Convert.ToInt32(pr.Antal_ratt) >= 60)
+                {
+                    dr["Godkänd"] = "Ja";
+                }
+                else
+                {
+                    dr["Godkänd"] = "Nej";
+                }
+                dt.Rows.Add(dr);
+            }
+
+            DataRow drTotal = dt.NewRow();
+            drTotal["Kategori"] = "Totalt";
+            drTotal["Antal frågor"] = prov.Antal_fragor;
+            drTotal["Poäng"] = prov.Antal_poang;
+            drTotal["Procent rätt"] = Convert.ToInt32(prov.Antal_ratt) + "%";
+            if (Convert.ToInt32(prov.Antal_ratt) >= 70)
+            {
+                drTotal["Godkänd"] = "Ja";
+            }
+            else
+            {
+                drTotal["Godkänd"] = "Nej";
+            }
+            dt.Rows.Add(drTotal);
+
+            GridViewIndResOversikt.DataSource = dt;
+            GridViewIndResOversikt.DataBind();
+        }
+
         /// <summary>
         /// laddar GridViewIndividResultat med information
         /// </summary>
@@ -531,53 +598,53 @@ namespace LCGBanking
             {
                 if (fr.kategori == kategori)
                 {
-                DataRow dr = dt.NewRow();
+                    DataRow dr = dt.NewRow();
 
-                dr["fraga"] = fr.fraga;
+                    dr["fraga"] = fr.fraga;
 
-                foreach (Svar sv in fr.svarLista)
-                {
-                    if (CheckBoxSvarText.Checked)
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        dr["svar" + fr.svarLista.IndexOf(sv)] = sv.svar;
+                        if (CheckBoxSvarText.Checked)
+                        {
+                            dr["svar" + fr.svarLista.IndexOf(sv)] = sv.svar;
+                        }
+                        else
+                        {
+                            dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
+                        }
                     }
-                    else
+
+                    //poänguträkning
+                    int poang = 0;
+                    int antalKorrektaSvar = 0;
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        dr["svar" + fr.svarLista.IndexOf(sv)] = sv.alt;
+                        if (sv.facit == "true")
+                        {
+                            antalKorrektaSvar++;
+                        }
                     }
-                }
 
-                //poänguträkning
-                int poang = 0;
-                int antalKorrektaSvar = 0;
-                foreach (Svar sv in fr.svarLista)
-                {
-                    if (sv.facit == "true")
+                    int givnaKorrektaSvar = 0;
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        antalKorrektaSvar++;
+                        string icheckad = sv.icheckad.ToString().ToLower();
+                        if (icheckad == sv.facit && sv.facit == "true")
+                        {
+                            givnaKorrektaSvar++;
+                        }
                     }
-                }
 
-                int givnaKorrektaSvar = 0;
-                foreach (Svar sv in fr.svarLista)
-                {
-                    string icheckad = sv.icheckad.ToString().ToLower();
-                    if (icheckad == sv.facit && sv.facit == "true")
+                    if (antalKorrektaSvar == givnaKorrektaSvar)
                     {
-                        givnaKorrektaSvar++;
+                        poang++;
+                        summaPoang++;
                     }
-                }
 
-                if (antalKorrektaSvar == givnaKorrektaSvar)
-                {
-                    poang++;
-                    summaPoang++;
-                }
-                
-                dr["poang"] = poang;
+                    dr["poang"] = poang;
 
-                dt.Rows.Add(dr);
-            }
+                    dt.Rows.Add(dr);
+                }
             }
 
             gridview.DataSource = dt;
@@ -594,37 +661,37 @@ namespace LCGBanking
             try
             {
                 GridView gridview = (GridView)sender;
-            GridViewRow gvr = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
+                GridViewRow gvr = new GridViewRow(0, 0, DataControlRowType.Header, DataControlRowState.Normal);
 
-            TableHeaderCell cell = new TableHeaderCell();
-            cell.Text = "Frågor";
-            cell.ColumnSpan = 1;
-            gvr.Controls.Add(cell);
+                TableHeaderCell cell = new TableHeaderCell();
+                cell.Text = "Frågor";
+                cell.ColumnSpan = 1;
+                gvr.Controls.Add(cell);
 
-            cell = new TableHeaderCell();
-            cell.Text = "Svar";
-            cell.ColumnSpan = svarAntal;
-            gvr.Controls.Add(cell);
+                cell = new TableHeaderCell();
+                cell.Text = "Svar";
+                cell.ColumnSpan = svarAntal;
+                gvr.Controls.Add(cell);
 
-            cell = new TableHeaderCell();
-            cell.Text = "Poäng";
-            cell.ColumnSpan = 1;
-            gvr.Controls.Add(cell);
+                cell = new TableHeaderCell();
+                cell.Text = "Poäng";
+                cell.ColumnSpan = 1;
+                gvr.Controls.Add(cell);
 
                 gridview.HeaderRow.Controls.Clear();
                 gridview.HeaderRow.Parent.Controls.AddAt(0, gvr);
 
-            //färgläggning
+                //färgläggning
                 foreach (GridViewRow gr in gridview.Rows)
-            {
-                    gr.Cells[0].CssClass = "GVIndRes_fraga";
-                    gr.Cells[gr.Cells.Count-1].CssClass = "GVIndRes_poang";
-                    foreach (Fraga fr in GlobalValues.GVIndResLista)
                 {
-                    string cellFraga = Server.HtmlDecode(gr.Cells[0].Text);
-                    if (cellFraga == fr.fraga)
+                    gr.Cells[0].CssClass = "GVIndRes_fraga";
+                    gr.Cells[gr.Cells.Count - 1].CssClass = "GVIndRes_poang";
+                    foreach (Fraga fr in GlobalValues.GVIndResLista)
                     {
-                        //rad har kopplats till fråga
+                        string cellFraga = Server.HtmlDecode(gr.Cells[0].Text);
+                        if (cellFraga == fr.fraga)
+                        {
+                            //rad har kopplats till fråga
                             foreach (TableCell tc in gr.Cells)
                             {
                                 foreach (Svar sv in fr.svarLista)
@@ -705,6 +772,48 @@ namespace LCGBanking
             fyllGridViewIndividResultat(GridViewIndividResultat1, "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi");
             fyllGridViewIndividResultat(GridViewIndividResultat2, "Produkter och hantering av kundens affärer ");
             fyllGridViewIndividResultat(GridViewIndividResultat3, "Etik och regelverk");
+
+            fyllGridViewIndResOversikt(personId);
+
+            List<Provdeltagare_listan> plLista = GeProvdeltagareListan();
+            Provdeltagare_listan deltagare = new Provdeltagare_listan();
+            foreach (Provdeltagare_listan pl in plLista)
+            {
+                if (pl.Person_id == personId.ToString())
+                {
+                    deltagare = pl;
+                }
+            }
+            LabelIndResNamn.Text = deltagare.Namn;
+            LabelIndResDatum.Text = deltagare.Senaste_prov;
+        }
+
+        protected void GridViewIndResOversikt_DataBound(object sender, EventArgs e)
+        {
+            try
+            {
+                GridView gridview = (GridView)sender;
+                foreach (GridViewRow row in gridview.Rows)
+                {
+                    if (row.Cells[4].Text == "Ja")
+                    {
+                        row.Cells[4].CssClass = "GVIndRes_rattsvar";
+                    }
+                    else
+                    {
+                        row.Cells[4].CssClass = "GVIndRes_felsvar";
+                    }
+                }
+
+                foreach (TableCell tc in gridview.Rows[3].Cells)
+                {
+                    tc.Font.Bold = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
     }
 }
