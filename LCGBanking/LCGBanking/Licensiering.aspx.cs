@@ -26,7 +26,7 @@ namespace LCGBanking
             if (!Page.IsPostBack)
             {
 
-                Welcome.Text = "Välkommen tillbaka till Kunskapsportalen " + Context.User.Identity.Name;
+                Welcome.Text = "Välkommen tillbaka till Kunskapsportalen " + Context.User.Identity.IsAuthenticated;
 
                 if (anvandare == 1)
                 {
