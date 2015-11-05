@@ -9,20 +9,36 @@ using System.Text;
 using Npgsql;
 using NpgsqlTypes;
 using System.Configuration;
+using System.Web.Security;
 
 namespace LCGBanking
 {
     public partial class Licensiering : System.Web.UI.Page
     {
         private const string conString = "cirkus";
+        public int anvandare;
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
             ButtonPrevious.Enabled = false;
+            anvandare = Convert.ToInt32(Session["lcg_roll"]);
             if (!Page.IsPostBack)
             {
-                Welcome.Text = "Välkommen till Kunskapsportalen " + Context.User.Identity.Name;
+                
+                Welcome.Text = "Välkommen tillbaka till Kunskapsportalen " + Context.User.Identity.Name;
+
+                if (anvandare == 1)
+                {
+                    ((Label)Master.FindControl("headertext")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                }
+                else if (anvandare == 2)
+                {
+                    ((Label)Master.FindControl("headertext")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
+                }
                 int personid = GePersonId(GlobalValues.anvandarid);
                 bool har_licens = Licencierad(personid);
 
@@ -50,9 +66,12 @@ namespace LCGBanking
             {
                 //fråga & svar återskapas temporärt så att valda svar kan registreras
                 loadQuestion();
+                Welcome.Text = "Välkommen förstagångsinloggare till Kunskapsportalen " + Context.User.Identity.Name;
 
             }
         }
+
+        
         
 
         /// <summary>

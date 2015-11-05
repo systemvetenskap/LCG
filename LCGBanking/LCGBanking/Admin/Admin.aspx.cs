@@ -23,7 +23,10 @@ namespace LCGBanking
 
             if (!Page.IsPostBack)
             {
-                Welcome.Text = "Välkommen till Kunskapsportalens administrationssida " + Context.User.Identity.Name + anvandare;
+                ((Label)Master.FindControl("headertext")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
+                Welcome.Text = "Välkommen tillbaka till Kunskapsportalens administrationssida " + Context.User.Identity.Name;
             }
             List<Provdeltagare_listan> provdeltagareListan = new List<Provdeltagare_listan>();
             GridViewDeltagarLista.CssClass = "admin-tabell";

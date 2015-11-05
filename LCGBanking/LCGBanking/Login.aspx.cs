@@ -12,20 +12,33 @@ namespace LCGBanking
 {
     public partial class Login : System.Web.UI.Page
     {
+         
         private const string conString = "cirkus";
         public int anvandare;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             anvandare = Convert.ToInt32(Session["lcg_roll"]);
+
+            if (anvandare == 1)
+            {
+                ((Label)Master.FindControl("headertext")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+            }
+            else if (anvandare == 2)
+            {
+                ((Label)Master.FindControl("headertext")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
+            }
+
         }
 
-        void Signout_Click(object sender, EventArgs e)
-         {
-            FormsAuthentication.SignOut();
-            Response.Redirect("Login.aspx");
-        }
 
+
+        
+       
         private bool AuthenticateUser(string anvNamn, string anvLosen)
         {
             Session["id"] = -1;
@@ -79,14 +92,20 @@ namespace LCGBanking
 
                 if (anvandare == 1)
                 {
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
+                    
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
+
                     Response.Redirect("Licensiering.aspx");
+
                    
                 }
                 else if (anvandare == 2)
                 {
-                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, true);
+                  
+                    FormsAuthentication.RedirectFromLoginPage(TextBoxAnvId.Text, false);
+
                     Response.Redirect("/Admin/Admin.aspx");
+
                 }
             }
                 else

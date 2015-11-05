@@ -300,6 +300,14 @@ nav #selected a {
     font-size: 16px;
 }
 
+.postbackalabel {
+    float:right;
+    display:block;
+    margin-right: 75px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 10px;
+}
+
 #svar {
     float: right;
     margin-right: 150px;
