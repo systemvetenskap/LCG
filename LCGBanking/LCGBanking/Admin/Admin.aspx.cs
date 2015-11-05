@@ -41,7 +41,7 @@ namespace LCGBanking
             if (!IsPostBack)
             {
                 populeraListBoxGVIndRes();
-        }
+            }
 
         }
 
