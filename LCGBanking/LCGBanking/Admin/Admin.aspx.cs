@@ -104,8 +104,8 @@ namespace LCGBanking
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date" ;
-                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast," ;
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date";
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast,";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '455 day') ::timestamp::date ";
                 sql = sql + "            ELSE (lcg_provtillfalle.datum + interval '90 day') ::timestamp::date END AS nasta_prov_senast, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '455 day') ::timestamp::date - CURRENT_DATE ::timestamp::date ";
@@ -221,7 +221,7 @@ namespace LCGBanking
             }
             return nyProvtillfalle;
         }
-
+        
         /// <summary>
         /// Metoden returnerar statiskt data per prov fråga.  
         /// </summary>
@@ -437,7 +437,7 @@ namespace LCGBanking
         /// <returns></returns>
         public static List<Svar> GeSvarLista(int frageid)
         {
-            List <Svar> svarLista = new List<Svar>();
+            List<Svar> svarLista = new List<Svar>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
             NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
             try
@@ -454,7 +454,7 @@ namespace LCGBanking
 
                 while (dr.Read())
                 {
-                    Svar nySvar = new Svar{};
+                    Svar nySvar = new Svar { };
                     nySvar.id_db = (int)(dr["id"]);
                     nySvar.svar = (string)(dr["svar"]);
                     nySvar.alt = (string)(dr["alt"]);
@@ -516,14 +516,14 @@ namespace LCGBanking
             DataTable dt = new DataTable();
 
             //kolumner
-            dt.Columns.Add("fraga", typeof( String ));
+            dt.Columns.Add("fraga", typeof(String));
 
             foreach (Svar sv in maxSvarFraga.svarLista)
             {
-               dt.Columns.Add("svar" + maxSvarFraga.svarLista.IndexOf(sv), typeof( String ));
+                dt.Columns.Add("svar" + maxSvarFraga.svarLista.IndexOf(sv), typeof(String));
             }
 
-            dt.Columns.Add("poang", typeof( int ));
+            dt.Columns.Add("poang", typeof(int));
 
             //rader
             int summaPoang = 0;
@@ -617,6 +617,8 @@ namespace LCGBanking
             //färgläggning
                 foreach (GridViewRow gr in gridview.Rows)
             {
+                    gr.Cells[0].CssClass = "GVIndRes_fraga";
+                    gr.Cells[gr.Cells.Count-1].CssClass = "GVIndRes_poang";
                     foreach (Fraga fr in GlobalValues.GVIndResLista)
                 {
                     string cellFraga = Server.HtmlDecode(gr.Cells[0].Text);
