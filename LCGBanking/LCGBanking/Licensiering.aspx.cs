@@ -638,6 +638,7 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
+                Msg.Text = "Det har uppståt ett fel i proceduren nyProvtillfalle : " + ex.Message.ToString(); 
                 tran.Rollback();
             }
             finally
