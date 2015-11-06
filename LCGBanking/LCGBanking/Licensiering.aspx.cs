@@ -685,7 +685,7 @@ namespace LCGBanking
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    anvandarid = Convert.ToInt32(dr["id"]);
+                    anvandarid = (int)(dr["id"]);
                 }
             }
             catch (NpgsqlException ex)
@@ -779,7 +779,6 @@ namespace LCGBanking
         public static bool BehorigForProv(int personid, out DateTime nasta_prov_tidigast)
         {
             bool behorig = true;
-            DateTime nesta_prov;
             nasta_prov_tidigast = DateTime.Today;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
             NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
@@ -819,7 +818,7 @@ namespace LCGBanking
                     // personid = (int)(dr["id"]);
                     // namn = (string)(dr["namn"]);
                     // provtyp = (string)(dr["provtyp"]);
-                    nasta_prov_tidigast = (DateTime)(dr["nasta_prov_tidigast"]);
+                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ?  Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
                 }
 
                 if (nasta_prov_tidigast > idag)
@@ -860,7 +859,7 @@ namespace LCGBanking
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
-                    sistaprovdatum = (DateTime)dr["datum"];
+                    sistaprovdatum = dr["datum"] != DBNull.Value ? Convert.ToDateTime(dr["datum"]) : DateTime.MinValue;
                 }
             }
             catch (NpgsqlException ex)
@@ -1355,14 +1354,14 @@ namespace LCGBanking
                 {
                     Provstatistik nyProv = new Provstatistik();
                     nyProv.Person_id = (int)(dr["person_id"]);
-                    nyProv.Namn = (string)(dr["namn"]);
-                    nyProv.Provtillfalle_id = (int)(dr["provtillfalle_id"]);
-                    nyProv.Datum = (DateTime)(dr["datum"]);
-                    nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
-                    nyProv.Kategori = (string)(dr["kategori"]);
-                    nyProv.Antal_fragor = Convert.ToInt32(dr["antal_fragor"]);
-                    nyProv.Antal_poang = Convert.ToInt32(dr["antal_poang"]);
-                    nyProv.Antal_ratt = Convert.ToDouble(dr["antal_ratt"]);
+                    nyProv.Namn = dr["namn"] != DBNull.Value ? (string)(dr["namn"]) : "";
+                    nyProv.Provtillfalle_id = dr["provtillfalle_id"] != DBNull.Value ? (int)(dr["provtillfalle_id"]) : 0;
+                    nyProv.Datum = dr["datum"] != DBNull.Value ? (DateTime)(dr["datum"]) : DateTime.MinValue;
+                    nyProv.Typ_av_test = dr["typ_av_test"] != DBNull.Value ? (string)(dr["typ_av_test"]) : "";
+                    nyProv.Kategori = dr["kategori"] != DBNull.Value ? (string)(dr["kategori"]) : "";
+                    nyProv.Antal_fragor = dr["antal_fragor"] != DBNull.Value ? Convert.ToInt32(dr["antal_fragor"]) : 0;
+                    nyProv.Antal_poang = dr["antal_poang"] != DBNull.Value ? Convert.ToInt32(dr["antal_poang"]) : 0;
+                    nyProv.Antal_ratt = dr["antal_ratt"] != DBNull.Value ? Convert.ToDouble(dr["antal_ratt"]) : 0.00;
                     listaPerKategori.Add(nyProv);
                 }
             }
@@ -1408,13 +1407,13 @@ namespace LCGBanking
                 {
                     Provstatistik nyProv = new Provstatistik();
                     nyProv.Person_id = (int)(dr["person_id"]);
-                    nyProv.Namn = (string)(dr["namn"]);
-                    nyProv.Provtillfalle_id = (int)(dr["provtillfalle_id"]);
-                    nyProv.Datum = (DateTime)(dr["datum"]);
-                    nyProv.Typ_av_test = (string)(dr["typ_av_test"]);
-                    nyProv.Antal_fragor = Convert.ToInt32(dr["antal_fragor"]);
-                    nyProv.Antal_poang = Convert.ToInt32(dr["antal_poang"]);
-                    nyProv.Antal_ratt = Convert.ToDouble(dr["antal_ratt"]);
+                    nyProv.Namn = dr["namn"] != DBNull.Value ? (string)(dr["namn"]) : "";
+                    nyProv.Provtillfalle_id = dr["provtillfalle_id"] != DBNull.Value ? (int)(dr["provtillfalle_id"]) : 0;
+                    nyProv.Datum = dr["datum"] != DBNull.Value ? (DateTime)(dr["datum"]) : DateTime.MinValue;
+                    nyProv.Typ_av_test = dr["typ_av_test"] != DBNull.Value ? (string)(dr["typ_av_test"]) : "";
+                    nyProv.Antal_fragor = dr["antal_fragor"] != DBNull.Value ? Convert.ToInt32(dr["antal_fragor"]) : 0;
+                    nyProv.Antal_poang = dr["antal_poang"] != DBNull.Value ? Convert.ToInt32(dr["antal_poang"]) : 0;
+                    nyProv.Antal_ratt = dr["antal_ratt"] != DBNull.Value ? Convert.ToDouble(dr["antal_ratt"]) : 0.00;
                     listaPerProv.Add(nyProv);
                 }
             }
