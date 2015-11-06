@@ -28,8 +28,30 @@ namespace LCGBanking
             if (!Page.IsPostBack)
             {
                 IndividuellaResultat.Visible = false;
-                inloggadUser();
-                checkUserRole();
+
+                // First find if user is logged in
+                if (Context.User.Identity.IsAuthenticated)
+                {
+                    // Finds user name and says Hi
+                    Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Inloggad som: " + Context.User.Identity.Name;
+                }
+                else
+                {
+                    // It is anonymous user, say hi to guest
+                    Welcome.Text = "Lycka till på ditt första licenseringstest " + Context.User.Identity.Name;
+                }
+
+                if (anvandare == 1)
+                {
+                    ((Label)Master.FindControl("headertext")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                }
+                else if (anvandare == 2)
+                {
+                    ((Label)Master.FindControl("headertext")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
+                }
 
                 int personid = GePersonId(GlobalValues.anvandarid);
                 bool har_licens = Licencierad(personid);
@@ -58,42 +80,6 @@ namespace LCGBanking
             {
                 //fråga & svar återskapas temporärt så att valda svar kan registreras
                 loadQuestion();
-            }
-        }
-
-        /// <summary>
-        /// Kollar på inloggad användare och ger rätt välkomsttext
-        /// </summary>
-        private void inloggadUser()
-        {
-            // First find if user is logged in
-            if (Context.User.Identity.IsAuthenticated)
-            {
-                // Finds user name and says Hi
-                Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Inloggad som: " + Context.User.Identity.Name;
-            }
-            else
-            {
-                // It is anonymous user, say hi to guest
-                Welcome.Text = "Lycka till på ditt första licenseringstest " + Context.User.Identity.Name;
-            }
-        }
-
-        /// <summary>
-        /// kollar menyn om rätt användare är inloggad
-        /// </summary>
-        private void checkUserRole()
-        {
-            if (anvandare == 1)
-            {
-                ((Label)Master.FindControl("headertext")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
-            }
-            else if (anvandare == 2)
-            {
-                ((Label)Master.FindControl("headertext")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
             }
         }
 
