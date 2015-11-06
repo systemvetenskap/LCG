@@ -73,7 +73,7 @@ namespace LCGBanking
                         ButtonStart.Visible = false;
                         LabelQuestion.Visible = true;
                         LabelInfo.Visible = true;
-                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelQuestion.Text = "Du kan inte genomföra några test just nu. Välkommen åter!";
                         LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
                     }
                 }
@@ -94,7 +94,7 @@ namespace LCGBanking
                         ButtonStart.Visible = false;
                         LabelQuestion.Visible = true;
                         LabelInfo.Visible = true;
-                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelQuestion.Text = "Du kan inte genomföra några prov just nu. Välkommen åter!";
                         LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
                     }
                 }
@@ -308,7 +308,6 @@ namespace LCGBanking
             ButtonNext.Visible = true;
             ButtonSparaProv.Visible = true;
             ButtonStart.Visible = false;
-            Msg.Visible = false;
         }
 
         /// <summary>
@@ -543,7 +542,6 @@ namespace LCGBanking
             provtillfalle.Typ_av_test = GlobalValues.testtyp; 
             provtillfalle.Anvandar_id = GlobalValues.anvandarid; 
             nyProvtillfalle(provtillfalle);
-            Msg.Text = "  Ditt prov är sparat.";
         }
 
         /// <summary>
@@ -646,22 +644,26 @@ namespace LCGBanking
             }
         }
 
-        protected void ButtonSparaProv_Click(object sender, EventArgs e)
+       /* protected void ButtonSparaProv_Click(object sender, EventArgs e)
         {
+            SparaProvtillfalle();
+            laddaResultat();
+            main.Visible = false;
+            IndividuellaResultat.Visible = true;
+            
+            /*
             string confirmValue = Request.Form["confirm_value"];
             if (confirmValue == "Ja")
             {
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
-                SparaProvtillfalle();
-                laddaResultat();
-                main.Visible = false;
-                IndividuellaResultat.Visible = true;
+
+ 
             }
             else
             {
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
             }
-        }
+        }*/
 
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
@@ -1426,6 +1428,14 @@ namespace LCGBanking
                 conn.Close();
             }
             return listaPerProv;
+        }
+
+        protected void ButtonSparaProv_Click(object sender, EventArgs e)
+        {
+            SparaProvtillfalle();
+            laddaResultat();
+            main.Visible = false;
+            IndividuellaResultat.Visible = true;
         }
     }
 }

@@ -26,7 +26,7 @@
         <div id="knappar">
             <asp:Button ID="ButtonPrevious" runat="server" Text="&larr;  Föregående fråga" OnClick="ButtonPrevious_Click" CssClass="roundCorner" Height="35px" Width="175px" Visible="False" />
             <asp:Button ID="ButtonNext" runat="server" Text="Nästa fråga  &rarr;" OnClick="ButtonNext_Click" CssClass="roundCorner" Height="35px" TabIndex="1" Width="175px" Visible="False" />
-            <script type = "text/javascript">
+            <!--<script type = "text/javascript">
                 function SkickaIn() {
                     var confirm_value = document.createElement("INPUT");
                     confirm_value.type = "hidden";
@@ -37,10 +37,9 @@
                         confirm_value.value = "Nej";
                     }
                     document.forms[0].appendChild(confirm_value);
-                }
-            </script>
-            <asp:Button ID="ButtonSparaProv" runat="server" OnClick="ButtonSparaProv_Click" OnClientClick = "SkickaIn()" Text="Skicka in svar / Spara prov" CssClass="roundCorner" Height="35px" TabIndex="2" Width="200px" Visible="False" />
-            <asp:Label ID="Msg" runat="server" CssClass="Msg"></asp:Label>
+                }OnClientClick = "SkickaIn()"
+            </script>-->
+            <asp:Button ID="ButtonSparaProv" runat="server" Text="Skicka in svar / Spara prov" CssClass="roundCorner" Height="35px" TabIndex="2" Width="200px" Visible="False" OnClick="ButtonSparaProv_Click" />
         </div>
         </section>
         <section id="IndividuellaResultat" class="admin" runat="server">
