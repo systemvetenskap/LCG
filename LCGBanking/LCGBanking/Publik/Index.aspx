@@ -3,15 +3,16 @@
     <div id="bannerpic">
         <figure class="slider">
                 <figure>
-                    <asp:Image ID="banner1" runat="server" Height="220px" ImageUrl="~/BILDER/jebank00.jpg" />
+                    <asp:Image ID="banner1" runat="server" Height="300px" ImageUrl="~/BILDER/jebanklogg.jpg" />
                     <figcaption>Vårt signum - Värdepapper</figcaption>
                 </figure>
             </figure>
     </div>
     <section id="main">
-            <p id="fraga">Alla personer som är anställda vid JE-banken och som arbetar med värdepapper måste licensieras. 
-                <br />Detta är viktigt för att upprätthålla branschens goda rykte. För att erhålla en licens måste man genomföra ett licensieringstest.
-            </p>
-        </section>
+        <h2>JE Banken - Din licens Vår tyngd</h2>
+        <p id="fraga">Alla personer som är anställda vid JE-banken och som arbetar med värdepapper måste licensieras. 
+            <br />Detta är viktigt för att upprätthålla branschens goda rykte. För att erhålla en licens måste man genomföra ett licensieringstest.
+        </p>
+    </section>
 </asp:Content>
 

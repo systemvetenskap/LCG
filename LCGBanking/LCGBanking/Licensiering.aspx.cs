@@ -24,22 +24,13 @@ namespace LCGBanking
         {
             ButtonPrevious.Enabled = false;
             anvandare = Convert.ToInt32(Session["lcg_roll"]);
+
             if (!Page.IsPostBack)
             {
                 IndividuellaResultat.Visible = false;
-                Welcome.Text = "Välkommen tillbaka till Kunskapsportalen " + Context.User.Identity.Name;
+                inloggadUser();
+                checkUserRole();
 
-                if (anvandare == 1)
-                {
-                    ((Label)Master.FindControl("headertext")).Visible = true;
-                    ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
-                }
-                else if (anvandare == 2)
-                {
-                    ((Label)Master.FindControl("headertext")).Visible = true;
-                    ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
-                    ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
-                }
                 int personid = GePersonId(GlobalValues.anvandarid);
                 bool har_licens = Licencierad(personid);
 
@@ -67,13 +58,44 @@ namespace LCGBanking
             {
                 //fråga & svar återskapas temporärt så att valda svar kan registreras
                 loadQuestion();
-                Welcome.Text = "Välkommen förstagångsinloggare till Kunskapsportalen " + Context.User.Identity.Name;
-
             }
         }
 
-        
-        
+        /// <summary>
+        /// Kollar på inloggad användare och ger rätt välkomsttext
+        /// </summary>
+        private void inloggadUser()
+        {
+            // First find if user is logged in
+            if (Context.User.Identity.IsAuthenticated)
+            {
+                // Finds user name and says Hi
+                Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Inloggad som: " + Context.User.Identity.Name;
+            }
+            else
+            {
+                // It is anonymous user, say hi to guest
+                Welcome.Text = "Lycka till på ditt första licenseringstest " + Context.User.Identity.Name;
+            }
+        }
+
+        /// <summary>
+        /// kollar menyn om rätt användare är inloggad
+        /// </summary>
+        private void checkUserRole()
+        {
+            if (anvandare == 1)
+            {
+                ((Label)Master.FindControl("headertext")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+            }
+            else if (anvandare == 2)
+            {
+                ((Label)Master.FindControl("headertext")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
+            }
+        }
 
         /// <summary>
         /// laddar in alla frågor och deras svar och lägger dem i en global lista
@@ -276,9 +298,8 @@ namespace LCGBanking
             ButtonPrevious.Visible = true;
             ButtonNext.Visible = true;
             ButtonSparaProv.Visible = true;
-            Msg.Visible = true;
             ButtonStart.Visible = false;
-
+            Msg.Visible = false;
         }
 
         /// <summary>
@@ -397,10 +418,7 @@ namespace LCGBanking
             loadQuestion();
             updateQuestNav();
             taframknappar();
-
         }
-
-
 
         protected void Move(int maxNr)
         {
@@ -621,10 +639,19 @@ namespace LCGBanking
 
         protected void ButtonSparaProv_Click(object sender, EventArgs e)
         {
-            SparaProvtillfalle();
-            laddaResultat();
-            main.Visible = false;
-            IndividuellaResultat.Visible = true;
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Ja")
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
+                SparaProvtillfalle();
+                laddaResultat();
+                main.Visible = false;
+                IndividuellaResultat.Visible = true;
+            }
+            else
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+            }
         }
 
         /// <summary>
