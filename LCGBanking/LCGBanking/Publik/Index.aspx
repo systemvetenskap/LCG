@@ -13,6 +13,9 @@
         <p id="fraga">Alla personer som är anställda vid JE-banken och som arbetar med värdepapper måste licensieras. 
             <br />Detta är viktigt för att upprätthålla branschens goda rykte. För att erhålla en licens måste man genomföra ett licensieringstest.
         </p>
+        <br />
+        <br />
+        <h1>Vi investerar i dina krediter!!!</h1>
     </section>
 </asp:Content>
 
