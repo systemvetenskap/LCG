@@ -476,7 +476,7 @@ namespace LCGBanking
                     {
                         LinkButton lb = (LinkButton)item.FindControl("LinkButtonQuestNav");
 
-                        if(lb.Text == GlobalValues.FrageNr.ToString())
+                        if (lb.Text == GlobalValues.FrageNr.ToString())
                         {
                             lb.CssClass = "qNavActive";
                         }                        
@@ -649,7 +649,7 @@ namespace LCGBanking
             laddaResultat();
             main.Visible = false;
             IndividuellaResultat.Visible = true;
-        }
+            }
 
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
@@ -779,8 +779,8 @@ namespace LCGBanking
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date " ;
-                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast " ;
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date ";
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast ";
                 sql = sql + "FROM lcg_person ";
                 sql = sql + "     LEFT JOIN lcg_roll AS lcg_roll ON lcg_roll.id = lcg_person.fk_roll_id ";
                 sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
@@ -806,7 +806,7 @@ namespace LCGBanking
                     // personid = (int)(dr["id"]);
                     // namn = (string)(dr["namn"]);
                     // provtyp = (string)(dr["provtyp"]);
-                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ?  Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
+                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ? Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
                 }
 
                 if (nasta_prov_tidigast > idag)
