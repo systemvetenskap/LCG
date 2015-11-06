@@ -68,12 +68,12 @@ namespace LCGBanking
                         LabelKategori.Text = "Välkommen att göra licenseringstestet";
                         LabelKategori.Visible = true;
                     }
-                  else
+                    else
                     {
                         ButtonStart.Visible = false;
                         LabelQuestion.Visible = true;
                         LabelInfo.Visible = true;
-                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelQuestion.Text = "Du kan inte genomföra några test just nu. Välkommen åter!";
                         LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
                     }
                 }
@@ -94,7 +94,7 @@ namespace LCGBanking
                         ButtonStart.Visible = false;
                         LabelQuestion.Visible = true;
                         LabelInfo.Visible = true;
-                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelQuestion.Text = "Du kan inte genomföra några prov just nu. Välkommen åter!";
                         LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
                     }
                 }
@@ -308,7 +308,6 @@ namespace LCGBanking
             ButtonNext.Visible = true;
             ButtonSparaProv.Visible = true;
             ButtonStart.Visible = false;
-            Msg.Visible = false;
         }
 
         /// <summary>
@@ -478,10 +477,10 @@ namespace LCGBanking
                     {
                         LinkButton lb = (LinkButton)item.FindControl("LinkButtonQuestNav");
 
-                        if(lb.Text == GlobalValues.FrageNr.ToString())
+                        if (lb.Text == GlobalValues.FrageNr.ToString())
                         {
                             lb.CssClass = "qNavActive";
-                        }                        
+                        }
                     }
                     catch
                     {
@@ -526,7 +525,7 @@ namespace LCGBanking
 
         private int GetNodeCount()
         {
-            string node = "/" + GlobalValues.testtyp + "/Question"; 
+            string node = "/" + GlobalValues.testtyp + "/Question";
             string xmlfil = Server.MapPath(GlobalValues.xmlfilename);
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlfil);
@@ -540,10 +539,9 @@ namespace LCGBanking
             registreraVal();
             Provtillfalle provtillfalle = new Provtillfalle();
             provtillfalle.Datum = DateTime.Now;
-            provtillfalle.Typ_av_test = GlobalValues.testtyp; 
-            provtillfalle.Anvandar_id = GlobalValues.anvandarid; 
+            provtillfalle.Typ_av_test = GlobalValues.testtyp;
+            provtillfalle.Anvandar_id = GlobalValues.anvandarid;
             nyProvtillfalle(provtillfalle);
-            Msg.Text = "  Ditt prov är sparat.";
         }
 
         /// <summary>
@@ -579,15 +577,15 @@ namespace LCGBanking
                 command.Parameters["newTypAvTest"].Value = provtillfalle.Typ_av_test;
                 command.Parameters.Add(new NpgsqlParameter("newAnvandarId", NpgsqlDbType.Integer));
                 command.Parameters["newAnvandarId"].Value = provtillfalle.Anvandar_id;
-                
+
                 command.CommandText = plsql;
-                int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());                
-                
+                int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());
+
                 int dbfragaid = 0;
                 int dbsvarid = 0;
 
                 foreach (Fraga nyfraga in GlobalValues.Fragor)
-	            {
+                {
                     dbfragaid = 0;
                     plsql = string.Empty;
                     plsql = plsql + "INSERT INTO lcg_fragor (fraga_id, fraga, information, flerval, kategori, fk_provtillfalle_id)";
@@ -647,22 +645,26 @@ namespace LCGBanking
             }
         }
 
-        protected void ButtonSparaProv_Click(object sender, EventArgs e)
-        {
-            string confirmValue = Request.Form["confirm_value"];
-            if (confirmValue == "Ja")
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
-                SparaProvtillfalle();
-                laddaResultat();
-                main.Visible = false;
-                IndividuellaResultat.Visible = true;
-            }
-            else
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
-            }
-        }
+        /* protected void ButtonSparaProv_Click(object sender, EventArgs e)
+         {
+             SparaProvtillfalle();
+             laddaResultat();
+             main.Visible = false;
+             IndividuellaResultat.Visible = true;
+            
+             /*
+             string confirmValue = Request.Form["confirm_value"];
+             if (confirmValue == "Ja")
+             {
+                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
+
+ 
+             }
+             else
+             {
+                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+             }
+         }*/
 
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
@@ -756,13 +758,13 @@ namespace LCGBanking
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 while (dr.Read())
-                {   
+                {
                     licencierad = dr["licencierad"] != DBNull.Value ? (bool)(dr["licencierad"]) : false;
                 }
             }
             catch (NpgsqlException ex)
             {
-                
+
                 //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
             }
             finally
@@ -792,8 +794,8 @@ namespace LCGBanking
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date " ;
-                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast " ;
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date ";
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast ";
                 sql = sql + "FROM lcg_person ";
                 sql = sql + "     LEFT JOIN lcg_roll AS lcg_roll ON lcg_roll.id = lcg_person.fk_roll_id ";
                 sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
@@ -803,7 +805,7 @@ namespace LCGBanking
                 sql = sql + "                                     WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id) ";
                 sql = sql + "      OR lcg_provtillfalle.DATUM IS NULL) ";
                 sql = sql + "ORDER BY lcg_provtillfalle.datum ASC; ";
-        
+
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
 
                 command.Parameters.Add(new NpgsqlParameter("personid", NpgsqlDbType.Integer));
@@ -811,15 +813,15 @@ namespace LCGBanking
 
                 DateTime idag = DateTime.Today;
                 //DateTime nasta_prov_tidigast = idag;
-                
-                
+
+
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
                     // personid = (int)(dr["id"]);
                     // namn = (string)(dr["namn"]);
                     // provtyp = (string)(dr["provtyp"]);
-                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ?  Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
+                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ? Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
                 }
 
                 if (nasta_prov_tidigast > idag)
@@ -898,7 +900,7 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -1427,6 +1429,23 @@ namespace LCGBanking
                 conn.Close();
             }
             return listaPerProv;
+        }
+
+        protected void ButtonSparaProv_Click(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Ja")
+            {
+                SparaProvtillfalle();
+                laddaResultat();
+                main.Visible = false;
+                IndividuellaResultat.Visible = true;
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
+            }
+            else
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+            }
         }
     }
 }

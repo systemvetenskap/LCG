@@ -15,7 +15,8 @@
         </p>
         <br />
         <br />
-        <h1>Vi investerar i dina krediter!!!</h1>
+        <br />
+        <h2>Vi investerar i dina krediter!!!</h2>
     </section>
 </asp:Content>
 
