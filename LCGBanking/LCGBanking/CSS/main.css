@@ -20,7 +20,7 @@ html {
 body {
 	margin: 0 auto;
     margin-top: 15px;
-	width: 1080px;
+	width: 1366px;
 	height: auto;
     font-family: 'Open Sans', sans-serif;
 	padding: 30px;
@@ -47,8 +47,18 @@ section {
     clear: both;
     margin-top: 20px;
     padding-top: 15px;
-    padding-left: 35px;
+    padding-left: 100px;
     min-height: 350px;
+}
+
+article {
+    margin-left: 0 auto;
+	font-family: 'Open Sans', sans-serif;
+	display:block;
+    clear: both;
+    margin-top: 20px;
+    padding-top: 15px;
+    padding-left: 100px;
 }
 
 #main {
@@ -389,10 +399,10 @@ figure.slider figure:hover + figure figcaption {
 
 /* denna delen av filen gäller admin form */
 .admin {
-    min-height: 400px;
-    margin: 0;
-    padding: 0; 
+    min-height: 600px;
     width: 100%;
+    margin: 0;
+    padding: 10px 0px 10px 0px; 
 }
 
 .admin-tabell {
@@ -541,3 +551,10 @@ figure.slider figure:hover + figure figcaption {
     width: 5%;
     text-align: center;
 }
+
+#ContentPlaceHolder1_GridViewIndResOversikt {
+    width: 70% !important;
+    margin-left: 15% !important;
+}
+
+
