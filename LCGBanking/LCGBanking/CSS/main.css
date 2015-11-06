@@ -540,3 +540,22 @@ figure.slider figure:hover + figure figcaption {
     width: 5%;
     text-align: center;
 }
+
+#IndResPersonval{
+    overflow: auto;
+    padding: 1% 6% 0 0;
+}
+
+#Personval1{
+    float: left;
+}
+
+#Personval2{
+    float: right;
+    padding-top: 1.5%
+}
+
+#ContentPlaceHolder1_ButtonIndResGeLicens{
+    margin-left: 86%;
+    margin-top: 5px;
+}

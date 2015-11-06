@@ -31,6 +31,15 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.GridView GridViewDeltagarLista;
         
         /// <summary>
+        /// LabelListBoxGVIR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelListBoxGVIR;
+        
+        /// <summary>
         /// ListBoxGVIndRes control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace LCGBanking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ListBox ListBoxGVIndRes;
+        
+        /// <summary>
+        /// LabelTextBoxGVIR control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelTextBoxGVIR;
         
         /// <summary>
         /// TextBoxGVIndRes control.
@@ -74,6 +92,15 @@ namespace LCGBanking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewIndResOversikt;
+        
+        /// <summary>
+        /// ButtonIndResGeLicens control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonIndResGeLicens;
         
         /// <summary>
         /// CheckBoxSvarText control.

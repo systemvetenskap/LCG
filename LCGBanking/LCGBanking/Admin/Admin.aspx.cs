@@ -30,6 +30,9 @@ namespace LCGBanking
                 ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
                 Welcome.Text = "Välkommen tillbaka till Kunskapsportalens administrationssida " + Context.User.Identity.Name;
                 }
+
+                CheckBoxSvarText.Visible = false;
+                ButtonIndResGeLicens.Visible = false;
             }
             List<Provdeltagare_listan> provdeltagareListan = new List<Provdeltagare_listan>();
             GridViewDeltagarLista.CssClass = "admin-tabell";
@@ -66,7 +69,7 @@ namespace LCGBanking
                     Person nyPerson = new Person();
                     nyPerson.Id = (int)(dr["id"]);
                     nyPerson.Namn = (string)(dr["namn"]);
-                    nyPerson.Roll_id = (int)(dr["fk_roll_id"]);
+                    nyPerson.Roll_id = dr["fk_roll_id"] != DBNull.Value ? (int)(dr["fk_roll_id"]) : 0;
                     nyPerson.Har_licens = dr["har_licens"] != DBNull.Value ? (bool)(dr["har_licens"]) : false;
                     listaPersoner.Add(nyPerson);
                 }
@@ -511,6 +514,7 @@ namespace LCGBanking
             dt.Columns.Add("Procent rätt", typeof(String));
             dt.Columns.Add("Godkänd", typeof(String));
 
+            int godkandaKategorier = 0;
             foreach (Provstatistik pr in kategorier)
             {
                 DataRow dr = dt.NewRow();
@@ -521,6 +525,7 @@ namespace LCGBanking
                 if (Convert.ToInt32(pr.Antal_ratt) >= 60)
                 {
                     dr["Godkänd"] = "Ja";
+                    godkandaKategorier++;
                 }
                 else
                 {
@@ -534,7 +539,7 @@ namespace LCGBanking
             drTotal["Antal frågor"] = prov.Antal_fragor;
             drTotal["Poäng"] = prov.Antal_poang;
             drTotal["Procent rätt"] = Convert.ToInt32(prov.Antal_ratt) + "%";
-            if (Convert.ToInt32(prov.Antal_ratt) >= 70)
+            if (Convert.ToInt32(prov.Antal_ratt) >= 70 && godkandaKategorier == 3)
             {
                 drTotal["Godkänd"] = "Ja";
             }
@@ -792,6 +797,29 @@ namespace LCGBanking
             }
             LabelIndResNamn.Text = deltagare.Namn;
             LabelIndResDatum.Text = deltagare.Senaste_prov;
+
+            string godkand = "Nej";
+            try
+            {
+                godkand = GridViewIndResOversikt.Rows[3].Cells[4].Text;
+            }
+            catch (Exception)
+            {
+                
+            }
+
+            if (godkand == "Ja")
+            {
+                ButtonIndResGeLicens.Enabled = true;
+            }
+            else
+            {
+                ButtonIndResGeLicens.Enabled = false;
+            }
+
+            CheckBoxSvarText.Visible = true;
+            ButtonIndResGeLicens.Visible = true;
+            //Response.Write("<script>alert('"+godkand+"');</script>");
         }
 
         protected void GridViewIndResOversikt_DataBound(object sender, EventArgs e)
@@ -819,6 +847,56 @@ namespace LCGBanking
             catch (Exception ex)
             {
                 
+            }
+        }
+
+        /// <summary>
+        /// ger licens till vald provtagare
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void ButtonIndResGeLicens_Click(object sender, EventArgs e)
+        {
+            ListItem valdPerson = ListBoxGVIndRes.SelectedItem;
+            int personId = Convert.ToInt32(valdPerson.Value);
+
+            tilldelaLicens(personId);
+
+        }
+
+        /// <summary>
+        /// tilldelar värdet TRUE på har_licens för vald person
+        /// </summary>
+        /// <param name="personId"></param>
+        private void tilldelaLicens(int personId)
+        {
+            ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
+            NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
+            NpgsqlTransaction tran = null;
+
+            try
+            {
+                conn.Open();
+                tran = conn.BeginTransaction();
+
+                NpgsqlCommand command = new NpgsqlCommand(@"UPDATE lcg_person 
+                                                            SET har_licens = TRUE
+                                                            WHERE id = :id;", conn);
+
+                command.Parameters.Add(new NpgsqlParameter("id", NpgsqlDbType.Integer));
+                command.Parameters["id"].Value = personId;
+
+                command.Transaction = tran;
+                command.ExecuteNonQuery();
+                tran.Commit();
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+            }
+            finally
+            {
+                conn.Close();
             }
         }
     }

@@ -6,19 +6,30 @@
     <section class="admin">
         <!-- har tagit bort id="main" från följande sektion för att undvika problem med vänster marginal -->
         <section class="admin">
+            <h2>Deltagarlista</h2>
             <asp:GridView ID="GridViewDeltagarLista" runat="server">
             </asp:GridView>
         </section>
         <section id="IndividuellaResultat">
             <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-            <asp:ListBox ID="ListBoxGVIndRes" runat="server" Height="202px" Width="215px" AutoPostBack="true" OnSelectedIndexChanged="ListBoxGVIndRes_SelectedIndexChanged"></asp:ListBox>
-            <asp:TextBox ID="TextBoxGVIndRes" runat="server"></asp:TextBox>
-            <br /><br />
-            <asp:Label ID="LabelIndResNamn" runat="server" Font-Bold="True" Font-Size="Larger"></asp:Label><br />
-            <asp:Label ID="LabelIndResDatum" runat="server" Text=""></asp:Label>
-            <br /><br />
-            <asp:GridView ID="GridViewIndResOversikt" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndResOversikt_DataBound"></asp:GridView>
-            <br /><br />
+            <h2>Utvärdera och licensiera provtagare</h2>
+            <div id="IndResPersonval">
+                <div id="Personval1">
+                    <asp:Label ID="LabelListBoxGVIR" runat="server" Text="Välj person:"></asp:Label><br />
+                    <asp:ListBox ID="ListBoxGVIndRes" runat="server" Height="191px" Width="215px" AutoPostBack="true" OnSelectedIndexChanged="ListBoxGVIndRes_SelectedIndexChanged"></asp:ListBox>
+                    <br />
+                    <asp:Label ID="LabelTextBoxGVIR" runat="server" Text="Sök namn:"></asp:Label><br />
+                    <asp:TextBox ID="TextBoxGVIndRes" runat="server" Width="209px"></asp:TextBox>
+                </div>
+                <div id="Personval2">
+                    <asp:Label ID="LabelIndResNamn" runat="server" Font-Bold="True" Font-Size="Larger"></asp:Label><br />
+                    <asp:Label ID="LabelIndResDatum" runat="server" Text=""></asp:Label>
+                    <br /><br />
+                    <asp:GridView ID="GridViewIndResOversikt" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndResOversikt_DataBound"></asp:GridView>
+                    <asp:Button ID="ButtonIndResGeLicens" runat="server" Text="Ge licens" OnClick="ButtonIndResGeLicens_Click" Enabled="False" Width="102px" />
+                </div>
+            </div>
+            <br />
             <asp:CheckBox ID="CheckBoxSvarText" AutoPostBack="true" Text=" Visa hela svar" runat="server" OnCheckedChanged="CheckBoxSvarText_CheckedChanged" />
             <br /><br />
             <asp:Label ID="LabelIndResKategori1" runat="server" Font-Bold="True"></asp:Label>
