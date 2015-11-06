@@ -29,15 +29,14 @@ namespace LCGBanking
             {
                 IndividuellaResultat.Visible = false;
 
-                // First find if user is logged in
                 if (Context.User.Identity.IsAuthenticated)
                 {
-                    // Finds user name and says Hi
+                  
                     Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Inloggad som: " + Context.User.Identity.Name;
                 }
                 else
                 {
-                    // It is anonymous user, say hi to guest
+                   
                     Welcome.Text = "Lycka till på ditt första licenseringstest " + Context.User.Identity.Name;
                 }
 
@@ -644,26 +643,13 @@ namespace LCGBanking
             }
         }
 
-       /* protected void ButtonSparaProv_Click(object sender, EventArgs e)
+        protected void ButtonSparaProv_Click(object sender, EventArgs e)
         {
             SparaProvtillfalle();
             laddaResultat();
             main.Visible = false;
             IndividuellaResultat.Visible = true;
-            
-            /*
-            string confirmValue = Request.Form["confirm_value"];
-            if (confirmValue == "Ja")
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
-
- 
-            }
-            else
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
-            }
-        }*/
+        }
 
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
@@ -1428,14 +1414,6 @@ namespace LCGBanking
                 conn.Close();
             }
             return listaPerProv;
-        }
-
-        protected void ButtonSparaProv_Click(object sender, EventArgs e)
-        {
-            SparaProvtillfalle();
-            laddaResultat();
-            main.Visible = false;
-            IndividuellaResultat.Visible = true;
         }
     }
 }
