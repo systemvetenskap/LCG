@@ -645,11 +645,21 @@ namespace LCGBanking
 
         protected void ButtonSparaProv_Click(object sender, EventArgs e)
         {
-            SparaProvtillfalle();
-            laddaResultat();
-            main.Visible = false;
-            IndividuellaResultat.Visible = true;
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Ja")
+            {
+                SparaProvtillfalle();
+                laddaResultat();
+                main.Visible = false;
+                IndividuellaResultat.Visible = true;
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
+
             }
+            else
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+            }
+        }
 
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
