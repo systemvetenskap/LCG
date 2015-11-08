@@ -22,6 +22,51 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.Label Welcome;
         
         /// <summary>
+        /// LabelVy control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelVy;
+        
+        /// <summary>
+        /// CheckBoxDeltagare control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxDeltagare;
+        
+        /// <summary>
+        /// CheckBoxIndRes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxIndRes;
+        
+        /// <summary>
+        /// CheckBoxOversikt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxOversikt;
+        
+        /// <summary>
+        /// Deltagarlista control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Deltagarlista;
+        
+        /// <summary>
         /// GridViewDeltagarLista control.
         /// </summary>
         /// <remarks>
@@ -29,6 +74,15 @@ namespace LCGBanking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewDeltagarLista;
+        
+        /// <summary>
+        /// IndividuellaResultat control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl IndividuellaResultat;
         
         /// <summary>
         /// LabelListBoxGVIR control.
@@ -67,15 +121,6 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.TextBox TextBoxGVIndRes;
         
         /// <summary>
-        /// CheckBoxSvarText control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBoxSvarText;
-        
-        /// <summary>
         /// LabelIndResNamn control.
         /// </summary>
         /// <remarks>
@@ -95,6 +140,14 @@ namespace LCGBanking {
         
         /// <summary>
         /// GridViewIndResOversikt control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewIndResOversikt;
+        
+        /// <summary>
         /// ButtonIndResGeLicens control.
         /// </summary>
         /// <remarks>
@@ -104,13 +157,22 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.Button ButtonIndResGeLicens;
         
         /// <summary>
+        /// LabelLicensGiven control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LabelLicensGiven;
+        
+        /// <summary>
         /// CheckBoxSvarText control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewIndResOversikt;
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxSvarText;
         
         /// <summary>
         /// LabelIndResKategori1 control.
@@ -165,5 +227,32 @@ namespace LCGBanking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView GridViewIndividResultat2;
+        
+        /// <summary>
+        /// OvergripandeStatistik control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl OvergripandeStatistik;
+        
+        /// <summary>
+        /// GridViewOvergripandeLicens control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewOvergripandeLicens;
+        
+        /// <summary>
+        /// GridViewOvergripandeKunskap control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView GridViewOvergripandeKunskap;
     }
 }

@@ -199,35 +199,42 @@ namespace LCGBanking
         /// </summary>
         private void loadQuestion()
         {
-            int index = GlobalValues.FrageNr - 1;
-            Fraga question = GlobalValues.Fragor[index];
-
-            LabelKategori.Text = question.kategori;
-            LabelQuestion.Text = question.fraga;
-            LabelInfo.Text = question.information;
-
-            //generera radioknappar/checkboxar
-            if (question.flerVal)
+            try
             {
-                foreach (Svar sv in question.svarLista)
+                int index = GlobalValues.FrageNr - 1;
+                Fraga question = GlobalValues.Fragor[index];
+
+                LabelKategori.Text = question.kategori;
+                LabelQuestion.Text = question.fraga;
+                LabelInfo.Text = question.information;
+
+                //generera radioknappar/checkboxar
+                if (question.flerVal)
                 {
-                    CheckBox cb = new CheckBox();
-                    cb.Text = "  " + sv.svar + "<br /><br />";
-                    cb.ID = sv.alt + GlobalValues.FrageNr;
-                    PanelSvar.Controls.Add(cb);
+                    foreach (Svar sv in question.svarLista)
+                    {
+                        CheckBox cb = new CheckBox();
+                        cb.Text = "  " + sv.svar + "<br /><br />";
+                        cb.ID = sv.alt + GlobalValues.FrageNr;
+                        PanelSvar.Controls.Add(cb);
+                    }
+                }
+                else
+                {
+                    foreach (Svar sv in question.svarLista)
+                    {
+                        RadioButton rb = new RadioButton();
+                        rb.Text = "  " + sv.svar + "<br /><br />";
+                        rb.ID = sv.alt + GlobalValues.FrageNr;
+                        rb.GroupName = "gr" + GlobalValues.FrageNr;
+                        PanelSvar.Controls.Add(rb);
+                    }
                 }
             }
-            else
+            catch (Exception)
             {
-                foreach (Svar sv in question.svarLista)
-                {
-                    RadioButton rb = new RadioButton();
-                    rb.Text = "  " + sv.svar + "<br /><br />";
-                    rb.ID = sv.alt + GlobalValues.FrageNr;
-                    rb.GroupName = "gr" + GlobalValues.FrageNr;
-                    PanelSvar.Controls.Add(rb);
-                }
-            }
+
+            }            
         }
 
         /// <summary>
@@ -309,105 +316,6 @@ namespace LCGBanking
             ButtonSparaProv.Visible = true;
             ButtonStart.Visible = false;
         }
-
-        /// <summary>
-        /// läser in fråga och svarsalternativ från XML-fil
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="level"></param>
-        /// <param name="index"></param>
-        /*private void XML(string path, string level, int index)
-        {
-
-            string xmlfil = Server.MapPath(path);
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlfil);
-
-            XmlNodeList fraga = doc.SelectNodes(level + "/Question[@id=" + index + "]");
-
-            // Hämtar vissa info i element
-            foreach (XmlNode nod in fraga)
-            {
-                LabelQuestion.Text = nod["Fraga"].InnerText + "<br /> ";
-            }
-
-            // Hämta noder utifrån namn
-            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]/Svar");
-
-            //kontrollera om frågan är en flervalsfråga
-            int rattSvar = 0;
-            foreach (XmlNode nod in svar)
-            {
-                if (nod.Attributes["facit"].Value == "true")
-                {
-                    rattSvar += 1;
-                }
-            }
-
-            //generera radioknappar/checkboxar för svarsalternativ
-            if (rattSvar > 1)
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    CheckBox cb = new CheckBox();
-                    cb.Text = nod.InnerText;
-                    PanelSvar.Controls.Add(cb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-            else
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    RadioButton rb = new RadioButton();
-                    rb.Text = nod.InnerText;
-                    rb.GroupName = "gr" + index;
-                    PanelSvar.Controls.Add(rb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-        }
-
-        private void visaXML()
-        {
-            string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
-            XmlTextReader reader = new XmlTextReader(xmlfil);
-            StringBuilder str = new StringBuilder();
-
-            reader.ReadStartElement("Test/Licenseringstest");
-
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        str.Append("Element: ");
-                        str.Append(reader.Name);
-                        str.Append("<br />");
-
-                        if (reader.AttributeCount > 1)
-                        {
-                            while (reader.MoveToNextAttribute())
-                            {
-                                str.Append("Attributnamn: ");
-                                str.Append(reader.Name);
-                                str.Append(": ");
-                                str.Append(reader.Value);
-                                str.Append("<br />");
-                            }
-
-                        }
-                        break;
-
-                    case XmlNodeType.Text:
-                        str.Append("Fråga ");
-                        str.Append(reader.Value);
-                        str.Append("<br />");
-                        break;
-                }
-            }
-            LabelQuestion.Text = str.ToString();
-        }*/
 
         protected void ButtonStart_Click(object sender, EventArgs e)
         {
