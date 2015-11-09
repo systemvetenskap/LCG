@@ -29,15 +29,14 @@ namespace LCGBanking
             {
                 IndividuellaResultat.Visible = false;
 
-                // First find if user is logged in
                 if (Context.User.Identity.IsAuthenticated)
                 {
-                    // Finds user name and says Hi
+                  
                     Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Inloggad som: " + Context.User.Identity.Name;
                 }
                 else
                 {
-                    // It is anonymous user, say hi to guest
+                   
                     Welcome.Text = "Lycka till på ditt första licenseringstest " + Context.User.Identity.Name;
                 }
 
@@ -199,35 +198,42 @@ namespace LCGBanking
         /// </summary>
         private void loadQuestion()
         {
-            int index = GlobalValues.FrageNr - 1;
-            Fraga question = GlobalValues.Fragor[index];
-
-            LabelKategori.Text = question.kategori;
-            LabelQuestion.Text = question.fraga;
-            LabelInfo.Text = question.information;
-
-            //generera radioknappar/checkboxar
-            if (question.flerVal)
+            try
             {
-                foreach (Svar sv in question.svarLista)
+                int index = GlobalValues.FrageNr - 1;
+                Fraga question = GlobalValues.Fragor[index];
+
+                LabelKategori.Text = question.kategori;
+                LabelQuestion.Text = question.fraga;
+                LabelInfo.Text = question.information;
+
+                //generera radioknappar/checkboxar
+                if (question.flerVal)
                 {
-                    CheckBox cb = new CheckBox();
-                    cb.Text = "  " + sv.svar + "<br /><br />";
-                    cb.ID = sv.alt + GlobalValues.FrageNr;
-                    PanelSvar.Controls.Add(cb);
+                    foreach (Svar sv in question.svarLista)
+                    {
+                        CheckBox cb = new CheckBox();
+                        cb.Text = "  " + sv.svar + "<br /><br />";
+                        cb.ID = sv.alt + GlobalValues.FrageNr;
+                        PanelSvar.Controls.Add(cb);
+                    }
+                }
+                else
+                {
+                    foreach (Svar sv in question.svarLista)
+                    {
+                        RadioButton rb = new RadioButton();
+                        rb.Text = "  " + sv.svar + "<br /><br />";
+                        rb.ID = sv.alt + GlobalValues.FrageNr;
+                        rb.GroupName = "gr" + GlobalValues.FrageNr;
+                        PanelSvar.Controls.Add(rb);
+                    }
                 }
             }
-            else
+            catch (Exception)
             {
-                foreach (Svar sv in question.svarLista)
-                {
-                    RadioButton rb = new RadioButton();
-                    rb.Text = "  " + sv.svar + "<br /><br />";
-                    rb.ID = sv.alt + GlobalValues.FrageNr;
-                    rb.GroupName = "gr" + GlobalValues.FrageNr;
-                    PanelSvar.Controls.Add(rb);
-                }
-            }
+
+            }            
         }
 
         /// <summary>
@@ -310,105 +316,6 @@ namespace LCGBanking
             ButtonStart.Visible = false;
         }
 
-        /// <summary>
-        /// läser in fråga och svarsalternativ från XML-fil
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="level"></param>
-        /// <param name="index"></param>
-        /*private void XML(string path, string level, int index)
-        {
-
-            string xmlfil = Server.MapPath(path);
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlfil);
-
-            XmlNodeList fraga = doc.SelectNodes(level + "/Question[@id=" + index + "]");
-
-            // Hämtar vissa info i element
-            foreach (XmlNode nod in fraga)
-            {
-                LabelQuestion.Text = nod["Fraga"].InnerText + "<br /> ";
-            }
-
-            // Hämta noder utifrån namn
-            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]/Svar");
-
-            //kontrollera om frågan är en flervalsfråga
-            int rattSvar = 0;
-            foreach (XmlNode nod in svar)
-            {
-                if (nod.Attributes["facit"].Value == "true")
-                {
-                    rattSvar += 1;
-                }
-            }
-
-            //generera radioknappar/checkboxar för svarsalternativ
-            if (rattSvar > 1)
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    CheckBox cb = new CheckBox();
-                    cb.Text = nod.InnerText;
-                    PanelSvar.Controls.Add(cb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-            else
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    RadioButton rb = new RadioButton();
-                    rb.Text = nod.InnerText;
-                    rb.GroupName = "gr" + index;
-                    PanelSvar.Controls.Add(rb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-        }
-
-        private void visaXML()
-        {
-            string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
-            XmlTextReader reader = new XmlTextReader(xmlfil);
-            StringBuilder str = new StringBuilder();
-
-            reader.ReadStartElement("Test/Licenseringstest");
-
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        str.Append("Element: ");
-                        str.Append(reader.Name);
-                        str.Append("<br />");
-
-                        if (reader.AttributeCount > 1)
-                        {
-                            while (reader.MoveToNextAttribute())
-                            {
-                                str.Append("Attributnamn: ");
-                                str.Append(reader.Name);
-                                str.Append(": ");
-                                str.Append(reader.Value);
-                                str.Append("<br />");
-                            }
-
-                        }
-                        break;
-
-                    case XmlNodeType.Text:
-                        str.Append("Fråga ");
-                        str.Append(reader.Value);
-                        str.Append("<br />");
-                        break;
-                }
-            }
-            LabelQuestion.Text = str.ToString();
-        }*/
-
         protected void ButtonStart_Click(object sender, EventArgs e)
         {
             GlobalValues.FrageNr = 1;
@@ -477,7 +384,7 @@ namespace LCGBanking
                     {
                         LinkButton lb = (LinkButton)item.FindControl("LinkButtonQuestNav");
 
-                        if(lb.Text == GlobalValues.FrageNr.ToString())
+                        if (lb.Text == GlobalValues.FrageNr.ToString())
                         {
                             lb.CssClass = "qNavActive";
                         }                        
@@ -644,26 +551,23 @@ namespace LCGBanking
             }
         }
 
-       /* protected void ButtonSparaProv_Click(object sender, EventArgs e)
+        protected void ButtonSparaProv_Click(object sender, EventArgs e)
         {
-            SparaProvtillfalle();
-            laddaResultat();
-            main.Visible = false;
-            IndividuellaResultat.Visible = true;
-            
-            /*
             string confirmValue = Request.Form["confirm_value"];
             if (confirmValue == "Ja")
             {
+                SparaProvtillfalle();
+                laddaResultat();
+                main.Visible = false;
+                IndividuellaResultat.Visible = true;
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
 
- 
             }
             else
             {
                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
             }
-        }*/
+        }
 
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
@@ -793,8 +697,8 @@ namespace LCGBanking
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date " ;
-                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast " ;
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date ";
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast ";
                 sql = sql + "FROM lcg_person ";
                 sql = sql + "     LEFT JOIN lcg_roll AS lcg_roll ON lcg_roll.id = lcg_person.fk_roll_id ";
                 sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
@@ -820,7 +724,7 @@ namespace LCGBanking
                     // personid = (int)(dr["id"]);
                     // namn = (string)(dr["namn"]);
                     // provtyp = (string)(dr["provtyp"]);
-                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ?  Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
+                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ? Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
                 }
 
                 if (nasta_prov_tidigast > idag)
@@ -1428,14 +1332,6 @@ namespace LCGBanking
                 conn.Close();
             }
             return listaPerProv;
-        }
-
-        protected void ButtonSparaProv_Click(object sender, EventArgs e)
-        {
-            SparaProvtillfalle();
-            laddaResultat();
-            main.Visible = false;
-            IndividuellaResultat.Visible = true;
         }
     }
 }

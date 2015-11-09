@@ -4,11 +4,20 @@
     <asp:Label ID="Welcome" runat="server"></asp:Label>
     <br /><br />
     <section class="admin">
-            <asp:GridView ID="GridViewDeltagarLista" runat="server">
-            </asp:GridView>
-        <article id="IndividuellaResultat">
+        <asp:Label ID="LabelVy" runat="server" Text="Välj vy:" Font-Bold="True"></asp:Label>
+        <br />
+        <asp:CheckBox ID="CheckBoxDeltagare" AutoPostBack="true" Text="Provdeltagare" runat="server" OnCheckedChanged="CheckBoxAdmin_CheckedChanged" Checked="True"/>
+        <br />
+        <asp:CheckBox ID="CheckBoxIndRes" AutoPostBack="true" Text="Individuella resultat och licensiering" runat="server" OnCheckedChanged="CheckBoxAdmin_CheckedChanged"/>
+        <br />
+        <asp:CheckBox ID="CheckBoxOversikt" AutoPostBack="true" Text="Övergripande statistik" runat="server" OnCheckedChanged="CheckBoxAdmin_CheckedChanged"/>
+        <article id="Deltagarlista" runat="server">
+            <h3>Provdeltagare</h3>
+            <asp:GridView ID="GridViewDeltagarLista" runat="server"></asp:GridView>
+        </article>
+        <article id="IndividuellaResultat" runat="server">
             <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-            <h2>Utvärdera och licensiera provtagare</h2>
+            <h3>Utvärdera och licensiera provtagare</h3>
             <div id="IndResPersonval">
                 <div id="Personval1">
                     <asp:Label ID="LabelListBoxGVIR" runat="server" Text="Välj person:"></asp:Label><br />
@@ -22,7 +31,8 @@
             <asp:Label ID="LabelIndResDatum" runat="server" Text=""></asp:Label>
             <br /><br />
             <asp:GridView ID="GridViewIndResOversikt" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndResOversikt_DataBound"></asp:GridView>
-                    <asp:Button ID="ButtonIndResGeLicens" runat="server" Text="Ge licens" OnClick="ButtonIndResGeLicens_Click" Enabled="False" Width="102px" />
+                    <asp:Button ID="ButtonIndResGeLicens" runat="server" Text="Ge licens" OnClick="ButtonIndResGeLicens_Click" Enabled="False" Width="102px" /><br />
+                    <asp:Label ID="LabelLicensGiven" CssClass="Msg" runat="server" Text=""></asp:Label>
                 </div>
             </div>
             <br />
@@ -60,6 +70,15 @@
                         $(".GVIndRes_fraga").css("width", "80%");
                     }
             </script>
+        </article>
+        <article id="OvergripandeStatistik" runat="server">
+            <h3>Övergripande statistik</h3>
+            <br />
+            <h4>Licensieringsprov</h4>
+            <asp:GridView ID="GridViewOvergripandeLicens" runat="server" OnDataBound="GridViewOvergripandeStatistik_DataBound"></asp:GridView>
+            <br /><br />
+            <h4>Kunskapsprov</h4>
+            <asp:GridView ID="GridViewOvergripandeKunskap" runat="server" OnDataBound="GridViewOvergripandeStatistik_DataBound"></asp:GridView>
         </article>
     </section>
 </asp:Content>
