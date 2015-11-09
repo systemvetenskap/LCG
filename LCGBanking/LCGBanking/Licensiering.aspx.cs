@@ -819,7 +819,7 @@ namespace LCGBanking
                     // personid = (int)(dr["id"]);
                     // namn = (string)(dr["namn"]);
                     // provtyp = (string)(dr["provtyp"]);
-                    nasta_prov_tidigast = (DateTime)(dr["nasta_prov_tidigast"]);
+                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ? Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
                 }
 
                 if (nasta_prov_tidigast > idag)
