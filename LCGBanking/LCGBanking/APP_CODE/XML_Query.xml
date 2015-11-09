@@ -6,7 +6,7 @@
     <Question id="1">
       <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
       <Fraga>Vad är eget kapital i ett AB?</Fraga>
-      <Information></Information>
+      <Information>~/BILDER/userpicdummy.jpg</Information>
       <Svar alt="a" facit="false">Inlånat kapital</Svar>
       <Svar alt="b" facit="false">Saldot på banken</Svar>
       <Svar alt="c" facit="false">Vinst innan skatt</Svar>

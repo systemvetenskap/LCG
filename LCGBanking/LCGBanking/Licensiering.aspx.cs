@@ -24,10 +24,22 @@ namespace LCGBanking
         {
             ButtonPrevious.Enabled = false;
             anvandare = Convert.ToInt32(Session["lcg_roll"]);
+
             if (!Page.IsPostBack)
             {
                 IndividuellaResultat.Visible = false;
-                Welcome.Text = "Välkommen tillbaka till Kunskapsportalen " + Context.User.Identity.Name;
+
+                // First find if user is logged in
+                if (Context.User.Identity.IsAuthenticated)
+                {
+                    // Finds user name and says Hi
+                    Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Inloggad som: " + Context.User.Identity.Name;
+                }
+                else
+                {
+                    // It is anonymous user, say hi to guest
+                    Welcome.Text = "Lycka till på ditt första licenseringstest " + Context.User.Identity.Name;
+                }
 
                 if (anvandare == 1)
                 {
@@ -40,40 +52,59 @@ namespace LCGBanking
                     ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
                     ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
                 }
+
                 int personid = GePersonId(GlobalValues.anvandarid);
                 bool har_licens = Licencierad(personid);
+                DateTime nasta_prov_tidigast;
 
                 if (har_licens == false)
                 {
-                    GlobalValues.testtyp = "Licenseringstest";
-                    GlobalValues.xmlfilename = "APP_CODE/XML_Query.xml";
-                    loadXML(GlobalValues.xmlfilename, "/Licenseringstest");
-                    ButtonStart.Text = "Starta licenseringstest";
-                    LabelKategori.Text = "Välkommen att göra licenseringstestet";
-                    LabelKategori.Visible = true;
-                    
+                    if (BehorigForProv(personid, out nasta_prov_tidigast) == true)
+                    {
+                        GlobalValues.testtyp = "Licenseringstest";
+                        GlobalValues.xmlfilename = "APP_CODE/XML_Query.xml";
+                        loadXML(GlobalValues.xmlfilename, "/Licenseringstest");
+                        ButtonStart.Text = "Starta licenseringstest";
+                        LabelKategori.Text = "Välkommen att göra licenseringstestet";
+                        LabelKategori.Visible = true;
+                    }
+                  else
+                    {
+                        ButtonStart.Visible = false;
+                        LabelQuestion.Visible = true;
+                        LabelInfo.Visible = true;
+                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
+                    }
                 }
+
                 else if (har_licens == true)
                 {
-                    GlobalValues.testtyp = "Kunskapstest";
-                    GlobalValues.xmlfilename = "APP_CODE/XML_QueryKunskap.xml";
-                    loadXML(GlobalValues.xmlfilename, "/Kunskapstest");
-                    ButtonStart.Text = "Starta kunskapsprov";
-                    LabelKategori.Text = "Nu är det dags att göra kunskapsprov";
-                    LabelKategori.Visible = true;
+                    if (BehorigForProv(personid, out nasta_prov_tidigast) == true)
+                    {
+                        GlobalValues.testtyp = "Kunskapstest";
+                        GlobalValues.xmlfilename = "APP_CODE/XML_QueryKunskap.xml";
+                        loadXML(GlobalValues.xmlfilename, "/Kunskapstest");
+                        ButtonStart.Text = "Starta kunskapsprov";
+                        LabelKategori.Text = "Nu är det dags att göra kunskapsprov";
+                        LabelKategori.Visible = true;
+                    }
+                    else
+                    {
+                        ButtonStart.Visible = false;
+                        LabelQuestion.Visible = true;
+                        LabelInfo.Visible = true;
+                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
+                    }
                 }
             }
             else
             {
                 //fråga & svar återskapas temporärt så att valda svar kan registreras
                 loadQuestion();
-                Welcome.Text = "Välkommen förstagångsinloggare till Kunskapsportalen " + Context.User.Identity.Name;
-
             }
         }
-
-        
-        
 
         /// <summary>
         /// laddar in alla frågor och deras svar och lägger dem i en global lista
@@ -276,9 +307,8 @@ namespace LCGBanking
             ButtonPrevious.Visible = true;
             ButtonNext.Visible = true;
             ButtonSparaProv.Visible = true;
-            Msg.Visible = true;
             ButtonStart.Visible = false;
-
+            Msg.Visible = false;
         }
 
         /// <summary>
@@ -397,10 +427,7 @@ namespace LCGBanking
             loadQuestion();
             updateQuestNav();
             taframknappar();
-
         }
-
-
 
         protected void Move(int maxNr)
         {
@@ -621,10 +648,19 @@ namespace LCGBanking
 
         protected void ButtonSparaProv_Click(object sender, EventArgs e)
         {
-            SparaProvtillfalle();
-            laddaResultat();
-            main.Visible = false;
-            IndividuellaResultat.Visible = true;
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Ja")
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
+                SparaProvtillfalle();
+                laddaResultat();
+                main.Visible = false;
+                IndividuellaResultat.Visible = true;
+            }
+            else
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+            }
         }
 
         /// <summary>
@@ -740,9 +776,11 @@ namespace LCGBanking
         /// </summary>
         /// <param name="personid"></param>
         /// <returns></returns>
-        public static bool BehorigForProv(int personid)
+        public static bool BehorigForProv(int personid, out DateTime nasta_prov_tidigast)
         {
             bool behorig = true;
+            DateTime nesta_prov;
+            nasta_prov_tidigast = DateTime.Today;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
             NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
             try
@@ -754,17 +792,17 @@ namespace LCGBanking
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date" ;
-                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast" ;
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date " ;
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast " ;
                 sql = sql + "FROM lcg_person ";
                 sql = sql + "     LEFT JOIN lcg_roll AS lcg_roll ON lcg_roll.id = lcg_person.fk_roll_id ";
                 sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
-                sql = sql + "WHERE lcg_person.id = :personid";
+                sql = sql + "WHERE lcg_person.id = :personid ";
                 sql = sql + "AND ( lcg_provtillfalle.DATUM = (SELECT MAX(c.DATUM) ";
                 sql = sql + "                                    FROM lcg_provtillfalle c ";
                 sql = sql + "                                     WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id) ";
                 sql = sql + "      OR lcg_provtillfalle.DATUM IS NULL) ";
-                sql = sql + "ORDER BY lcg_provtillfalle.datum ASC;";
+                sql = sql + "ORDER BY lcg_provtillfalle.datum ASC; ";
         
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
 
@@ -772,7 +810,8 @@ namespace LCGBanking
                 command.Parameters["personid"].Value = personid;
 
                 DateTime idag = DateTime.Today;
-                DateTime nasta_prov_tidigast = idag;
+                //DateTime nasta_prov_tidigast = idag;
+                
                 
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())

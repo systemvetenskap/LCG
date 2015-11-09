@@ -25,10 +25,10 @@ namespace LCGBanking
             {
                 if (anvandare == 2)
                 { 
-                ((Label)Master.FindControl("headertext")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
-                ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
-                Welcome.Text = "Välkommen tillbaka till Kunskapsportalens administrationssida " + Context.User.Identity.Name;
+                    ((Label)Master.FindControl("headertext")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
+                    ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
+                    Welcome.Text = "Välkommen tillbaka till Kunskapsportalens administrationssida." + "Du är inloggad som: " + Context.User.Identity.Name;
                 }
 
                 CheckBoxSvarText.Visible = false;
@@ -67,7 +67,7 @@ namespace LCGBanking
                 while (dr.Read())
                 {
                     Person nyPerson = new Person();
-                    nyPerson.Id = (int)(dr["id"]);
+                    nyPerson.Id = dr["id"] != DBNull.Value ? (int)(dr["id"]) : 0;
                     nyPerson.Namn = (string)(dr["namn"]);
                     nyPerson.Roll_id = dr["fk_roll_id"] != DBNull.Value ? (int)(dr["fk_roll_id"]) : 0;
                     nyPerson.Har_licens = dr["har_licens"] != DBNull.Value ? (bool)(dr["har_licens"]) : false;

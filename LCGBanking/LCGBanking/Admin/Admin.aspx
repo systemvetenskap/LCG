@@ -4,13 +4,9 @@
     <asp:Label ID="Welcome" runat="server"></asp:Label>
     <br /><br />
     <section class="admin">
-        <!-- har tagit bort id="main" från följande sektion för att undvika problem med vänster marginal -->
-        <section class="admin">
-            <h2>Deltagarlista</h2>
             <asp:GridView ID="GridViewDeltagarLista" runat="server">
             </asp:GridView>
-        </section>
-        <section id="IndividuellaResultat">
+        <article id="IndividuellaResultat">
             <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
             <h2>Utvärdera och licensiera provtagare</h2>
             <div id="IndResPersonval">
@@ -22,10 +18,10 @@
                     <asp:TextBox ID="TextBoxGVIndRes" runat="server" Width="209px"></asp:TextBox>
                 </div>
                 <div id="Personval2">
-                    <asp:Label ID="LabelIndResNamn" runat="server" Font-Bold="True" Font-Size="Larger"></asp:Label><br />
-                    <asp:Label ID="LabelIndResDatum" runat="server" Text=""></asp:Label>
-                    <br /><br />
-                    <asp:GridView ID="GridViewIndResOversikt" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndResOversikt_DataBound"></asp:GridView>
+            <asp:Label ID="LabelIndResNamn" runat="server" Font-Bold="True" Font-Size="Larger"></asp:Label><br />
+            <asp:Label ID="LabelIndResDatum" runat="server" Text=""></asp:Label>
+            <br /><br />
+            <asp:GridView ID="GridViewIndResOversikt" CssClass="GVIndRes" runat="server" OnDataBound="GridViewIndResOversikt_DataBound"></asp:GridView>
                     <asp:Button ID="ButtonIndResGeLicens" runat="server" Text="Ge licens" OnClick="ButtonIndResGeLicens_Click" Enabled="False" Width="102px" />
                 </div>
             </div>
@@ -64,6 +60,6 @@
                         $(".GVIndRes_fraga").css("width", "80%");
                     }
             </script>
-        </section>
+        </article>
     </section>
 </asp:Content>

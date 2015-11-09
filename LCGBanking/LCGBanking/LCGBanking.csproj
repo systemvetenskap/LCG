@@ -69,8 +69,7 @@
     <Content Include="APP_CODE\XML_Query.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="BILDER\jebank00.jpg" />
-    <Content Include="BILDER\jebank01.jpg" />
+    <Content Include="BILDER\jebanklogg.jpg" />
     <Content Include="BILDER\logo_02.png" />
     <Content Include="BILDER\userpicdummy.jpg" />
     <Content Include="CSS\main.css" />

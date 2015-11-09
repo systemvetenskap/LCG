@@ -67,6 +67,15 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.TextBox TextBoxGVIndRes;
         
         /// <summary>
+        /// CheckBoxSvarText control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBoxSvarText;
+        
+        /// <summary>
         /// LabelIndResNamn control.
         /// </summary>
         /// <remarks>
@@ -86,14 +95,6 @@ namespace LCGBanking {
         
         /// <summary>
         /// GridViewIndResOversikt control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridViewIndResOversikt;
-        
-        /// <summary>
         /// ButtonIndResGeLicens control.
         /// </summary>
         /// <remarks>
@@ -109,7 +110,7 @@ namespace LCGBanking {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBoxSvarText;
+        protected global::System.Web.UI.WebControls.GridView GridViewIndResOversikt;
         
         /// <summary>
         /// LabelIndResKategori1 control.
