@@ -114,58 +114,67 @@ namespace LCGBanking
         /// <param name="level"></param>
         private void loadXML(string path, string level)
         {
-            GlobalValues.Fragor.Clear();
-
-            string xmlfil = Server.MapPath(path);
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlfil);
-
-            XmlNodeList noder = doc.SelectNodes(level + "/Question");
-
-            foreach (XmlNode nod in noder)
+            try
             {
-                Fraga fr = new Fraga
-                {
-                    id = Convert.ToInt32(nod.Attributes["id"].Value),
-                    kategori = nod["Kategori"].InnerText,
-                    fraga = nod["Fraga"].InnerText,
-                    information = nod["Information"].InnerText,
-                    flerVal = false
-                };
+                GlobalValues.Fragor.Clear();
 
-                XmlNodeList subNoder = nod.ChildNodes;
+                string xmlfil = Server.MapPath(path);
+                XmlDocument doc = new XmlDocument();
+                doc.Load(xmlfil);
 
-                foreach (XmlNode subNod in subNoder)
+                XmlNodeList noder = doc.SelectNodes(level + "/Question");
+
+                foreach (XmlNode nod in noder)
                 {
-                    if (subNod.Name == "Svar")
+                    Fraga fr = new Fraga
                     {
-                        Svar sv = new Svar
+                        id = Convert.ToInt32(nod.Attributes["id"].Value),
+                        kategori = nod["Kategori"].InnerText,
+                        fraga = nod["Fraga"].InnerText,
+                        information = nod["Information"].InnerText,
+                        flerVal = false
+                    };
+
+                    XmlNodeList subNoder = nod.ChildNodes;
+
+                    foreach (XmlNode subNod in subNoder)
+                    {
+                        if (subNod.Name == "Svar")
                         {
-                            alt = subNod.Attributes["alt"].Value,
-                            svar = subNod.InnerText,
-                            facit = subNod.Attributes["facit"].Value,
-                            icheckad = false
-                        };
-                        fr.svarLista.Add(sv);
+                            Svar sv = new Svar
+                            {
+                                alt = subNod.Attributes["alt"].Value,
+                                svar = subNod.InnerText,
+                                facit = subNod.Attributes["facit"].Value,
+                                icheckad = false
+                            };
+                            fr.svarLista.Add(sv);
+                        }
                     }
-                }
 
-                //kontrollera om frågan är en flervalsfråga
-                int rattSvar = 0;
-                foreach (Svar sv in fr.svarLista)
-                {
-                    if (sv.facit == "true")
+                    //kontrollera om frågan är en flervalsfråga
+                    int rattSvar = 0;
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        rattSvar += 1;
+                        if (sv.facit == "true")
+                        {
+                            rattSvar += 1;
+                        }
                     }
-                }
 
-                if (rattSvar > 1)
-                {
-                    fr.flerVal = true;
-                }
+                    if (rattSvar > 1)
+                    {
+                        fr.flerVal = true;
+                    }
 
-                GlobalValues.Fragor.Add(fr);
+                    GlobalValues.Fragor.Add(fr);
+                }
+            }
+            catch (Exception ex)
+            {
+                string felmeddelande = "Ett fel har uppstått i samband med inläsning av XML filen. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
+                throw;
             }
         }
 
@@ -636,7 +645,8 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
-                Msg.Text = "Det har uppståt ett fel i proceduren nyProvtillfalle : " + ex.Message.ToString(); 
+                string felmeddelande = "Ett fel har uppstått i samband med skapande av ett nytt provtillfälle. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
                 tran.Rollback();
             }
             finally
@@ -673,7 +683,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="anvandarnamn"></param>
         /// <returns></returns>
-        public static int GeAnvandarId(string anvandarnamn)
+        public int GeAnvandarId(string anvandarnamn)
         {
             int anvandarid = 0;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -693,7 +703,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av användarrelaterad information. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -707,7 +718,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="anvandarid"></param>
         /// <returns></returns>
-        public static int GePersonId(int anvandarid)
+        public int GePersonId(int anvandarid)
         {
             int personid = 0;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -729,7 +740,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av personrelaterad information. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -743,7 +755,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="personid"></param>
         /// <returns></returns>
-        public static bool Licencierad(int personid)
+        public bool Licencierad(int personid)
         {
             bool licencierad = false;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -764,8 +776,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av information relaterad till licens. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -779,7 +791,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="personid"></param>
         /// <returns></returns>
-        public static bool BehorigForProv(int personid, out DateTime nasta_prov_tidigast)
+        public bool BehorigForProv(int personid, out DateTime nasta_prov_tidigast)
         {
             bool behorig = true;
             nasta_prov_tidigast = DateTime.Today;
@@ -835,7 +847,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med kontroll av behörighet. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -844,7 +857,7 @@ namespace LCGBanking
             return behorig;
         }
 
-        public static DateTime GeSistaProvDatum(int personid)
+        public DateTime GeSistaProvDatum(int personid)
         {
             // för att inet returnera inget värde alls 
             DateTime sistaprovdatum = Convert.ToDateTime("1000-01-01 19:11:11.80779");
@@ -867,7 +880,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av data relaterad till senaste provdatum. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -900,7 +914,8 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
-
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av provresultat. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
         }
 
@@ -964,7 +979,8 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
-
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av provresultat. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
         }
 
@@ -1010,7 +1026,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="person_id"></param>
         /// <returns></returns>
-        public static Provtillfalle GeSistaTillfalleId(int person_id)
+        public Provtillfalle GeSistaTillfalleId(int person_id)
         {
             Provtillfalle nyProvtillfalle = new Provtillfalle();
 
@@ -1048,7 +1064,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av data relaterad till senaste provtillfälle. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1062,7 +1079,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="tillfalleid"></param>
         /// <returns></returns>
-        public static List<Fraga> GeFrageListan(int tillfalleid)
+        public List<Fraga> GeFrageListan(int tillfalleid)
         {
             List<Fraga> frageListan = new List<Fraga>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1095,7 +1112,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av frågor. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1109,7 +1127,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="frageid"></param>
         /// <returns></returns>
-        public static List<Svar> GeSvarLista(int frageid)
+        public List<Svar> GeSvarLista(int frageid)
         {
             List<Svar> svarLista = new List<Svar>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1140,7 +1158,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av svar. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1330,7 +1349,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="person_id"></param>
         /// <returns></returns>
-        public static List<Provstatistik> GeStatistikPerKategori(int person_id)
+        public List<Provstatistik> GeStatistikPerKategori(int person_id)
         {
             List<Provstatistik> listaPerKategori = new List<Provstatistik>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1370,7 +1389,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av statistik. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1383,7 +1403,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="person_id"></param>
         /// <returns></returns>
-        public static List<Provstatistik> GeStatistikPerProv(int person_id)
+        public List<Provstatistik> GeStatistikPerProv(int person_id)
         {
             List<Provstatistik> listaPerProv = new List<Provstatistik>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1422,7 +1442,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av statistik. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
