@@ -24,7 +24,7 @@ namespace LCGBanking
             if (!Page.IsPostBack)
             {
                 if (anvandare == 2)
-                { 
+                {
                     ((Label)Master.FindControl("headertext")).Visible = true;
                     ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
                     ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
@@ -33,6 +33,7 @@ namespace LCGBanking
 
                 CheckBoxSvarText.Visible = false;
                 ButtonIndResGeLicens.Visible = false;
+                LabelLicensGiven.Text = "";
             }
             List<Provdeltagare_listan> provdeltagareListan = new List<Provdeltagare_listan>();
             GridViewDeltagarLista.CssClass = "admin-tabell";
@@ -44,6 +45,10 @@ namespace LCGBanking
             if (!IsPostBack)
             {
                 populeraListBoxGVIndRes();
+                fyllGridViewStatistik("Licenseringstest");
+                fyllGridViewStatistik("Kunskapstest");
+                IndividuellaResultat.Visible = false;
+                OvergripandeStatistik.Visible = false;
             }
 
         }
@@ -134,7 +139,7 @@ namespace LCGBanking
                 while (dr.Read())
                 {
                     Provdeltagare_listan nyDeltagare = new Provdeltagare_listan { };
-                    
+
                     nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
                     nyDeltagare.Person_id = Convert.ToString(dr["person_id"]);
                     nyDeltagare.Namn = Convert.ToString(dr["namn"]);
@@ -150,7 +155,7 @@ namespace LCGBanking
                     if (nyDeltagare.Licencierings_datum.Length > 10)
                     {
                         nyDeltagare.Licencierings_datum = nyDeltagare.Licencierings_datum.Substring(0, 10);
-                    }                    
+                    }
                     nyDeltagare.Provtyp = Convert.ToString(dr["provtyp"]);
                     nyDeltagare.Nasta_prov_tidigast = Convert.ToString(dr["nasta_prov_tidigast"]);
                     if (nyDeltagare.Nasta_prov_tidigast.Length > 10)
@@ -165,9 +170,9 @@ namespace LCGBanking
                     nyDeltagare.Dagar_kvar = Convert.ToString(dr["dagar_kvar"]);
 
                     provdeltagareListan.Add(nyDeltagare);
-                } 
+                }
             }
-            
+
             catch (NpgsqlException ex)
             {
                 //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
@@ -185,7 +190,7 @@ namespace LCGBanking
         /// <param name="person_id"></param>
         /// <returns></returns>
         public static Provtillfalle GeSistaTillfalleId(int person_id)
-        {   
+        {
             Provtillfalle nyProvtillfalle = new Provtillfalle();
 
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -203,7 +208,7 @@ namespace LCGBanking
                 sql = sql + "                                   FROM lcg_provtillfalle c";
                 sql = sql + "                                   WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id)) OR lcg_provtillfalle.datum IS NULL ) ";
 
-                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);                
+                NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newFkPersonId", NpgsqlDbType.Integer));
                 command.Parameters["newFkPersonId"].Value = person_id;
                 NpgsqlDataReader dr = command.ExecuteReader();
@@ -230,7 +235,7 @@ namespace LCGBanking
             }
             return nyProvtillfalle;
         }
-        
+
         /// <summary>
         /// Metoden returnerar statiskt data per prov fråga.  
         /// </summary>
@@ -455,7 +460,7 @@ namespace LCGBanking
                 string sql = "";
                 sql = sql + "SELECT id, svar, alt, facit, icheckad, fk_fraga_id";
                 sql = sql + " FROM lcg_svar WHERE fk_fraga_id = :newFkFragaId";
-                
+
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
                 command.Parameters.Add(new NpgsqlParameter("newFkFragaId", NpgsqlDbType.Integer));
                 command.Parameters["newFkFragaId"].Value = frageid;
@@ -471,7 +476,7 @@ namespace LCGBanking
                     nySvar.icheckad = (bool)(dr["icheckad"]);
                     nySvar.fk_fraga_id = (int)(dr["fk_fraga_id"]);
                     svarLista.Add(nySvar);
-                } 
+                }
             }
             catch (NpgsqlException ex)
             {
@@ -484,6 +489,10 @@ namespace LCGBanking
             return svarLista;
         }
 
+        /// <summary>
+        /// skickar information till gridview för översiktliga individuella resultat
+        /// </summary>
+        /// <param name="personId"></param>
         protected void fyllGridViewIndResOversikt(int personId)
         {
             List<Provstatistik> provStatistik = GeStatistikPerProv(personId);
@@ -746,6 +755,42 @@ namespace LCGBanking
             fyllGridViewIndividResultat(GridViewIndividResultat3, "Etik och regelverk");
         }
 
+        /// <summary>
+        /// visar eller döljer delar av admin-sidan beroende på checkboxval
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void CheckBoxAdmin_CheckedChanged(object sender, EventArgs e)
+        {
+            if (CheckBoxDeltagare.Checked)
+            {
+                Deltagarlista.Visible = true;
+            }
+            else
+            {
+                Deltagarlista.Visible = false;
+            }
+            if (CheckBoxIndRes.Checked)
+            {
+                IndividuellaResultat.Visible = true;
+            }
+            else
+            {
+                IndividuellaResultat.Visible = false;
+            }
+            if (CheckBoxOversikt.Checked)
+            {
+                OvergripandeStatistik.Visible = true;
+            }
+            else
+            {
+                OvergripandeStatistik.Visible = false;
+            }
+        }
+
+        /// <summary>
+        /// populerar listbox med personer
+        /// </summary>
         private void populeraListBoxGVIndRes()
         {
             List<Person> ursprungligLista = GeListaPersoner();
@@ -762,6 +807,11 @@ namespace LCGBanking
             ListBoxGVIndRes.DataBind();
         }
 
+        /// <summary>
+        /// uppdaterar admin-sidan med information rörande vald person
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void ListBoxGVIndRes_SelectedIndexChanged(object sender, EventArgs e)
         {
             ListBox lb = (ListBox)sender;
@@ -805,7 +855,7 @@ namespace LCGBanking
             }
             catch (Exception)
             {
-                
+
             }
 
             if (godkand == "Ja")
@@ -819,9 +869,14 @@ namespace LCGBanking
 
             CheckBoxSvarText.Visible = true;
             ButtonIndResGeLicens.Visible = true;
-            //Response.Write("<script>alert('"+godkand+"');</script>");
+            LabelLicensGiven.Text = "";
         }
 
+        /// <summary>
+        /// färgkodar gridview med översiktliga individuella testresultat
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void GridViewIndResOversikt_DataBound(object sender, EventArgs e)
         {
             try
@@ -846,7 +901,7 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
-                
+
             }
         }
 
@@ -861,7 +916,7 @@ namespace LCGBanking
             int personId = Convert.ToInt32(valdPerson.Value);
 
             tilldelaLicens(personId);
-
+            LabelLicensGiven.Text = valdPerson.Text + " är nu licensierad";
         }
 
         /// <summary>
@@ -897,6 +952,156 @@ namespace LCGBanking
             finally
             {
                 conn.Close();
+            }
+        }
+
+        /// <summary>
+        /// skickar information till gridviews för översiktlig statistik
+        /// </summary>
+        /// <param name="provtyp"></param>
+        private void fyllGridViewStatistik(string provtyp)
+        {
+            List<Provdeltagare_listan> deltagarlista = GeProvdeltagareListan();
+            DataTable dt = new DataTable();
+
+            dt.Columns.Add("Namn", typeof(string));
+            if (provtyp == "Licenseringstest")
+            {
+                for (int i = 1; i <= 25; i++)
+                {
+                    dt.Columns.Add(i.ToString(), typeof(int));
+                }
+            }
+            else
+            {
+                for (int i = 1; i <= 15; i++)
+                {
+                    dt.Columns.Add(i.ToString(), typeof(int));
+                }
+            }
+            dt.Columns.Add("Ekonomi", typeof(string));
+            dt.Columns.Add("Etik", typeof(string));
+            dt.Columns.Add("Produkter", typeof(string));
+            dt.Columns.Add("Totalt", typeof(string));
+
+            foreach (Provdeltagare_listan deltagare in deltagarlista)
+            {
+                if (deltagare.Provtyp == provtyp)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["Namn"] = deltagare.Namn;
+
+                    //frågor
+                    List<Provstatistik> fragor = GeStatistikPerFraga(Convert.ToInt32(deltagare.Person_id));
+                    foreach (Provstatistik ps in fragor)
+                    {
+                        if (ps.Datum.ToString().Substring(0, 10) == deltagare.Senaste_prov)
+                        {
+                            foreach (DataColumn dc in dt.Columns)
+                            {
+                                if (dc.ColumnName == ps.Fraga_id.ToString())
+                                {
+                                    dr[dc.ColumnName] = Convert.ToInt32(ps.Antal_poang);
+                                }
+                            }
+                        }
+                    }
+
+                    //kategorier
+                    List<Provstatistik> kategorier = GeStatistikPerKategori(Convert.ToInt32(deltagare.Person_id));
+                    foreach (Provstatistik ps in kategorier)
+                    {
+                        if (ps.Datum.ToString().Substring(0, 10) == deltagare.Senaste_prov)
+                        {
+                            if (ps.Kategori == "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi")
+                            {
+                                dr["Ekonomi"] = Convert.ToInt32(ps.Antal_ratt) + "%";
+                            }
+                            else if (ps.Kategori == "Etik och regelverk")
+                            {
+                                dr["Etik"] = Convert.ToInt32(ps.Antal_ratt) + "%";
+                            }
+                            else if (ps.Kategori == "Produkter och hantering av kundens affärer ")
+                            {
+                                dr["Produkter"] = Convert.ToInt32(ps.Antal_ratt) + "%";
+                            }
+                        }
+                    }
+
+                    //totalt
+                    List<Provstatistik> prov = GeStatistikPerProv(Convert.ToInt32(deltagare.Person_id));
+                    foreach (Provstatistik ps in prov)
+                    {
+                        if (ps.Datum.ToString().Substring(0, 10) == deltagare.Senaste_prov)
+                        {
+                            dr["Totalt"] = Convert.ToInt32(ps.Antal_ratt) + "%";
+                        }
+                    }
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            if (provtyp == "Licenseringstest")
+            {
+                GridViewOvergripandeLicens.DataSource = dt;
+                GridViewOvergripandeLicens.DataBind();
+            }
+            else
+            {
+                GridViewOvergripandeKunskap.DataSource = dt;
+                GridViewOvergripandeKunskap.DataBind();
+            }
+        }
+
+        /// <summary>
+        /// färgkodar gridviews för översiktlig statistik
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void GridViewOvergripandeStatistik_DataBound(object sender, EventArgs e)
+        {
+            try
+            {
+                GridView gridview = (GridView)sender;
+                foreach (GridViewRow row in gridview.Rows)
+                {
+                    foreach (TableCell tc in row.Cells)
+                    {
+                        if (tc.Text.Contains("%"))
+                        {
+                            string[] value = tc.Text.Split('%');
+                            if (Convert.ToInt32(value[0]) >= 60)
+                            {
+                                tc.CssClass = "GVIndRes_rattsvar";
+                            }
+                            else
+                            {
+                                tc.CssClass = "GVIndRes_felsvar";
+                            }
+                        }
+                        else if (tc.Text == "1")
+                        {
+                            tc.CssClass = "GVIndRes_rattsvar";
+                        }
+                        else if (tc.Text == "0")
+                        {
+                            tc.CssClass = "GVIndRes_felsvar";
+                        }
+                    }
+                    string[] totalVal = row.Cells[row.Cells.Count - 1].Text.Split('%');
+                    if (Convert.ToInt32(totalVal[0]) >= 70)
+                    {
+                        row.Cells[row.Cells.Count - 1].CssClass = "GVIndRes_rattsvar";
+                    }
+                    else
+                    {
+                        row.Cells[row.Cells.Count - 1].CssClass = "GVIndRes_felsvar";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Response.Write("<script>alert('"+ex.Message.ToString()+"')</script>");
             }
         }
     }
