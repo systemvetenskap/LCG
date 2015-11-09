@@ -68,12 +68,12 @@ namespace LCGBanking
                         LabelKategori.Text = "Välkommen att göra licenseringstestet";
                         LabelKategori.Visible = true;
                     }
-                  else
+                    else
                     {
                         ButtonStart.Visible = false;
                         LabelQuestion.Visible = true;
                         LabelInfo.Visible = true;
-                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelQuestion.Text = "Du kan inte genomföra några test just nu. Välkommen åter!";
                         LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
                     }
                 }
@@ -94,7 +94,7 @@ namespace LCGBanking
                         ButtonStart.Visible = false;
                         LabelQuestion.Visible = true;
                         LabelInfo.Visible = true;
-                        LabelQuestion.Text = "Du har redan licens och kan därför inte genomföra prov just nu. Välkommen åter!";
+                        LabelQuestion.Text = "Du kan inte genomföra några prov just nu. Välkommen åter!";
                         LabelInfo.Text = "Datum för nästa prov: " + nasta_prov_tidigast.ToShortDateString();
                     }
                 }
@@ -114,58 +114,67 @@ namespace LCGBanking
         /// <param name="level"></param>
         private void loadXML(string path, string level)
         {
-            GlobalValues.Fragor.Clear();
-
-            string xmlfil = Server.MapPath(path);
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlfil);
-
-            XmlNodeList noder = doc.SelectNodes(level + "/Question");
-
-            foreach (XmlNode nod in noder)
+            try
             {
-                Fraga fr = new Fraga
-                {
-                    id = Convert.ToInt32(nod.Attributes["id"].Value),
-                    kategori = nod["Kategori"].InnerText,
-                    fraga = nod["Fraga"].InnerText,
-                    information = nod["Information"].InnerText,
-                    flerVal = false
-                };
+                GlobalValues.Fragor.Clear();
 
-                XmlNodeList subNoder = nod.ChildNodes;
+                string xmlfil = Server.MapPath(path);
+                XmlDocument doc = new XmlDocument();
+                doc.Load(xmlfil);
 
-                foreach (XmlNode subNod in subNoder)
+                XmlNodeList noder = doc.SelectNodes(level + "/Question");
+
+                foreach (XmlNode nod in noder)
                 {
-                    if (subNod.Name == "Svar")
+                    Fraga fr = new Fraga
                     {
-                        Svar sv = new Svar
+                        id = Convert.ToInt32(nod.Attributes["id"].Value),
+                        kategori = nod["Kategori"].InnerText,
+                        fraga = nod["Fraga"].InnerText,
+                        information = nod["Information"].InnerText,
+                        flerVal = false
+                    };
+
+                    XmlNodeList subNoder = nod.ChildNodes;
+
+                    foreach (XmlNode subNod in subNoder)
+                    {
+                        if (subNod.Name == "Svar")
                         {
-                            alt = subNod.Attributes["alt"].Value,
-                            svar = subNod.InnerText,
-                            facit = subNod.Attributes["facit"].Value,
-                            icheckad = false
-                        };
-                        fr.svarLista.Add(sv);
+                            Svar sv = new Svar
+                            {
+                                alt = subNod.Attributes["alt"].Value,
+                                svar = subNod.InnerText,
+                                facit = subNod.Attributes["facit"].Value,
+                                icheckad = false
+                            };
+                            fr.svarLista.Add(sv);
+                        }
                     }
-                }
 
-                //kontrollera om frågan är en flervalsfråga
-                int rattSvar = 0;
-                foreach (Svar sv in fr.svarLista)
-                {
-                    if (sv.facit == "true")
+                    //kontrollera om frågan är en flervalsfråga
+                    int rattSvar = 0;
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        rattSvar += 1;
+                        if (sv.facit == "true")
+                        {
+                            rattSvar += 1;
+                        }
                     }
-                }
 
-                if (rattSvar > 1)
-                {
-                    fr.flerVal = true;
-                }
+                    if (rattSvar > 1)
+                    {
+                        fr.flerVal = true;
+                    }
 
-                GlobalValues.Fragor.Add(fr);
+                    GlobalValues.Fragor.Add(fr);
+                }
+            }
+            catch (Exception ex)
+            {
+                string felmeddelande = "Ett fel har uppstått i samband med inläsning av XML filen. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
+                throw;
             }
         }
 
@@ -308,7 +317,6 @@ namespace LCGBanking
             ButtonNext.Visible = true;
             ButtonSparaProv.Visible = true;
             ButtonStart.Visible = false;
-            Msg.Visible = false;
         }
 
         /// <summary>
@@ -478,10 +486,10 @@ namespace LCGBanking
                     {
                         LinkButton lb = (LinkButton)item.FindControl("LinkButtonQuestNav");
 
-                        if(lb.Text == GlobalValues.FrageNr.ToString())
+                        if (lb.Text == GlobalValues.FrageNr.ToString())
                         {
                             lb.CssClass = "qNavActive";
-                        }                        
+                        }
                     }
                     catch
                     {
@@ -526,7 +534,7 @@ namespace LCGBanking
 
         private int GetNodeCount()
         {
-            string node = "/" + GlobalValues.testtyp + "/Question"; 
+            string node = "/" + GlobalValues.testtyp + "/Question";
             string xmlfil = Server.MapPath(GlobalValues.xmlfilename);
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlfil);
@@ -540,10 +548,9 @@ namespace LCGBanking
             registreraVal();
             Provtillfalle provtillfalle = new Provtillfalle();
             provtillfalle.Datum = DateTime.Now;
-            provtillfalle.Typ_av_test = GlobalValues.testtyp; 
-            provtillfalle.Anvandar_id = GlobalValues.anvandarid; 
+            provtillfalle.Typ_av_test = GlobalValues.testtyp;
+            provtillfalle.Anvandar_id = GlobalValues.anvandarid;
             nyProvtillfalle(provtillfalle);
-            Msg.Text = "  Ditt prov är sparat.";
         }
 
         /// <summary>
@@ -579,15 +586,15 @@ namespace LCGBanking
                 command.Parameters["newTypAvTest"].Value = provtillfalle.Typ_av_test;
                 command.Parameters.Add(new NpgsqlParameter("newAnvandarId", NpgsqlDbType.Integer));
                 command.Parameters["newAnvandarId"].Value = provtillfalle.Anvandar_id;
-                
+
                 command.CommandText = plsql;
-                int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());                
-                
+                int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());
+
                 int dbfragaid = 0;
                 int dbsvarid = 0;
 
                 foreach (Fraga nyfraga in GlobalValues.Fragor)
-	            {
+                {
                     dbfragaid = 0;
                     plsql = string.Empty;
                     plsql = plsql + "INSERT INTO lcg_fragor (fraga_id, fraga, information, flerval, kategori, fk_provtillfalle_id)";
@@ -638,6 +645,8 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
+                string felmeddelande = "Ett fel har uppstått i samband med skapande av ett nytt provtillfälle. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
                 tran.Rollback();
             }
             finally
@@ -646,22 +655,26 @@ namespace LCGBanking
             }
         }
 
-        protected void ButtonSparaProv_Click(object sender, EventArgs e)
-        {
-            string confirmValue = Request.Form["confirm_value"];
-            if (confirmValue == "Ja")
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
-                SparaProvtillfalle();
-                laddaResultat();
-                main.Visible = false;
-                IndividuellaResultat.Visible = true;
-            }
-            else
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
-            }
-        }
+        /* protected void ButtonSparaProv_Click(object sender, EventArgs e)
+         {
+             SparaProvtillfalle();
+             laddaResultat();
+             main.Visible = false;
+             IndividuellaResultat.Visible = true;
+            
+             /*
+             string confirmValue = Request.Form["confirm_value"];
+             if (confirmValue == "Ja")
+             {
+                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
+
+ 
+             }
+             else
+             {
+                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+             }
+         }*/
 
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
@@ -670,7 +683,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="anvandarnamn"></param>
         /// <returns></returns>
-        public static int GeAnvandarId(string anvandarnamn)
+        public int GeAnvandarId(string anvandarnamn)
         {
             int anvandarid = 0;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -690,7 +703,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av användarrelaterad information. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -704,7 +718,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="anvandarid"></param>
         /// <returns></returns>
-        public static int GePersonId(int anvandarid)
+        public int GePersonId(int anvandarid)
         {
             int personid = 0;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -726,7 +740,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av personrelaterad information. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -740,7 +755,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="personid"></param>
         /// <returns></returns>
-        public static bool Licencierad(int personid)
+        public bool Licencierad(int personid)
         {
             bool licencierad = false;
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -755,14 +770,14 @@ namespace LCGBanking
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 while (dr.Read())
-                {   
+                {
                     licencierad = dr["licencierad"] != DBNull.Value ? (bool)(dr["licencierad"]) : false;
                 }
             }
             catch (NpgsqlException ex)
             {
-                
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av information relaterad till licens. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -776,7 +791,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="personid"></param>
         /// <returns></returns>
-        public static bool BehorigForProv(int personid, out DateTime nasta_prov_tidigast)
+        public bool BehorigForProv(int personid, out DateTime nasta_prov_tidigast)
         {
             bool behorig = true;
             nasta_prov_tidigast = DateTime.Today;
@@ -791,8 +806,8 @@ namespace LCGBanking
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN 'Kunskapstest' ";
                 sql = sql + "            ELSE 'Licenseringstest' END AS provtyp, ";
                 sql = sql + "       CASE WHEN lcg_person.har_licens = TRUE THEN (lcg_provtillfalle.datum + interval '365 day') ::timestamp::date ";
-                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date " ;
-                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast " ;
+                sql = sql + "            WHEN lcg_provtillfalle.godkand = FALSE THEN (lcg_provtillfalle.datum + '7 DAYS') ::timestamp::date ";
+                sql = sql + "            ELSE NULL END AS nasta_prov_tidigast ";
                 sql = sql + "FROM lcg_person ";
                 sql = sql + "     LEFT JOIN lcg_roll AS lcg_roll ON lcg_roll.id = lcg_person.fk_roll_id ";
                 sql = sql + "     LEFT JOIN lcg_provtillfalle AS lcg_provtillfalle ON lcg_provtillfalle.fk_person_id = lcg_person.id ";
@@ -802,7 +817,7 @@ namespace LCGBanking
                 sql = sql + "                                     WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id) ";
                 sql = sql + "      OR lcg_provtillfalle.DATUM IS NULL) ";
                 sql = sql + "ORDER BY lcg_provtillfalle.datum ASC; ";
-        
+
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
 
                 command.Parameters.Add(new NpgsqlParameter("personid", NpgsqlDbType.Integer));
@@ -810,15 +825,15 @@ namespace LCGBanking
 
                 DateTime idag = DateTime.Today;
                 //DateTime nasta_prov_tidigast = idag;
-                
-                
+
+
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {
                     // personid = (int)(dr["id"]);
                     // namn = (string)(dr["namn"]);
                     // provtyp = (string)(dr["provtyp"]);
-                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ?  Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
+                    nasta_prov_tidigast = dr["nasta_prov_tidigast"] != DBNull.Value ? Convert.ToDateTime(dr["nasta_prov_tidigast"]) : DateTime.MinValue;
                 }
 
                 if (nasta_prov_tidigast > idag)
@@ -832,7 +847,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med kontroll av behörighet. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
             }
             finally
             {
@@ -841,7 +857,7 @@ namespace LCGBanking
             return behorig;
         }
 
-        public static DateTime GeSistaProvDatum(int personid)
+        public DateTime GeSistaProvDatum(int personid)
         {
             // för att inet returnera inget värde alls 
             DateTime sistaprovdatum = Convert.ToDateTime("1000-01-01 19:11:11.80779");
@@ -864,7 +880,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av data relaterad till senaste provdatum. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -897,7 +914,8 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
-                
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av provresultat. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
         }
 
@@ -961,7 +979,8 @@ namespace LCGBanking
             }
             catch (Exception ex)
             {
-
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av provresultat. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
         }
 
@@ -1007,7 +1026,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="person_id"></param>
         /// <returns></returns>
-        public static Provtillfalle GeSistaTillfalleId(int person_id)
+        public Provtillfalle GeSistaTillfalleId(int person_id)
         {
             Provtillfalle nyProvtillfalle = new Provtillfalle();
 
@@ -1045,7 +1064,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av data relaterad till senaste provtillfälle. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1059,7 +1079,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="tillfalleid"></param>
         /// <returns></returns>
-        public static List<Fraga> GeFrageListan(int tillfalleid)
+        public List<Fraga> GeFrageListan(int tillfalleid)
         {
             List<Fraga> frageListan = new List<Fraga>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1092,7 +1112,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av frågor. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1106,7 +1127,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="frageid"></param>
         /// <returns></returns>
-        public static List<Svar> GeSvarLista(int frageid)
+        public List<Svar> GeSvarLista(int frageid)
         {
             List<Svar> svarLista = new List<Svar>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1137,7 +1158,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av svar. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1327,7 +1349,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="person_id"></param>
         /// <returns></returns>
-        public static List<Provstatistik> GeStatistikPerKategori(int person_id)
+        public List<Provstatistik> GeStatistikPerKategori(int person_id)
         {
             List<Provstatistik> listaPerKategori = new List<Provstatistik>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1367,7 +1389,8 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av statistik. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
@@ -1380,7 +1403,7 @@ namespace LCGBanking
         /// </summary>
         /// <param name="person_id"></param>
         /// <returns></returns>
-        public static List<Provstatistik> GeStatistikPerProv(int person_id)
+        public List<Provstatistik> GeStatistikPerProv(int person_id)
         {
             List<Provstatistik> listaPerProv = new List<Provstatistik>();
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
@@ -1419,13 +1442,31 @@ namespace LCGBanking
             }
             catch (NpgsqlException ex)
             {
-                //MessageBox.Show("Ett fel uppstod:\n" + ex.Message); OBS! Lämlig medellande?
+                string felmeddelande = "Ett fel har uppstått i samband med hämtning av statistik. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
             }
             finally
             {
                 conn.Close();
             }
             return listaPerProv;
+        }
+
+        protected void ButtonSparaProv_Click(object sender, EventArgs e)
+        {
+            string confirmValue = Request.Form["confirm_value"];
+            if (confirmValue == "Ja")
+            {
+                SparaProvtillfalle();
+                laddaResultat();
+                main.Visible = false;
+                IndividuellaResultat.Visible = true;
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
+            }
+            else
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+            }
         }
     }
 }

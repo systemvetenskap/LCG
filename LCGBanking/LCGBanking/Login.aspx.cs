@@ -53,6 +53,12 @@ namespace LCGBanking
                 }
             }
 
+            catch (Exception ex)
+            {
+                string felmeddelande = "Ett fel har uppstått ett i samband med hämtning av användarrelaterad information från databasen. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
+            }
+
             finally
             {
                 conn.Close();
