@@ -20,6 +20,8 @@ namespace LCGBanking
         public int anvandare;
         private int svarAntal = 1;
 
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
             ButtonPrevious.Enabled = false;
@@ -33,12 +35,12 @@ namespace LCGBanking
                 if (Context.User.Identity.IsAuthenticated)
                 {
                     // Finds user name and says Hi
-                    Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Inloggad som: " + Context.User.Identity.Name;
+                    Welcome.Text = "Välkommen tillbaka till Kunskapsportalen: " + "Du är inloggad som: " + GlobalValues.namn;
                 }
                 else
                 {
                     // It is anonymous user, say hi to guest
-                    Welcome.Text = "Lycka till på ditt första licenseringstest " + Context.User.Identity.Name;
+                    Welcome.Text = "Lycka till på ditt första licenseringstest " + GlobalValues.namn;
                 }
 
                 if (anvandare == 1)
@@ -1016,8 +1018,8 @@ namespace LCGBanking
 
             fyllGridViewIndResOversikt(personId);
 
-            LabelIndResNamn.Text = Context.User.Identity.Name;
-            DateTime datum = new DateTime();
+            LabelIndResNamn.Text = GlobalValues.namn;
+            // DateTime datum = new DateTime();
             //LabelIndResDatum.Text = Convert.ToString(datum.Date.ToLocalTime());
         }
 

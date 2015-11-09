@@ -19,6 +19,13 @@ namespace LCGBanking
 
             if (!Page.IsPostBack)
             {
+                LoginName loginName = LoginName1.FindControl("LoginName1") as LoginName;
+
+                if (loginName != null && Session != null)
+                {
+                    loginName.FormatString = "Du är inloggad som: " + GlobalValues.namn;
+                }
+
                 LabelPost.Text = "Välkommen tillbaka";
                 if (anvandare == 1)
                 {

@@ -17,7 +17,14 @@ namespace LCGBanking
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
             anvandare = Convert.ToInt32(Session["lcg_roll"]);
+
+            string anvandarnamn = TextBoxAnvId.Text;
+            int anvandarid = GlobalValues.GeAnvandarId(anvandarnamn);
+            string namn = GlobalValues.GeNamn(anvandarid);
+            GlobalValues.anvandarid = anvandarid;
+            GlobalValues.namn = namn;
 
             if (anvandare == 1)
             {

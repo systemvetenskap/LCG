@@ -11,5 +11,10 @@ namespace LCGBanking
         public string Namn { get; set; }
         public int Roll_id { get; set; }
         public bool Har_licens { get; set; }
+
+        public override string ToString()
+        {
+            return Namn;
+        }
     }
 }

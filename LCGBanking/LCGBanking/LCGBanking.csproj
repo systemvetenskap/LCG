@@ -72,7 +72,6 @@
     <Content Include="BILDER\logo_02.png" />
     <Content Include="BILDER\userpicdummy.jpg" />
     <Content Include="CSS\main.css" />
-    <Content Include="CSS\style.css" />
     <Content Include="Licensiering.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="MasterPage.Master" />

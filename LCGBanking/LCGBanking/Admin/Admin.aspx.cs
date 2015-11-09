@@ -28,7 +28,7 @@ namespace LCGBanking
                     ((Label)Master.FindControl("headertext")).Visible = true;
                     ((HyperLink)Master.FindControl("HyperLinkLicens")).Visible = true;
                     ((HyperLink)Master.FindControl("HyperLinkAdmin")).Visible = true;
-                    Welcome.Text = "Välkommen tillbaka till Kunskapsportalens administrationssida." + "Du är inloggad som: " + Context.User.Identity.Name;
+                    Welcome.Text = "Välkommen tillbaka till Kunskapsportalens administrationssida. " + " Du är inloggad som: " + GlobalValues.namn ;
                 }
 
                 CheckBoxSvarText.Visible = false;
