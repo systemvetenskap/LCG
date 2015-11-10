@@ -11,6 +11,7 @@
     <Svar alt="b" facit="false">Lån från ett moderbolag</Svar>
     <Svar alt="c" facit="false">Aktier och obligationer</Svar>
     <Svar alt="d" facit="true">Ränteintäkter och/eller Räntekostnader</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="2">
     <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
@@ -20,6 +21,7 @@
     <Svar alt="b" facit="true">betalningsförmåga på lång sikt</Svar>
     <Svar alt="c" facit="false">hur länge bolaget har funnits</Svar>
     <Svar alt="d" facit="false">resultat i bolaget</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="3">
     <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
@@ -29,6 +31,7 @@
     <Svar alt="b" facit="true">En undersökning av den största leverantören i företaget beräknat på inköpsstatistik</Svar>
     <Svar alt="c" facit="false">Förfallodag för skattebetalningar</Svar>
     <Svar alt="d" facit="false">En undersökning av den största kunden i företaget beräknat till omsättning</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="4">
     <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
@@ -38,6 +41,7 @@
     <Svar alt="b" facit="false">Förändringen av företagets resultat under 2 år</Svar>
     <Svar alt="c" facit="true">Förändringen av likvida medel i företaget</Svar>
     <Svar alt="d" facit="false">Företagets olika placeringar av likvida medel</Svar>
+    <Bild>~/BILDER/statistics.jpg</Bild>
   </Question>
   <Question id="5">
     <Kategori>Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi</Kategori>
@@ -47,6 +51,7 @@
     <Svar alt="b" facit="false">Alla bolag</Svar>
     <Svar alt="c" facit="false">K2-bolag</Svar>
     <Svar alt="d" facit="false">Det är inte tvingande för något bolag</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="6">
     <Kategori>Produkter och hantering av kundens affärer </Kategori>
@@ -56,6 +61,7 @@
     <Svar alt="b" facit="false">Maskiner</Svar>
     <Svar alt="c" facit="true">Aktier</Svar>
     <Svar alt="d" facit="false">Frihet</Svar>
+    <Bild></Bild>
   </Question>
   <!-- Fråga 7-10 har lånats från sidan: http://www.fei.se/testa-dina-kunskaper# -->
   <Question id="7">
@@ -66,6 +72,7 @@
     <Svar alt="b" facit="true">Arbetskraft</Svar>
     <Svar alt="c" facit="false">Appar för privat bruk</Svar>
     <Svar alt="d" facit="false">Traktorer</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="8">
     <Kategori>Produkter och hantering av kundens affärer </Kategori>
@@ -75,6 +82,7 @@
     <Svar alt="b" facit="true">Differensen mellan värdet av en ekonomis export och dess import.</Svar>
     <Svar alt="c" facit="false">Ett mått för en marknad som har nått en hållbar nivå.</Svar>
     <Svar alt="d" facit="true">Det är bytesbalansen. Summan av handelsbalansen och tjänstebalansen</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="9">
     <Kategori>Produkter och hantering av kundens affärer </Kategori>
@@ -84,6 +92,7 @@
     <Svar alt="b" facit="false">Sådant läkemedelsbolag använder för att nå så många som möjligt</Svar>
     <Svar alt="c" facit="true">Sådant ett företag använder för att nå en specifik målgrupp</Svar>
     <Svar alt="d" facit="false">Ett annat begrepp för Yoshikins försäljningskanaler</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="10">
     <Kategori>Produkter och hantering av kundens affärer </Kategori>
@@ -93,6 +102,7 @@
     <Svar alt="b" facit="false">Via TV-reklam försöker man få annonsören att förstå konsumenten</Svar>
     <Svar alt="c" facit="true">Via internet försöker man få kunden att hitta annonsören</Svar>
     <Svar alt="d" facit="false">Via SMS försöker annonsören boka möten med kunden</Svar>
+    <Bild></Bild>
   </Question>
   <!-- Fråga 11-15 har lånats från sidan: http://www.direkthandeln.org/Upload/Docs/etiska_regler_rev_arsmote_2012_kov.pdf -->
   <Question id="11">
@@ -103,6 +113,7 @@
     <Svar alt="b" facit="true">Säljkontakter med nyblivna föräldrar får inte tas än 8 veckor efter att barnets fötts</Svar>
     <Svar alt="c" facit="false">Sälja varor via telefon</Svar>
     <Svar alt="d" facit="false">Betala kontakt när konsument handlar i affär</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="12">
     <Kategori>Etik och regelverk</Kategori>
@@ -112,6 +123,7 @@
     <Svar alt="b" facit="false">Säljaren behöver inte svara alls</Svar>
     <Svar alt="c" facit="false">Ett obegripligt svar är även det ett begripligt svar</Svar>
     <Svar alt="d" facit="false">Säljaren kan uppträda otrevligt och slingrande. Speciellt vid bilköp.</Svar>
+    <Bild>~/BILDER/telemarketer.png</Bild>
   </Question>
   <Question id="13">
     <Kategori>Etik och regelverk</Kategori>
@@ -121,6 +133,7 @@
     <Svar alt="b" facit="false">Att inte bry sig om NIX-registret är okej för en telefonförsäljare</Svar>
     <Svar alt="c" facit="true">Personlig kontakt, kontakt per telefon eller elektronisk kontakt skall göras enligt god sed och etiska regler på området. Kontakten skall ske ansvarsfullt på rimliga tidpunkter och undvikas vara för påträngande.</Svar>
     <Svar alt="d" facit="false">Säljaren kan ringa, kontakta och kontakta via elektronisk kontakt när som helst på dygnet.</Svar>
+    <Bild></Bild>
   </Question>
   <Question id="14">
     <Kategori>Etik och regelverk</Kategori>
@@ -130,6 +143,7 @@
     <Svar alt="b" facit="false">Information behöver ges alla tillfällen. Men är produkten inte tillgänglig behöver direktsäljaren inte ge någon information. Det räcker med att säga att produkten inkommer inom kort.</Svar>
     <Svar alt="c" facit="true">Direktsäljaren skall söka bilda sig en uppfattning om konsumentens behov och allmänkunskaper beträffande den saluförda varan och tjänsten.</Svar>
     <Svar alt="d" facit="false">Att sälja en produkt till konsument som bidrar till rädsla är helt ok. </Svar>
+    <Bild></Bild>
   </Question>
   <Question id="15">
     <Kategori>Etik och regelverk</Kategori>
@@ -139,6 +153,7 @@
     <Svar alt="b" facit="false">Den gäller när konsument köper en vara på internet.</Svar>
     <Svar alt="c" facit="true">Gäller när en konsument låter en näringsidkare utföra arbete på något som konsumenten äger.</Svar>
     <Svar alt="d" facit="false">Den gäller ibland eller aldrig.</Svar>
+    <Bild></Bild>
   </Question>
 </Kunskapstest>
 

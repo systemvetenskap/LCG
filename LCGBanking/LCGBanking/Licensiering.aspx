@@ -21,7 +21,8 @@
             <p class="p-mindretext"><asp:Label ID="LabelInfo" runat="server"></asp:Label></p>
         </div>
         <div id="svar">
-            <asp:Panel ID="PanelSvar" runat="server"></asp:Panel>                
+            <asp:Panel ID="PanelSvar" runat="server"></asp:Panel>
+            <asp:Image ID="ImageFragebild" runat="server" />
         </div>
         <div id="knappar">
             <asp:Button ID="ButtonPrevious" runat="server" Text="&larr;  Föregående fråga" OnClick="ButtonPrevious_Click" CssClass="roundCorner" Height="35px" Width="175px" Visible="False" />

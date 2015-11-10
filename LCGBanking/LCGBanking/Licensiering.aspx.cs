@@ -130,7 +130,8 @@ namespace LCGBanking
                     kategori = nod["Kategori"].InnerText,
                     fraga = nod["Fraga"].InnerText,
                     information = nod["Information"].InnerText,
-                    flerVal = false
+                    flerVal = false,
+                    bildURL = nod["Bild"].InnerText
                 };
 
                 XmlNodeList subNoder = nod.ChildNodes;
@@ -205,6 +206,7 @@ namespace LCGBanking
             LabelKategori.Text = question.kategori;
             LabelQuestion.Text = question.fraga;
             LabelInfo.Text = question.information;
+            ImageFragebild.ImageUrl = "";
 
             //generera radioknappar/checkboxar
             if (question.flerVal)
@@ -227,6 +229,16 @@ namespace LCGBanking
                     rb.GroupName = "gr" + GlobalValues.FrageNr;
                     PanelSvar.Controls.Add(rb);
                 }
+            }
+
+            if (question.bildURL.Contains(".jpg") || question.bildURL.Contains(".png"))
+            {
+                ImageFragebild.ImageUrl = question.bildURL;
+                PanelSvar.Style.Add("max-width", "50%");
+            }
+            else
+            {
+                PanelSvar.Style.Add("max-width", "90%");
             }
         }
 
@@ -310,105 +322,6 @@ namespace LCGBanking
             ButtonStart.Visible = false;
             Msg.Visible = false;
         }
-
-        /// <summary>
-        /// läser in fråga och svarsalternativ från XML-fil
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="level"></param>
-        /// <param name="index"></param>
-        /*private void XML(string path, string level, int index)
-        {
-
-            string xmlfil = Server.MapPath(path);
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlfil);
-
-            XmlNodeList fraga = doc.SelectNodes(level + "/Question[@id=" + index + "]");
-
-            // Hämtar vissa info i element
-            foreach (XmlNode nod in fraga)
-            {
-                LabelQuestion.Text = nod["Fraga"].InnerText + "<br /> ";
-            }
-
-            // Hämta noder utifrån namn
-            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]/Svar");
-
-            //kontrollera om frågan är en flervalsfråga
-            int rattSvar = 0;
-            foreach (XmlNode nod in svar)
-            {
-                if (nod.Attributes["facit"].Value == "true")
-                {
-                    rattSvar += 1;
-                }
-            }
-
-            //generera radioknappar/checkboxar för svarsalternativ
-            if (rattSvar > 1)
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    CheckBox cb = new CheckBox();
-                    cb.Text = nod.InnerText;
-                    PanelSvar.Controls.Add(cb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-            else
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    RadioButton rb = new RadioButton();
-                    rb.Text = nod.InnerText;
-                    rb.GroupName = "gr" + index;
-                    PanelSvar.Controls.Add(rb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-        }
-
-        private void visaXML()
-        {
-            string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
-            XmlTextReader reader = new XmlTextReader(xmlfil);
-            StringBuilder str = new StringBuilder();
-
-            reader.ReadStartElement("Test/Licenseringstest");
-
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        str.Append("Element: ");
-                        str.Append(reader.Name);
-                        str.Append("<br />");
-
-                        if (reader.AttributeCount > 1)
-                        {
-                            while (reader.MoveToNextAttribute())
-                            {
-                                str.Append("Attributnamn: ");
-                                str.Append(reader.Name);
-                                str.Append(": ");
-                                str.Append(reader.Value);
-                                str.Append("<br />");
-                            }
-
-                        }
-                        break;
-
-                    case XmlNodeType.Text:
-                        str.Append("Fråga ");
-                        str.Append(reader.Value);
-                        str.Append("<br />");
-                        break;
-                }
-            }
-            LabelQuestion.Text = str.ToString();
-        }*/
 
         protected void ButtonStart_Click(object sender, EventArgs e)
         {
