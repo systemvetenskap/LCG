@@ -54,7 +54,7 @@ namespace LCGBanking
         }
 
         /// <summary>
-        /// returnerar en lista med personer 
+        /// Returnerar en lista med personer 
         /// </summary>
         /// <returns></returns>
         public List<Person> GeListaPersoner()

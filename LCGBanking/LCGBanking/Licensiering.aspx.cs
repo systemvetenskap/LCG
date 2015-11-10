@@ -570,27 +570,6 @@ namespace LCGBanking
             }
         }
 
-        /* protected void ButtonSparaProv_Click(object sender, EventArgs e)
-        {
-                SparaProvtillfalle();
-                laddaResultat();
-                main.Visible = false;
-                IndividuellaResultat.Visible = true;
-            
-             /*
-             string confirmValue = Request.Form["confirm_value"];
-             if (confirmValue == "Ja")
-             {
-                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
-
- 
-            }
-            else
-            {
-                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
-            }
-         }*/
-
         /// <summary>
         /// Metoden använd för att hämta anvandarid med hjälp av anvandarnamn (i samband med inloggning). 
         /// Anvandarid används för person identifiering och styrning. Bland annat används detta för att 
@@ -739,8 +718,6 @@ namespace LCGBanking
                 command.Parameters["personid"].Value = personid;
 
                 DateTime idag = DateTime.Today;
-                //DateTime nasta_prov_tidigast = idag;
-                
                 
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
@@ -774,7 +751,7 @@ namespace LCGBanking
 
         public DateTime GeSistaProvDatum(int personid)
         {
-            // för att inet returnera inget värde alls 
+            // för att inte returnera inget värde alls 
             DateTime sistaprovdatum = Convert.ToDateTime("1000-01-01 19:11:11.80779");
             ConnectionStringSettings settings = ConfigurationManager.ConnectionStrings[conString];
             NpgsqlConnection conn = new NpgsqlConnection(settings.ConnectionString);
@@ -932,8 +909,6 @@ namespace LCGBanking
             fyllGridViewIndResOversikt(personId);
 
             LabelIndResNamn.Text = GlobalValues.namn;
-            // DateTime datum = new DateTime();
-            //LabelIndResDatum.Text = Convert.ToString(datum.Date.ToLocalTime());
         }
 
         /// <summary>
