@@ -322,7 +322,7 @@ nav #selected a {
     float: right;
     margin-right: 150px;
     padding-top: 25px;
-    padding-right:5em;
+    padding-right:8em;
     height: 220px;
     display:block;
     width: 65%;
@@ -572,4 +572,15 @@ figure.slider figure:hover + figure figcaption {
 
 #ContentPlaceHolder1_ButtonIndResGeLicens{
     margin-top: 5px;
+}
+
+#ContentPlaceHolder1_PanelSvar {
+    float: left;
+    min-width: 33%;
+}
+
+#ContentPlaceHolder1_ImageFragebild {
+    margin-left: 5%;
+    margin-top: -1%;
+    max-width: 30%;
 }

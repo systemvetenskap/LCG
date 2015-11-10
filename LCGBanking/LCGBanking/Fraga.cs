@@ -14,6 +14,7 @@ namespace LCGBanking
         public string information { get; set; }
         public bool flerVal {get; set;}
         public int fk_provtillfalle_id { get; set; }
+        public string bildURL { get; set; }
         public List<Svar> svarLista = new List<Svar>();
     }
 }

@@ -70,6 +70,9 @@
     </Content>
     <Content Include="BILDER\jebanklogg.jpg" />
     <Content Include="BILDER\logo_02.png" />
+    <Content Include="BILDER\money.jpg" />
+    <Content Include="BILDER\statistics.jpg" />
+    <Content Include="BILDER\telemarketer.png" />
     <Content Include="BILDER\userpicdummy.jpg" />
     <Content Include="CSS\main.css" />
     <Content Include="Licensiering.aspx" />

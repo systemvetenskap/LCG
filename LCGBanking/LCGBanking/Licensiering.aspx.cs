@@ -70,7 +70,7 @@ namespace LCGBanking
                         LabelKategori.Text = "Välkommen att göra licenseringstestet";
                         LabelKategori.Visible = true;
                     }
-                    else
+                  else
                     {
                         ButtonStart.Visible = false;
                         LabelQuestion.Visible = true;
@@ -118,60 +118,61 @@ namespace LCGBanking
         {
             try
             {
-                GlobalValues.Fragor.Clear();
+            GlobalValues.Fragor.Clear();
 
-                string xmlfil = Server.MapPath(path);
-                XmlDocument doc = new XmlDocument();
-                doc.Load(xmlfil);
+            string xmlfil = Server.MapPath(path);
+            XmlDocument doc = new XmlDocument();
+            doc.Load(xmlfil);
 
-                XmlNodeList noder = doc.SelectNodes(level + "/Question");
+            XmlNodeList noder = doc.SelectNodes(level + "/Question");
 
-                foreach (XmlNode nod in noder)
+            foreach (XmlNode nod in noder)
+            {
+                Fraga fr = new Fraga
                 {
-                    Fraga fr = new Fraga
-                    {
-                        id = Convert.ToInt32(nod.Attributes["id"].Value),
-                        kategori = nod["Kategori"].InnerText,
-                        fraga = nod["Fraga"].InnerText,
-                        information = nod["Information"].InnerText,
-                        flerVal = false
-                    };
+                    id = Convert.ToInt32(nod.Attributes["id"].Value),
+                    kategori = nod["Kategori"].InnerText,
+                    fraga = nod["Fraga"].InnerText,
+                    information = nod["Information"].InnerText,
+                    flerVal = false,
+                    bildURL = nod["Bild"].InnerText
+                };
 
-                    XmlNodeList subNoder = nod.ChildNodes;
+                XmlNodeList subNoder = nod.ChildNodes;
 
-                    foreach (XmlNode subNod in subNoder)
+                foreach (XmlNode subNod in subNoder)
+                {
+                    if (subNod.Name == "Svar")
                     {
-                        if (subNod.Name == "Svar")
+                        Svar sv = new Svar
                         {
-                            Svar sv = new Svar
-                            {
-                                alt = subNod.Attributes["alt"].Value,
-                                svar = subNod.InnerText,
-                                facit = subNod.Attributes["facit"].Value,
-                                icheckad = false
-                            };
-                            fr.svarLista.Add(sv);
-                        }
+                            alt = subNod.Attributes["alt"].Value,
+                            svar = subNod.InnerText,
+                            facit = subNod.Attributes["facit"].Value,
+                            icheckad = false
+                        };
+                        fr.svarLista.Add(sv);
                     }
-
-                    //kontrollera om frågan är en flervalsfråga
-                    int rattSvar = 0;
-                    foreach (Svar sv in fr.svarLista)
-                    {
-                        if (sv.facit == "true")
-                        {
-                            rattSvar += 1;
-                        }
-                    }
-
-                    if (rattSvar > 1)
-                    {
-                        fr.flerVal = true;
-                    }
-
-                    GlobalValues.Fragor.Add(fr);
                 }
+
+                //kontrollera om frågan är en flervalsfråga
+                int rattSvar = 0;
+                foreach (Svar sv in fr.svarLista)
+                {
+                    if (sv.facit == "true")
+                    {
+                        rattSvar += 1;
+                    }
+                }
+
+                if (rattSvar > 1)
+                {
+                    fr.flerVal = true;
+                }
+
+                GlobalValues.Fragor.Add(fr);
             }
+        }
             catch (Exception ex)
             {
                 string felmeddelande = "Ett fel har uppstått i samband med inläsning av XML filen. Mer information: " + ex.Message.ToString();
@@ -216,6 +217,7 @@ namespace LCGBanking
             LabelKategori.Text = question.kategori;
             LabelQuestion.Text = question.fraga;
             LabelInfo.Text = question.information;
+            ImageFragebild.ImageUrl = "";
 
             //generera radioknappar/checkboxar
             if (question.flerVal)
@@ -238,6 +240,16 @@ namespace LCGBanking
                     rb.GroupName = "gr" + GlobalValues.FrageNr;
                     PanelSvar.Controls.Add(rb);
                 }
+            }
+
+            if (question.bildURL.Contains(".jpg") || question.bildURL.Contains(".png"))
+            {
+                ImageFragebild.ImageUrl = question.bildURL;
+                PanelSvar.Style.Add("max-width", "50%");
+        }
+            else
+            {
+                PanelSvar.Style.Add("max-width", "90%");
             }
         }
 
@@ -321,105 +333,6 @@ namespace LCGBanking
             ButtonStart.Visible = false;
         }
 
-        /// <summary>
-        /// läser in fråga och svarsalternativ från XML-fil
-        /// </summary>
-        /// <param name="path"></param>
-        /// <param name="level"></param>
-        /// <param name="index"></param>
-        /*private void XML(string path, string level, int index)
-        {
-
-            string xmlfil = Server.MapPath(path);
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlfil);
-
-            XmlNodeList fraga = doc.SelectNodes(level + "/Question[@id=" + index + "]");
-
-            // Hämtar vissa info i element
-            foreach (XmlNode nod in fraga)
-            {
-                LabelQuestion.Text = nod["Fraga"].InnerText + "<br /> ";
-            }
-
-            // Hämta noder utifrån namn
-            XmlNodeList svar = doc.SelectNodes(level + "/Question[@id=" + index + "]/Svar");
-
-            //kontrollera om frågan är en flervalsfråga
-            int rattSvar = 0;
-            foreach (XmlNode nod in svar)
-            {
-                if (nod.Attributes["facit"].Value == "true")
-                {
-                    rattSvar += 1;
-                }
-            }
-
-            //generera radioknappar/checkboxar för svarsalternativ
-            if (rattSvar > 1)
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    CheckBox cb = new CheckBox();
-                    cb.Text = nod.InnerText;
-                    PanelSvar.Controls.Add(cb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-            else
-            {
-                foreach (XmlNode nod in svar)
-                {
-                    RadioButton rb = new RadioButton();
-                    rb.Text = nod.InnerText;
-                    rb.GroupName = "gr" + index;
-                    PanelSvar.Controls.Add(rb);
-                    PanelSvar.Controls.Add(new LiteralControl("<br />"));
-                }
-            }
-        }
-
-        private void visaXML()
-        {
-            string xmlfil = Server.MapPath("APP_CODE/XML_Query.xml");
-            XmlTextReader reader = new XmlTextReader(xmlfil);
-            StringBuilder str = new StringBuilder();
-
-            reader.ReadStartElement("Test/Licenseringstest");
-
-            while (reader.Read())
-            {
-                switch (reader.NodeType)
-                {
-                    case XmlNodeType.Element:
-                        str.Append("Element: ");
-                        str.Append(reader.Name);
-                        str.Append("<br />");
-
-                        if (reader.AttributeCount > 1)
-                        {
-                            while (reader.MoveToNextAttribute())
-                            {
-                                str.Append("Attributnamn: ");
-                                str.Append(reader.Name);
-                                str.Append(": ");
-                                str.Append(reader.Value);
-                                str.Append("<br />");
-                            }
-
-                        }
-                        break;
-
-                    case XmlNodeType.Text:
-                        str.Append("Fråga ");
-                        str.Append(reader.Value);
-                        str.Append("<br />");
-                        break;
-                }
-            }
-            LabelQuestion.Text = str.ToString();
-        }*/
-
         protected void ButtonStart_Click(object sender, EventArgs e)
         {
             GlobalValues.FrageNr = 1;
@@ -491,7 +404,7 @@ namespace LCGBanking
                         if (lb.Text == GlobalValues.FrageNr.ToString())
                         {
                             lb.CssClass = "qNavActive";
-                        }
+                        }                        
                     }
                     catch
                     {
@@ -536,7 +449,7 @@ namespace LCGBanking
 
         private int GetNodeCount()
         {
-            string node = "/" + GlobalValues.testtyp + "/Question";
+            string node = "/" + GlobalValues.testtyp + "/Question"; 
             string xmlfil = Server.MapPath(GlobalValues.xmlfilename);
             XmlDocument doc = new XmlDocument();
             doc.Load(xmlfil);
@@ -550,8 +463,8 @@ namespace LCGBanking
             registreraVal();
             Provtillfalle provtillfalle = new Provtillfalle();
             provtillfalle.Datum = DateTime.Now;
-            provtillfalle.Typ_av_test = GlobalValues.testtyp;
-            provtillfalle.Anvandar_id = GlobalValues.anvandarid;
+            provtillfalle.Typ_av_test = GlobalValues.testtyp; 
+            provtillfalle.Anvandar_id = GlobalValues.anvandarid; 
             nyProvtillfalle(provtillfalle);
         }
 
@@ -588,15 +501,15 @@ namespace LCGBanking
                 command.Parameters["newTypAvTest"].Value = provtillfalle.Typ_av_test;
                 command.Parameters.Add(new NpgsqlParameter("newAnvandarId", NpgsqlDbType.Integer));
                 command.Parameters["newAnvandarId"].Value = provtillfalle.Anvandar_id;
-
+                
                 command.CommandText = plsql;
-                int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());
-
+                int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());                
+                
                 int dbfragaid = 0;
                 int dbsvarid = 0;
 
                 foreach (Fraga nyfraga in GlobalValues.Fragor)
-                {
+	            {
                     dbfragaid = 0;
                     plsql = string.Empty;
                     plsql = plsql + "INSERT INTO lcg_fragor (fraga_id, fraga, information, flerval, kategori, fk_provtillfalle_id)";
@@ -658,11 +571,11 @@ namespace LCGBanking
         }
 
         /* protected void ButtonSparaProv_Click(object sender, EventArgs e)
-         {
-             SparaProvtillfalle();
-             laddaResultat();
-             main.Visible = false;
-             IndividuellaResultat.Visible = true;
+        {
+                SparaProvtillfalle();
+                laddaResultat();
+                main.Visible = false;
+                IndividuellaResultat.Visible = true;
             
              /*
              string confirmValue = Request.Form["confirm_value"];
@@ -671,11 +584,11 @@ namespace LCGBanking
                  this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Dina testsvar är inskickade/sparade. Se resultat! ')", true);
 
  
-             }
-             else
-             {
-                 this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
-             }
+            }
+            else
+            {
+                this.Page.ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Fortsätt med testet')", true);
+            }
          }*/
 
         /// <summary>
@@ -772,7 +685,7 @@ namespace LCGBanking
                 NpgsqlDataReader dr = command.ExecuteReader();
 
                 while (dr.Read())
-                {
+                {   
                     licencierad = dr["licencierad"] != DBNull.Value ? (bool)(dr["licencierad"]) : false;
                 }
             }
@@ -819,7 +732,7 @@ namespace LCGBanking
                 sql = sql + "                                     WHERE c.fk_person_id = lcg_provtillfalle.fk_person_id) ";
                 sql = sql + "      OR lcg_provtillfalle.DATUM IS NULL) ";
                 sql = sql + "ORDER BY lcg_provtillfalle.datum ASC; ";
-
+        
                 NpgsqlCommand command = new NpgsqlCommand(@sql, conn);
 
                 command.Parameters.Add(new NpgsqlParameter("personid", NpgsqlDbType.Integer));
@@ -827,8 +740,8 @@ namespace LCGBanking
 
                 DateTime idag = DateTime.Today;
                 //DateTime nasta_prov_tidigast = idag;
-
-
+                
+                
                 NpgsqlDataReader dr = command.ExecuteReader();
                 while (dr.Read())
                 {

@@ -94,6 +94,15 @@ namespace LCGBanking {
         protected global::System.Web.UI.WebControls.Panel PanelSvar;
         
         /// <summary>
+        /// ImageFragebild control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImageFragebild;
+        
+        /// <summary>
         /// ButtonPrevious control.
         /// </summary>
         /// <remarks>
