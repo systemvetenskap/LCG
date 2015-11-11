@@ -73,46 +73,46 @@ article {
     min-height: 200px;
     font-family: 'Open Sans', sans-serif;
 }
-	
+
 footer {
-	padding-top:30px;
-	height: 65px;
-	font-size: 10px;
-   font-family: 'Open Sans', sans-serif;
-	text-align:center;
-	background:#006699;
-	color:#F0F0F0;
-	margin: 0 auto;
-   	display:block;
+    padding-top: 30px;
+    height: 65px;
+    font-size: 10px;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    background: #006699;
+    color: #F0F0F0;
+    margin: 0 auto;
+    display: block;
     clear: both;
-   	box-shadow: -2px 5px 20px black;
+    box-shadow: -2px 5px 20px black;
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
 }
-	
-p	{
-	font-family: 'Open Sans', sans-serif;
-	font-size:16px;
-}  
+
+p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+}
 
 .p-mindretext {
-   font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     color: #fc1414;
 }
-	
-h2	 {
-	font-family: 'Open Sans', sans-serif;
+
+h2 {
+    font-family: 'Open Sans', sans-serif;
 }
 
 table, td, th {
     border-style: none;
     border-color: inherit;
     border-width: medium;
-    background-color:#5697d5;
+    background-color: #5697d5;
     padding-left: 50px;
-    padding-right:30px;
+    padding-right: 30px;
     padding-top: 3px;
     padding-bottom: 3px;
     font-family: 'Roboto', sans-serif;
@@ -127,120 +127,120 @@ nav ul {
     background: linear-gradient(top, #5697d5 0%);
     background: -moz-linear-gradient(top, #5697d5 0%);
     background: #5697d5;
-	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-	padding: 0;
-	border-radius: 10px; 
-	list-style: none;
-	position:relative;
-	display: inline-table;
+    box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+    padding: 0;
+    border-radius: 10px;
+    list-style: none;
+    position: relative;
+    display: inline-table;
     font-family: 'Oswald', sans-serif;
     font-weight: 400;
     font-size: 18px;
-        box-shadow: -2px 5px 20px black;
+    box-shadow: -2px 5px 20px black;
     border-radius: 4px;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
 }
-	
-nav ul:after {
-		content: ""; 
-        clear: both; 
+
+    nav ul:after {
+        content: "";
+        clear: both;
         display: block;
-}
+    }
 
 
-nav ul li {
-	float:left;
-}
-	
-nav ul li:hover {
-    background: #006699;
-    background: linear-gradient(top, #006699 0%, #006699 40%);
-    background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
-    background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
-}
-		
-nav ul li:hover a {
-    color:white;
-}
-	
-	
-nav ul li a {
-		display: block; 
-        padding: 20px;
-		color: black; 
-        text-decoration: none;
-}
+    nav ul li {
+        float: left;
+    }
 
-    
-nav ul ul {
-	display: none;
-}
+        nav ul li:hover {
+            background: #006699;
+            background: linear-gradient(top, #006699 0%, #006699 40%);
+            background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
+            background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
+        }
 
-	
-nav ul li:hover > ul {
-		display: block;
-}
+            nav ul li:hover a {
+                color: white;
+            }
 
-    
-nav ul ul {
-    background: #006699;
-    background: linear-gradient(top, #006699 0%, #006699 40%);
-    background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
-    background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
-    border-radius: 0px; 
-    padding: 0;
-	position: absolute; 
-    top: 100%;
-    width:inherit;
-}
 
-nav ul ul li {
-		float: none; 
-		border-top: 1px solid #6b727c;
-		border-bottom: 1px solid #575f6a;
-		position: relative;
-	}
-		
-nav ul ul li a {
-    padding: 15px 40px;
-	color: black;
-}	
-			
-nav ul ul li a:hover {
-    background: #b6d4ea; 
-    color: black;
-}
+        nav ul li a {
+            display: block;
+            padding: 20px;
+            color: black;
+            text-decoration: none;
+        }
 
-            
-nav ul ul ul {
-    position: absolute; 
-    left: 100%; 
-    top:0;
-}
+
+    nav ul ul {
+        display: none;
+    }
+
+
+    nav ul li:hover > ul {
+        display: block;
+    }
+
+
+    nav ul ul {
+        background: #006699;
+        background: linear-gradient(top, #006699 0%, #006699 40%);
+        background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
+        background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
+        border-radius: 0px;
+        padding: 0;
+        position: absolute;
+        top: 100%;
+        width: inherit;
+    }
+
+        nav ul ul li {
+            float: none;
+            border-top: 1px solid #6b727c;
+            border-bottom: 1px solid #575f6a;
+            position: relative;
+        }
+
+            nav ul ul li a {
+                padding: 15px 40px;
+                color: black;
+            }
+
+                nav ul ul li a:hover {
+                    background: #b6d4ea;
+                    color: black;
+                }
+
+
+        nav ul ul ul {
+            position: absolute;
+            left: 100%;
+            top: 0;
+        }
 
 nav #selected a {
-    background-color:white;
-}
-  
-.footer	{
-	font-size:10px;
-	font-family:"Lucida Grande", sans-serif;
+    background-color: white;
 }
 
-.menydesign	{
-	font-family: 'Open Sans', sans-serif;
-	font-weight:bold;
-	color:#000;
-	text-align:center;
-	text-decoration:none;
-	font-size:14px;
-	margin: 10px;
-	padding: 5px;
+.footer {
+    font-size: 10px;
+    font-family: "Lucida Grande", sans-serif;
 }
 
-.menydesign:hover {
-       font-family: 'Open Sans', sans-serif;
+.menydesign {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 10px;
+    padding: 5px;
+}
+
+    .menydesign:hover {
+        font-family: 'Open Sans', sans-serif;
         font-weight: bold;
         color: #006699;
         text-align: center;
@@ -248,7 +248,7 @@ nav #selected a {
         font-size: 14px;
         margin: 10px;
         padding: 5px;
-}    
+    }
 
 .thumblers {
     width: 100px;
@@ -267,10 +267,10 @@ nav #selected a {
 #headertext {
     padding-left: 120px;
     padding-top: 40px;
-    float:left;
-   font-family: 'Open Sans', sans-serif;
-   font-weight: 800;
-    font-size:20px;
+    float: left;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    font-size: 20px;
 }
 
 #header-meny {
@@ -293,17 +293,17 @@ nav #selected a {
     width: 350px;
     float: left;
 }
-	
+
 #test {
-    float:left;
+    float: left;
     font-family: 'Open Sans', sans-serif;
-    margin-top:15px;
-    margin-left:45px;
+    margin-top: 15px;
+    margin-left: 45px;
 }
 
 #fraga {
-    float:left;
-    display:block;
+    float: left;
+    display: block;
     width: 90%;
     height: 65px;
     font-family: 'Open Sans', sans-serif;
@@ -311,8 +311,8 @@ nav #selected a {
 }
 
 .postbackalabel {
-    float:right;
-    display:block;
+    float: right;
+    display: block;
     margin-right: 75px;
     font-family: 'Open Sans', sans-serif;
     font-size: 10px;
@@ -322,11 +322,11 @@ nav #selected a {
     float: right;
     margin-right: 150px;
     padding-top: 25px;
-    padding-right:8em;
+    padding-right: 8em;
     height: 220px;
-    display:block;
+    display: block;
     width: 65%;
-   font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 14px;
 }
 
@@ -339,7 +339,7 @@ nav #selected a {
 }
 
 #bannerpic {
-	width: 100%;
+    width: 100%;
     height: 300px;
     margin: 0 auto;
     margin-bottom: 20px;
@@ -347,53 +347,54 @@ nav #selected a {
     border-radius: 2px;
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
-	overflow: hidden;
+    overflow: hidden;
 }
 
-figure { 
-    margin: 0; 
+figure {
+    margin: 0;
 }
 
-figure.slider {
-	position: relative;
-	width: 500%;
-	font-size: 0;
-    -webkit-animation: 40s slidy infinite;
-	animation: 40s slidy infinite;
+    figure.slider {
+        position: relative;
+        width: 500%;
+        font-size: 0;
+        -webkit-animation: 40s slidy infinite;
+        animation: 40s slidy infinite;
     }
 
-figure.slider figure { 
-	width: 20%;
-	height: auto;
-	display: inline-block;
-	position: inherit; 
-}
+        figure.slider figure {
+            width: 20%;
+            height: auto;
+            display: inline-block;
+            position: inherit;
+        }
 
-figure.slider img {
-    width: 125%;
-	height: auto;
-}
+        figure.slider img {
+            width: 125%;
+            height: auto;
+        }
 
-figure.slider figure figcaption {
-	position: absolute;
-	bottom: -3.5rem;
-	background: rgba(0,0,0,0.3);
-	color: #fff;
-	width: 125%;
-	font-size: 2rem;
-	padding: .6rem;
-	transition: .5s bottom; 
-}
-figure.slider figure:hover figcaption {
-	bottom: 0;
-}
+        figure.slider figure figcaption {
+            position: absolute;
+            bottom: -3.5rem;
+            background: rgba(0,0,0,0.3);
+            color: #fff;
+            width: 125%;
+            font-size: 2rem;
+            padding: .6rem;
+            transition: .5s bottom;
+        }
 
-figure.slider figure:hover + figure figcaption { 
-	bottom: 0;
-}
+        figure.slider figure:hover figcaption {
+            bottom: 0;
+        }
+
+        figure.slider figure:hover + figure figcaption {
+            bottom: 0;
+        }
 
 
-.ImageUser{
+.ImageUser {
     margin-right: 100px;
 }
 
@@ -407,43 +408,43 @@ figure.slider figure:hover + figure figcaption {
 
 .admin-tabell {
     margin: 0;
-    margin-top: 15px; 
-    padding: 0; 
+    margin-top: 15px;
+    padding: 0;
     width: 100%;
     font-family: 'Slabo 27px', serif;
     font-size: 10px;
     background-color: white;
 }
 
-.admin-tabell tr th {
-    font-weight:bold; 
-    padding-top: 15px;
-    padding-left: 5px;
-    padding-right: 5px; 
-    padding-bottom: 15px;
-    color: black;
-    font-family: 'Slabo 27px', serif;
-    font-size: 9px;
-    background-color: white;
-}
+    .admin-tabell tr th {
+        font-weight: bold;
+        padding-top: 15px;
+        padding-left: 5px;
+        padding-right: 5px;
+        padding-bottom: 15px;
+        color: black;
+        font-family: 'Slabo 27px', serif;
+        font-size: 9px;
+        background-color: white;
+    }
 
-.admin-tabell tr td {
-    padding-left: 2px;
-    padding-right: 2px; 
-    color: black;    
-    font-family: 'Open Sans', sans-serif;
-    font-size: 9px;
-    background-color: white;
-}
+    .admin-tabell tr td {
+        padding-left: 2px;
+        padding-right: 2px;
+        color: black;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 9px;
+        background-color: white;
+    }
 
 #LabelKategori {
-    font-size: 10px; 
+    font-size: 10px;
     font-style: italic;
     font-family: 'Open Sans', sans-serif;
 }
 
 #LabelInfo {
-   font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 12px;
     color: #fc1414;
 }
@@ -454,21 +455,21 @@ figure.slider figure:hover + figure figcaption {
     margin-bottom: 2%;
 }
 
-#QuestionNavbar a {
-    text-align: center;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    display: block;
-    width: 21px;
-    margin: 1px;
-    padding: 0.48%;
-    float: left;
-}
+    #QuestionNavbar a {
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+        display: block;
+        width: 21px;
+        margin: 1px;
+        padding: 0.48%;
+        float: left;
+    }
 
-#QuestionNavbar a:hover {
-    background-color: #68AED1;
-}
+        #QuestionNavbar a:hover {
+            background-color: #68AED1;
+        }
 
 .qNavSelected {
     background-color: #3B6C84;
@@ -489,51 +490,51 @@ figure.slider figure:hover + figure figcaption {
 .Msg {
     color: #fc1414;
 }
-.roundCorner
-{
+
+.roundCorner {
     border-radius: 5px;
-    -moz-border-radius:5px;
+    -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     background-color: #d5d5d5;
     color: black;
-    text-align :center;
+    text-align: center;
     font-family: 'Open Sans', sans-serif;
     padding: 5px 10px 10px 10px;
 }
 
 #ContentPlaceHolder1_IndividuellaResultat,
-#ContentPlaceHolder1_OvergripandeStatistik{
+#ContentPlaceHolder1_OvergripandeStatistik {
     padding-left: 0;
 }
 
-#ContentPlaceHolder1_IndividuellaResultat table,
-#ContentPlaceHolder1_OvergripandeStatistik table{
-    margin-left: 0;
-    width: 100%;
-}
+    #ContentPlaceHolder1_IndividuellaResultat table,
+    #ContentPlaceHolder1_OvergripandeStatistik table {
+        margin-left: 0;
+        width: 100%;
+    }
 
-#ContentPlaceHolder1_IndividuellaResultat td, th,
-#ContentPlaceHolder1_OvergripandeStatistik td, th{
-    border: 1px solid #9E9F8E;
-    padding: 0.5%;
-    vertical-align: top;
-}
+    #ContentPlaceHolder1_IndividuellaResultat td, th,
+    #ContentPlaceHolder1_OvergripandeStatistik td, th {
+        border: 1px solid #9E9F8E;
+        padding: 0.5%;
+        vertical-align: top;
+    }
 
-#ContentPlaceHolder1_IndividuellaResultat th,
-#ContentPlaceHolder1_OvergripandeStatistik th{
-    background-color: #D3D3D3;
-    font-size: 15px;
-}
+    #ContentPlaceHolder1_IndividuellaResultat th,
+    #ContentPlaceHolder1_OvergripandeStatistik th {
+        background-color: #D3D3D3;
+        font-size: 15px;
+    }
 
-#ContentPlaceHolder1_IndividuellaResultat td,
-#ContentPlaceHolder1_OvergripandeStatistik td{
-    background-color: #FFF;
-    font-size: 13px;
-}
+    #ContentPlaceHolder1_IndividuellaResultat td,
+    #ContentPlaceHolder1_OvergripandeStatistik td {
+        background-color: #FFF;
+        font-size: 13px;
+    }
 
-#ContentPlaceHolder1_OvergripandeStatistik td{
-    min-width: 20px;
-}
+    #ContentPlaceHolder1_OvergripandeStatistik td {
+        min-width: 20px;
+    }
 
 .GVIndRes_fraga {
     font-weight: bold;
@@ -556,18 +557,18 @@ figure.slider figure:hover + figure figcaption {
     text-align: center;
 }
 
-#IndResPersonval{
+#IndResPersonval {
     overflow: auto;
     padding: 1% 6% 0 0;
 }
 
-#Personval1{
+#Personval1 {
     float: left;
 }
 
-#Personval2{
+#Personval2 {
     float: right;
-    padding-top: 1.5%
+    padding-top: 1.5%;
 }
 
 #ContentPlaceHolder1_ButtonIndResGeLicens{
@@ -584,3 +585,1658 @@ figure.slider figure:hover + figure figcaption {
     margin-top: -1%;
     max-width: 30%;
 }
+
+
+@media all and (min-width: 1080px) {
+    /* CSS Document */
+    * {
+        margin: 0 auto;
+        padding: 0px;
+    }
+
+    html {
+    }
+
+    body {
+        margin: 0 auto;
+        margin-top: 15px;
+        width: 1366px;
+        height: auto;
+        font-family: 'Open Sans', sans-serif;
+        padding: 30px;
+        background: center;
+        border: thin solid #c7c7c7;
+        box-shadow: -2px 5px 25px black;
+        border-radius: 5px;
+        background: #F0F0F0;
+        display: block;
+        clear: both;
+    }
+
+    header {
+        height: 85px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+    }
+
+    section {
+        margin-left: 0 auto;
+        font-family: 'Open Sans', sans-serif;
+        display: block;
+        clear: both;
+        margin-top: 20px;
+        padding-top: 15px;
+        padding-left: 100px;
+        min-height: 350px;
+    }
+
+    article {
+        margin-left: 0 auto;
+        font-family: 'Open Sans', sans-serif;
+        display: block;
+        clear: both;
+        margin-top: 20px;
+        padding-top: 15px;
+        padding-left: 100px;
+    }
+
+    #main {
+        margin-left: 20px;
+        min-height: 300px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #main2 {
+        margin-left: 150px;
+        margin-right: 150px;
+        min-height: 200px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    footer {
+        padding-top: 30px;
+        height: 65px;
+        font-size: 10px;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        background: #006699;
+        color: #F0F0F0;
+        margin: 0 auto;
+        display: block;
+        clear: both;
+        box-shadow: -2px 5px 20px black;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+    }
+
+    .p-mindretext {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        color: #fc1414;
+    }
+
+    h2 {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    table, td, th {
+        border-style: none;
+        border-color: inherit;
+        border-width: medium;
+        background-color: #5697d5;
+        padding-left: 50px;
+        padding-right: 30px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 18px;
+        text-align: left;
+    }
+
+    nav ul {
+        width: 100%;
+        margin-top: 5px;
+        background: #5697d5;
+        background: linear-gradient(top, #5697d5 0%);
+        background: -moz-linear-gradient(top, #5697d5 0%);
+        background: #5697d5;
+        box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+        padding: 0;
+        border-radius: 10px;
+        list-style: none;
+        position: relative;
+        display: inline-table;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        box-shadow: -2px 5px 20px black;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+    }
+
+        nav ul:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+
+        nav ul li {
+            float: left;
+        }
+
+            nav ul li:hover {
+                background: #006699;
+                background: linear-gradient(top, #006699 0%, #006699 40%);
+                background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
+                background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
+            }
+
+                nav ul li:hover a {
+                    color: white;
+                }
+
+
+            nav ul li a {
+                display: block;
+                padding: 20px;
+                color: black;
+                text-decoration: none;
+            }
+
+
+        nav ul ul {
+            display: none;
+        }
+
+
+        nav ul li:hover > ul {
+            display: block;
+        }
+
+
+        nav ul ul {
+            background: #006699;
+            background: linear-gradient(top, #006699 0%, #006699 40%);
+            background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
+            background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
+            border-radius: 0px;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            width: inherit;
+        }
+
+            nav ul ul li {
+                float: none;
+                border-top: 1px solid #6b727c;
+                border-bottom: 1px solid #575f6a;
+                position: relative;
+            }
+
+                nav ul ul li a {
+                    padding: 15px 40px;
+                    color: black;
+                }
+
+                    nav ul ul li a:hover {
+                        background: #b6d4ea;
+                        color: black;
+                    }
+
+
+            nav ul ul ul {
+                position: absolute;
+                left: 100%;
+                top: 0;
+            }
+
+    nav #selected a {
+        background-color: white;
+    }
+
+    .footer {
+        font-size: 10px;
+        font-family: "Lucida Grande", sans-serif;
+    }
+
+    .menydesign {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        margin: 10px;
+        padding: 5px;
+    }
+
+        .menydesign:hover {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: bold;
+            color: #006699;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 10px;
+            padding: 5px;
+        }
+
+    .thumblers {
+        width: 100px;
+        height: 100px;
+        padding: 5px;
+        float: left;
+    }
+
+    #headerlogo {
+        width: 180px;
+        height: 80px;
+        padding-left: 20px;
+        float: left;
+    }
+
+    #headertext {
+        padding-left: 120px;
+        padding-top: 40px;
+        float: left;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 800;
+        font-size: 20px;
+    }
+
+    #header-meny {
+        width: 600px;
+        height: 120px;
+        float: left;
+        margin: 15px;
+        padding: 10px;
+    }
+
+    #divthumbs {
+        float: left;
+    }
+
+    #imgCover {
+        float: left;
+    }
+
+    #bigPhoto {
+        width: 350px;
+        float: left;
+    }
+
+    #test {
+        float: left;
+        font-family: 'Open Sans', sans-serif;
+        margin-top: 15px;
+        margin-left: 45px;
+    }
+
+    #fraga {
+        float: left;
+        display: block;
+        width: 90%;
+        height: 65px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+    }
+
+    .postbackalabel {
+        float: right;
+        display: block;
+        margin-right: 75px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+    }
+
+    #svar {
+        float: right;
+        margin-right: 150px;
+        padding-top: 25px;
+        padding-right: 8em;
+        height: 220px;
+        display: block;
+        width: 65%;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+    }
+
+    #knappar {
+        clear: both;
+        margin-top: 15px;
+        margin-left: 55px;
+        padding: 15px;
+        padding-bottom: 15px;
+    }
+
+    #bannerpic {
+        width: 100%;
+        height: 300px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        box-shadow: -2px 5px 20px black;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        overflow: hidden;
+    }
+
+    figure {
+        margin: 0;
+    }
+
+        figure.slider {
+            position: relative;
+            width: 500%;
+            font-size: 0;
+            -webkit-animation: 40s slidy infinite;
+            animation: 40s slidy infinite;
+        }
+
+            figure.slider figure {
+                width: 20%;
+                height: auto;
+                display: inline-block;
+                position: inherit;
+            }
+
+            figure.slider img {
+                width: 125%;
+                height: auto;
+            }
+
+            figure.slider figure figcaption {
+                position: absolute;
+                bottom: -3.5rem;
+                background: rgba(0,0,0,0.3);
+                color: #fff;
+                width: 125%;
+                font-size: 2rem;
+                padding: .6rem;
+                transition: .5s bottom;
+            }
+
+            figure.slider figure:hover figcaption {
+                bottom: 0;
+            }
+
+            figure.slider figure:hover + figure figcaption {
+                bottom: 0;
+            }
+
+
+    .ImageUser {
+        margin-right: 100px;
+    }
+
+    /* denna delen av filen gäller admin form */
+    .admin {
+        min-height: 600px;
+        width: 100%;
+        margin: 0;
+        padding: 10px 0px 10px 0px;
+    }
+
+    .admin-tabell {
+        margin: 0;
+        margin-top: 15px;
+        padding: 0;
+        width: 100%;
+        font-family: 'Slabo 27px', serif;
+        font-size: 10px;
+        background-color: white;
+    }
+
+        .admin-tabell tr th {
+            font-weight: bold;
+            padding-top: 15px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 15px;
+            color: black;
+            font-family: 'Slabo 27px', serif;
+            font-size: 9px;
+            background-color: white;
+        }
+
+        .admin-tabell tr td {
+            padding-left: 2px;
+            padding-right: 2px;
+            color: black;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 9px;
+            background-color: white;
+        }
+
+    #LabelKategori {
+        font-size: 10px;
+        font-style: italic;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #LabelInfo {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        color: #fc1414;
+    }
+
+    /* stilregler för frågenavigeringsmeny (licensiering) */
+    #QuestionNavbar {
+        overflow: auto;
+        margin-bottom: 2%;
+    }
+
+        #QuestionNavbar a {
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            width: 21px;
+            margin: 1px;
+            padding: 0.48%;
+            float: left;
+        }
+
+            #QuestionNavbar a:hover {
+                background-color: #68AED1;
+            }
+
+    .qNavSelected {
+        background-color: #3B6C84;
+    }
+
+    .qNavUnselected {
+        background-color: #0073AD;
+    }
+
+    .qNavActive {
+        background-color: #68AED1;
+    }
+
+    #Welcome {
+        font-size: 12px;
+    }
+
+    .Msg {
+        color: #fc1414;
+    }
+
+    .roundCorner {
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        background-color: #d5d5d5;
+        color: black;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        padding: 5px 10px 10px 10px;
+    }
+
+    #ContentPlaceHolder1_IndividuellaResultat,
+    #ContentPlaceHolder1_OvergripandeStatistik {
+        padding-left: 0;
+    }
+
+        #ContentPlaceHolder1_IndividuellaResultat table,
+        #ContentPlaceHolder1_OvergripandeStatistik table {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat td, th,
+        #ContentPlaceHolder1_OvergripandeStatistik td, th {
+            border: 1px solid #9E9F8E;
+            padding: 0.5%;
+            vertical-align: top;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat th,
+        #ContentPlaceHolder1_OvergripandeStatistik th {
+            background-color: #D3D3D3;
+            font-size: 15px;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat td,
+        #ContentPlaceHolder1_OvergripandeStatistik td {
+            background-color: #FFF;
+            font-size: 13px;
+        }
+
+        #ContentPlaceHolder1_OvergripandeStatistik td {
+            min-width: 20px;
+        }
+
+    .GVIndRes_fraga {
+        font-weight: bold;
+    }
+
+    .GVIndRes_felsvar {
+        background-color: #FF5050 !important;
+    }
+
+    .GVIndRes_korrektsvar {
+        background-color: #EAEDB9 !important;
+    }
+
+    .GVIndRes_rattsvar {
+        background-color: #28E358 !important;
+    }
+
+    .GVIndRes_poang {
+        width: 5%;
+        text-align: center;
+    }
+
+    #IndResPersonval {
+        overflow: auto;
+        padding: 1% 6% 0 0;
+    }
+
+    #Personval1 {
+        float: left;
+    }
+
+    #Personval2 {
+        float: right;
+        padding-top: 1.5%;
+    }
+
+    #ContentPlaceHolder1_ButtonIndResGeLicens {
+        margin-top: 5px;
+    }
+
+    #ContentPlaceHolder1_PanelSvar {
+        float: left;
+        min-width: 33%;
+    }
+
+    #ContentPlaceHolder1_ImageFragebild {
+        margin-left: 5%;
+        margin-top: -1%;
+        max-width: 30%;
+    }
+}
+
+
+@media all and (max-width: 1000px) and (min-width: 700px) {
+    /* CSS Document */
+    * {
+        margin: 0 auto;
+        padding: 0px;
+    }
+
+    html {
+    }
+
+    body {
+        margin: 0 auto;
+        margin-top: 10px;
+        width: 750px;
+        height: auto;
+        font-family: 'Open Sans', sans-serif;
+        padding: 15px;
+        background: center;
+        border: thin solid #c7c7c7;
+        box-shadow: -2px 5px 25px black;
+        border-radius: 5px;
+        background: #F0F0F0;
+        display: block;
+        clear: both;
+    }
+
+    header {
+        height: 65px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+    }
+
+    section {
+        margin-left: 0 auto;
+        font-family: 'Open Sans', sans-serif;
+        display: block;
+        clear: both;
+        margin-top: 20px;
+        padding-top: 15px;
+        padding-left: 80px;
+        min-height: 350px;
+    }
+
+    article {
+        margin-left: 0 auto;
+        font-family: 'Open Sans', sans-serif;
+        display: block;
+        clear: both;
+        margin-top: 20px;
+        padding-top: 15px;
+        padding-left: 80px;
+    }
+
+    #main {
+        margin-left: 15px;
+        min-height: 300px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #main2 {
+        margin-left: 75px;
+        margin-right: 75px;
+        min-height: 200px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    footer {
+        padding-top: 30px;
+        height: 65px;
+        font-size: 9px;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        background: #006699;
+        color: #F0F0F0;
+        margin: 0 auto;
+        display: block;
+        clear: both;
+        box-shadow: -2px 5px 20px black;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+    }
+
+    .p-mindretext {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+        color: #fc1414;
+    }
+
+    h2 {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    table, td, th {
+        border-style: none;
+        border-color: inherit;
+        border-width: medium;
+        background-color: #5697d5;
+        padding-left: 50px;
+        padding-right: 30px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        text-align: left;
+    }
+
+    nav ul {
+        width: 100%;
+        margin-top: 5px;
+        background: #5697d5;
+        background: linear-gradient(top, #5697d5 0%);
+        background: -moz-linear-gradient(top, #5697d5 0%);
+        background: #5697d5;
+        box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+        padding: 0;
+        border-radius: 10px;
+        list-style: none;
+        position: relative;
+        display: inline-table;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        box-shadow: -2px 5px 20px black;
+        border-radius: 4px;
+        -moz-border-radius: 4px;
+        -webkit-border-radius: 4px;
+    }
+
+        nav ul:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+
+        nav ul li {
+            float: left;
+        }
+
+            nav ul li:hover {
+                background: #006699;
+                background: linear-gradient(top, #006699 0%, #006699 40%);
+                background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
+                background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
+            }
+
+                nav ul li:hover a {
+                    color: white;
+                }
+
+
+            nav ul li a {
+                display: block;
+                padding: 20px;
+                color: black;
+                text-decoration: none;
+            }
+
+
+        nav ul ul {
+            display: none;
+        }
+
+
+        nav ul li:hover > ul {
+            display: block;
+        }
+
+
+        nav ul ul {
+            background: #006699;
+            background: linear-gradient(top, #006699 0%, #006699 40%);
+            background: -moz-linear-gradient(top, #006699 0%, #006699 40%);
+            background: -webkit-linear-gradient(top, #006699 0%, #006699 40%);
+            border-radius: 0px;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            width: inherit;
+        }
+
+            nav ul ul li {
+                float: none;
+                border-top: 1px solid #6b727c;
+                border-bottom: 1px solid #575f6a;
+                position: relative;
+            }
+
+                nav ul ul li a {
+                    padding: 15px 40px;
+                    color: black;
+                }
+
+                    nav ul ul li a:hover {
+                        background: #b6d4ea;
+                        color: black;
+                    }
+
+
+            nav ul ul ul {
+                position: absolute;
+                left: 100%;
+                top: 0;
+            }
+
+    nav #selected a {
+        background-color: white;
+    }
+
+    .footer {
+        font-size: 10px;
+        font-family: "Lucida Grande", sans-serif;
+    }
+
+    .menydesign {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+        margin: 10px;
+        padding: 5px;
+    }
+
+        .menydesign:hover {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: bold;
+            color: #006699;
+            text-align: center;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 10px;
+            padding: 5px;
+        }
+
+    .thumblers {
+        width: 100px;
+        height: 100px;
+        padding: 5px;
+        float: left;
+    }
+
+    #headerlogo {
+        width: 180px;
+        height: 80px;
+        padding-left: 20px;
+        float: left;
+    }
+
+    #headertext {
+        padding-left: 120px;
+        padding-top: 40px;
+        float: left;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 800;
+        font-size: 20px;
+    }
+
+    #header-meny {
+        width: 600px;
+        height: 120px;
+        float: left;
+        margin: 15px;
+        padding: 10px;
+    }
+
+    #divthumbs {
+        float: left;
+    }
+
+    #imgCover {
+        float: left;
+    }
+
+    #bigPhoto {
+        width: 350px;
+        float: left;
+    }
+
+    #test {
+        float: left;
+        font-family: 'Open Sans', sans-serif;
+        margin-top: 15px;
+        margin-left: 45px;
+    }
+
+    #fraga {
+        float: left;
+        display: block;
+        width: 90%;
+        height: 65px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+    }
+
+    .postbackalabel {
+        float: right;
+        display: block;
+        margin-right: 75px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+    }
+
+    #svar {
+        float: right;
+        margin-right: 150px;
+        padding-top: 25px;
+        padding-right: 8em;
+        height: 220px;
+        display: block;
+        width: 65%;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+    }
+
+    #knappar {
+        clear: both;
+        margin-top: 15px;
+        margin-left: 55px;
+        padding: 15px;
+        padding-bottom: 15px;
+    }
+
+    #bannerpic {
+        width: 100%;
+        height: 300px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        box-shadow: -2px 5px 20px black;
+        border-radius: 2px;
+        -moz-border-radius: 2px;
+        -webkit-border-radius: 2px;
+        overflow: hidden;
+    }
+
+    figure {
+        margin: 0;
+    }
+
+        figure.slider {
+            position: relative;
+            width: 500%;
+            font-size: 0;
+            -webkit-animation: 40s slidy infinite;
+            animation: 40s slidy infinite;
+        }
+
+            figure.slider figure {
+                width: 20%;
+                height: auto;
+                display: inline-block;
+                position: inherit;
+            }
+
+            figure.slider img {
+                width: 125%;
+                height: auto;
+            }
+
+            figure.slider figure figcaption {
+                position: absolute;
+                bottom: -3.5rem;
+                background: rgba(0,0,0,0.3);
+                color: #fff;
+                width: 125%;
+                font-size: 2rem;
+                padding: .6rem;
+                transition: .5s bottom;
+            }
+
+            figure.slider figure:hover figcaption {
+                bottom: 0;
+            }
+
+            figure.slider figure:hover + figure figcaption {
+                bottom: 0;
+            }
+
+
+    .ImageUser {
+        margin-right: 100px;
+    }
+
+    /* denna delen av filen gäller admin form */
+    .admin {
+        min-height: 600px;
+        width: 100%;
+        margin: 0;
+        padding: 10px 0px 10px 0px;
+    }
+
+    .admin-tabell {
+        margin: 0;
+        margin-top: 15px;
+        padding: 0;
+        width: 100%;
+        font-family: 'Slabo 27px', serif;
+        font-size: 10px;
+        background-color: white;
+    }
+
+        .admin-tabell tr th {
+            font-weight: bold;
+            padding-top: 15px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 15px;
+            color: black;
+            font-family: 'Slabo 27px', serif;
+            font-size: 9px;
+            background-color: white;
+        }
+
+        .admin-tabell tr td {
+            padding-left: 2px;
+            padding-right: 2px;
+            color: black;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 9px;
+            background-color: white;
+        }
+
+    #LabelKategori {
+        font-size: 10px;
+        font-style: italic;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #LabelInfo {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        color: #fc1414;
+    }
+
+    /* stilregler för frågenavigeringsmeny (licensiering) */
+    #QuestionNavbar {
+        overflow: auto;
+        margin-bottom: 2%;
+    }
+
+        #QuestionNavbar a {
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            width: 21px;
+            margin: 1px;
+            padding: 0.48%;
+            float: left;
+        }
+
+            #QuestionNavbar a:hover {
+                background-color: #68AED1;
+            }
+
+    .qNavSelected {
+        background-color: #3B6C84;
+    }
+
+    .qNavUnselected {
+        background-color: #0073AD;
+    }
+
+    .qNavActive {
+        background-color: #68AED1;
+    }
+
+    #Welcome {
+        font-size: 12px;
+    }
+
+    .Msg {
+        color: #fc1414;
+    }
+
+    .roundCorner {
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        background-color: #d5d5d5;
+        color: black;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        padding: 5px 10px 10px 10px;
+    }
+
+    #ContentPlaceHolder1_IndividuellaResultat,
+    #ContentPlaceHolder1_OvergripandeStatistik {
+        padding-left: 0;
+    }
+
+        #ContentPlaceHolder1_IndividuellaResultat table,
+        #ContentPlaceHolder1_OvergripandeStatistik table {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat td, th,
+        #ContentPlaceHolder1_OvergripandeStatistik td, th {
+            border: 1px solid #9E9F8E;
+            padding: 0.5%;
+            vertical-align: top;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat th,
+        #ContentPlaceHolder1_OvergripandeStatistik th {
+            background-color: #D3D3D3;
+            font-size: 15px;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat td,
+        #ContentPlaceHolder1_OvergripandeStatistik td {
+            background-color: #FFF;
+            font-size: 13px;
+        }
+
+        #ContentPlaceHolder1_OvergripandeStatistik td {
+            min-width: 20px;
+        }
+
+    .GVIndRes_fraga {
+        font-weight: bold;
+    }
+
+    .GVIndRes_felsvar {
+        background-color: #FF5050 !important;
+    }
+
+    .GVIndRes_korrektsvar {
+        background-color: #EAEDB9 !important;
+    }
+
+    .GVIndRes_rattsvar {
+        background-color: #28E358 !important;
+    }
+
+    .GVIndRes_poang {
+        width: 5%;
+        text-align: center;
+    }
+
+    #IndResPersonval {
+        overflow: auto;
+        padding: 1% 6% 0 0;
+    }
+
+    #Personval1 {
+        float: left;
+    }
+
+    #Personval2 {
+        float: right;
+        padding-top: 1.5%;
+    }
+
+    #ContentPlaceHolder1_ButtonIndResGeLicens {
+        margin-top: 5px;
+    }
+
+    #ContentPlaceHolder1_PanelSvar {
+        float: left;
+        min-width: 33%;
+    }
+
+    #ContentPlaceHolder1_ImageFragebild {
+        margin-left: 5%;
+        margin-top: -1%;
+        max-width: 30%;
+    }
+}
+
+@media all and (max-width: 699px) {
+    /* CSS Document */
+    * {
+        margin: 0 auto;
+        padding: 0px;
+    }
+
+    html {
+    }
+
+    body {
+        margin: 0 auto;
+        width: 520px;
+        height: auto;
+        font-family: 'Open Sans', sans-serif;
+        background: center;
+        display: block;
+        clear: both;
+    }
+
+    header {
+        height: 30px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+    }
+
+    section {
+        margin-left: 0 auto;
+        font-family: 'Open Sans', sans-serif;
+        display: block;
+        clear: both;
+    }
+
+    article {
+        font-family: 'Open Sans', sans-serif;
+        display: block;
+        clear: both;
+    }
+
+    #main {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #main2 {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    footer {
+        height: 40px;
+        font-size: 8px;
+        font-family: 'Open Sans', sans-serif;
+        text-align: center;
+        margin: 0 auto;
+        display: block;
+        clear: both;
+    }
+
+    p {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+    }
+
+    .p-mindretext {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 8px;
+        color: #fc1414;
+    }
+
+    h2 {
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    table, td, th {
+        border-style: none;
+        border-color: inherit;
+        border-width: medium;
+        padding-left: 50px;
+        padding-right: 30px;
+        padding-top: 3px;
+        padding-bottom: 3px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 12px;
+        text-align: left;
+    }
+
+    nav ul {
+        width: 100%;
+        margin-top: 5px;
+        padding: 0;
+        list-style: none;
+        position: relative;
+        display: inline-table;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+    }
+
+        nav ul:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+
+        nav ul li {
+            float: left;
+        }
+
+            nav ul li:hover {
+            }
+
+                nav ul li:hover a {
+                    color: white;
+                }
+
+
+            nav ul li a {
+                display: block;
+                padding: 20px;
+                color: black;
+                text-decoration: none;
+            }
+
+
+        nav ul ul {
+            display: none;
+        }
+
+
+        nav ul li:hover > ul {
+            display: block;
+        }
+
+
+        nav ul ul {
+            border-radius: 0px;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            width: inherit;
+        }
+
+            nav ul ul li {
+                float: none;
+                position: relative;
+            }
+
+                nav ul ul li a {
+                    padding: 15px 40px;
+                    color: black;
+                }
+
+                    nav ul ul li a:hover {
+                        background: #b6d4ea;
+                        color: black;
+                    }
+
+
+            nav ul ul ul {
+                position: absolute;
+                left: 100%;
+                top: 0;
+            }
+
+    nav #selected a {
+        background-color: white;
+    }
+
+    .footer {
+        font-size: 10px;
+        font-family: "Lucida Grande", sans-serif;
+    }
+
+    .menydesign {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        color: #000;
+        text-align: center;
+        text-decoration: none;
+        font-size: 10px;
+        margin: 10px;
+        padding: 5px;
+    }
+
+        .menydesign:hover {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: bold;
+            color: #006699;
+            text-align: center;
+            text-decoration: none;
+            font-size: 10px;
+            margin: 10px;
+            padding: 5px;
+        }
+
+    .thumblers {
+        width: 100px;
+        height: 100px;
+        padding: 5px;
+        float: left;
+    }
+
+    #header-meny {
+        width: 600px;
+        height: 120px;
+        float: left;
+        margin: 15px;
+        padding: 10px;
+    }
+
+    #divthumbs {
+        float: left;
+    }
+
+    #imgCover {
+        float: left;
+    }
+
+
+    #test {
+        float: left;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #fraga {
+        float: left;
+        display: block;
+        width: 90%;
+        height: 65px;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+    }
+
+    .postbackalabel {
+        float: right;
+        display: block;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 8px;
+    }
+
+    #svar {
+        float: right;
+        margin-right: 150px;
+        padding-top: 25px;
+        padding-right: 8em;
+        height: 220px;
+        display: block;
+        width: 65%;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 10px;
+    }
+
+    #knappar {
+        clear: both;
+        margin-top: 15px;
+        margin-left: 55px;
+        padding: 15px;
+        padding-bottom: 15px;
+    }
+
+    #bannerpic {
+        width: 100%;
+        height: 300px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        overflow: hidden;
+    }
+
+    figure {
+        margin: 0;
+    }
+
+        figure.slider {
+            position: relative;
+            width: 500%;
+            font-size: 0;
+            -webkit-animation: 40s slidy infinite;
+            animation: 40s slidy infinite;
+        }
+
+            figure.slider figure {
+                width: 20%;
+                height: auto;
+                display: inline-block;
+                position: inherit;
+            }
+
+            figure.slider img {
+                width: 125%;
+                height: auto;
+            }
+
+            figure.slider figure figcaption {
+                position: absolute;
+                bottom: -3.5rem;
+                background: rgba(0,0,0,0.3);
+                color: #fff;
+                width: 125%;
+                font-size: 2rem;
+                padding: .6rem;
+                transition: .5s bottom;
+            }
+
+            figure.slider figure:hover figcaption {
+                bottom: 0;
+            }
+
+            figure.slider figure:hover + figure figcaption {
+                bottom: 0;
+            }
+
+
+    .ImageUser {
+        margin-right: 100px;
+    }
+
+    /* denna delen av filen gäller admin form */
+    .admin {
+        min-height: 600px;
+        width: 100%;
+        margin: 0;
+        padding: 10px 0px 10px 0px;
+    }
+
+    .admin-tabell {
+        margin: 0;
+        margin-top: 15px;
+        padding: 0;
+        width: 100%;
+        font-family: 'Slabo 27px', serif;
+        font-size: 10px;
+        background-color: white;
+    }
+
+        .admin-tabell tr th {
+            font-weight: bold;
+            padding-top: 15px;
+            padding-left: 5px;
+            padding-right: 5px;
+            padding-bottom: 15px;
+            color: black;
+            font-family: 'Slabo 27px', serif;
+            font-size: 9px;
+            background-color: white;
+        }
+
+        .admin-tabell tr td {
+            padding-left: 2px;
+            padding-right: 2px;
+            color: black;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 9px;
+            background-color: white;
+        }
+
+    #LabelKategori {
+        font-size: 10px;
+        font-style: italic;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #LabelInfo {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        color: #fc1414;
+    }
+
+    /* stilregler för frågenavigeringsmeny (licensiering) */
+    #QuestionNavbar {
+        overflow: auto;
+        margin-bottom: 2%;
+    }
+
+        #QuestionNavbar a {
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            width: 21px;
+            margin: 1px;
+            padding: 0.48%;
+            float: left;
+        }
+
+            #QuestionNavbar a:hover {
+                background-color: #68AED1;
+            }
+
+    .qNavSelected {
+        background-color: #3B6C84;
+    }
+
+    .qNavUnselected {
+        background-color: #0073AD;
+    }
+
+    .qNavActive {
+        background-color: #68AED1;
+    }
+
+    #Welcome {
+        font-size: 12px;
+    }
+
+    .Msg {
+        color: #fc1414;
+    }
+
+    #ContentPlaceHolder1_IndividuellaResultat,
+    #ContentPlaceHolder1_OvergripandeStatistik {
+        padding-left: 0;
+    }
+
+        #ContentPlaceHolder1_IndividuellaResultat table,
+        #ContentPlaceHolder1_OvergripandeStatistik table {
+            margin-left: 0;
+            width: 100%;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat td, th,
+        #ContentPlaceHolder1_OvergripandeStatistik td, th {
+            border: 1px solid #9E9F8E;
+            padding: 0.5%;
+            vertical-align: top;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat th,
+        #ContentPlaceHolder1_OvergripandeStatistik th {
+            background-color: #D3D3D3;
+            font-size: 15px;
+        }
+
+        #ContentPlaceHolder1_IndividuellaResultat td,
+        #ContentPlaceHolder1_OvergripandeStatistik td {
+            background-color: #FFF;
+            font-size: 13px;
+        }
+
+        #ContentPlaceHolder1_OvergripandeStatistik td {
+            min-width: 20px;
+        }
+
+    .GVIndRes_fraga {
+        font-weight: bold;
+    }
+
+    .GVIndRes_felsvar {
+        background-color: #FF5050 !important;
+    }
+
+    .GVIndRes_korrektsvar {
+        background-color: #EAEDB9 !important;
+    }
+
+    .GVIndRes_rattsvar {
+        background-color: #28E358 !important;
+    }
+
+    .GVIndRes_poang {
+        width: 5%;
+        text-align: center;
+    }
+
+    #IndResPersonval {
+        overflow: auto;
+        padding: 1% 6% 0 0;
+    }
+
+    #Personval1 {
+        float: left;
+    }
+
+    #Personval2 {
+        float: right;
+        padding-top: 1.5%;
+    }
+
+    #ContentPlaceHolder1_ButtonIndResGeLicens {
+        margin-top: 5px;
+    }
+
+    #ContentPlaceHolder1_PanelSvar {
+        float: left;
+        min-width: 33%;
+    }
+
+    #ContentPlaceHolder1_ImageFragebild {
+        margin-left: 5%;
+        margin-top: -1%;
+        max-width: 30%;
+    }
+}
+    
