@@ -118,65 +118,65 @@ namespace LCGBanking
         {
             try
             {
-            GlobalValues.Fragor.Clear();
+                GlobalValues.Fragor.Clear();
 
-            string xmlfil = Server.MapPath(path);
-            XmlDocument doc = new XmlDocument();
-            doc.Load(xmlfil);
+                string xmlfil = Server.MapPath(path);
+                XmlDocument doc = new XmlDocument();
+                doc.Load(xmlfil);
 
-            XmlNodeList noder = doc.SelectNodes(level + "/Question");
+                XmlNodeList noder = doc.SelectNodes(level + "/Question");
 
-            foreach (XmlNode nod in noder)
-            {
-                Fraga fr = new Fraga
+                foreach (XmlNode nod in noder)
                 {
-                    id = Convert.ToInt32(nod.Attributes["id"].Value),
-                    kategori = nod["Kategori"].InnerText,
-                    fraga = nod["Fraga"].InnerText,
-                    information = nod["Information"].InnerText,
-                    flerVal = false,
-                    bildURL = nod["Bild"].InnerText
-                };
-
-                XmlNodeList subNoder = nod.ChildNodes;
-
-                foreach (XmlNode subNod in subNoder)
-                {
-                    if (subNod.Name == "Svar")
+                    Fraga fr = new Fraga
                     {
-                        Svar sv = new Svar
+                        id = Convert.ToInt32(nod.Attributes["id"].Value),
+                        kategori = nod["Kategori"].InnerText,
+                        fraga = nod["Fraga"].InnerText,
+                        information = nod["Information"].InnerText,
+                        flerVal = false,
+                        bildURL = nod["Bild"].InnerText
+                    };
+
+                    XmlNodeList subNoder = nod.ChildNodes;
+
+                    foreach (XmlNode subNod in subNoder)
+                    {
+                        if (subNod.Name == "Svar")
                         {
-                            alt = subNod.Attributes["alt"].Value,
-                            svar = subNod.InnerText,
-                            facit = subNod.Attributes["facit"].Value,
-                            icheckad = false
-                        };
-                        fr.svarLista.Add(sv);
+                            Svar sv = new Svar
+                            {
+                                alt = subNod.Attributes["alt"].Value,
+                                svar = subNod.InnerText,
+                                facit = subNod.Attributes["facit"].Value,
+                                icheckad = false
+                            };
+                            fr.svarLista.Add(sv);
+                        }
                     }
-                }
 
-                //kontrollera om frågan är en flervalsfråga
-                int rattSvar = 0;
-                foreach (Svar sv in fr.svarLista)
-                {
-                    if (sv.facit == "true")
+                    //kontrollera om frågan är en flervalsfråga
+                    int rattSvar = 0;
+                    foreach (Svar sv in fr.svarLista)
                     {
-                        rattSvar += 1;
+                        if (sv.facit == "true")
+                        {
+                            rattSvar += 1;
+                        }
                     }
-                }
 
-                if (rattSvar > 1)
-                {
-                    fr.flerVal = true;
-                }
+                    if (rattSvar > 1)
+                    {
+                        fr.flerVal = true;
+                    }
 
-                GlobalValues.Fragor.Add(fr);
+                    GlobalValues.Fragor.Add(fr);
+                }
             }
-        }
             catch (Exception ex)
             {
                 string felmeddelande = "Ett fel har uppstått i samband med inläsning av XML filen. Mer information: " + ex.Message.ToString();
-                Response.Write("<script>alert('" + felmeddelande + "')</script>");                
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
                 throw;
             }
         }
@@ -211,47 +211,58 @@ namespace LCGBanking
         /// </summary>
         private void loadQuestion()
         {
-            int index = GlobalValues.FrageNr - 1;
-            Fraga question = GlobalValues.Fragor[index];
-
-            LabelKategori.Text = question.kategori;
-            LabelQuestion.Text = question.fraga;
-            LabelInfo.Text = question.information;
-            ImageFragebild.ImageUrl = "";
-
-            //generera radioknappar/checkboxar
-            if (question.flerVal)
+            try
             {
-                foreach (Svar sv in question.svarLista)
+                int index = GlobalValues.FrageNr - 1;
+                Fraga question = GlobalValues.Fragor[index];
+
+                LabelKategori.Text = question.kategori;
+                LabelQuestion.Text = question.fraga;
+                LabelInfo.Text = question.information;
+                ImageFragebild.ImageUrl = "";
+
+                //generera radioknappar/checkboxar
+                if (question.flerVal)
                 {
-                    CheckBox cb = new CheckBox();
-                    cb.Text = "  " + sv.svar + "<br /><br />";
-                    cb.ID = sv.alt + GlobalValues.FrageNr;
-                    PanelSvar.Controls.Add(cb);
+                    foreach (Svar sv in question.svarLista)
+                    {
+                        CheckBox cb = new CheckBox();
+                        cb.Text = "  " + sv.svar + "<br /><br />";
+                        cb.ID = sv.alt + GlobalValues.FrageNr;
+                        PanelSvar.Controls.Add(cb);
+                    }
+                }
+                else
+                {
+                    foreach (Svar sv in question.svarLista)
+                    {
+                        RadioButton rb = new RadioButton();
+                        rb.Text = "  " + sv.svar + "<br /><br />";
+                        rb.ID = sv.alt + GlobalValues.FrageNr;
+                        rb.GroupName = "gr" + GlobalValues.FrageNr;
+                        PanelSvar.Controls.Add(rb);
+                    }
+                }
+
+                if (question.bildURL.Contains(".jpg") || question.bildURL.Contains(".png"))
+                {
+                    ImageFragebild.ImageUrl = question.bildURL;
+                    PanelSvar.Style.Add("max-width", "50%");
+                }
+                else
+                {
+                    PanelSvar.Style.Add("max-width", "90%");
                 }
             }
-            else
-            {
-                foreach (Svar sv in question.svarLista)
-                {
-                    RadioButton rb = new RadioButton();
-                    rb.Text = "  " + sv.svar + "<br /><br />";
-                    rb.ID = sv.alt + GlobalValues.FrageNr;
-                    rb.GroupName = "gr" + GlobalValues.FrageNr;
-                    PanelSvar.Controls.Add(rb);
-                }
-            }
 
-            if (question.bildURL.Contains(".jpg") || question.bildURL.Contains(".png"))
+            catch (Exception ex)
             {
-                ImageFragebild.ImageUrl = question.bildURL;
-                PanelSvar.Style.Add("max-width", "50%");
-        }
-            else
-            {
-                PanelSvar.Style.Add("max-width", "90%");
+                string felmeddelande = "Ett fel har uppstått. Mer information: " + ex.Message.ToString();
+                Response.Write("<script>alert('" + felmeddelande + "')</script>");
+                throw;
             }
         }
+
 
         /// <summary>
         /// registrerar valda svarsalternativ i global lista
