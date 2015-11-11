@@ -475,7 +475,79 @@ namespace LCGBanking
             Provtillfalle provtillfalle = new Provtillfalle();
             provtillfalle.Datum = DateTime.Now;
             provtillfalle.Typ_av_test = GlobalValues.testtyp; 
-            provtillfalle.Anvandar_id = GlobalValues.anvandarid; 
+            provtillfalle.Anvandar_id = GlobalValues.anvandarid;
+
+            //räkna ut procent rätt
+            double maxpoang = 0;
+            double poang = 0;
+            double maxpoangEkonomi = 0;
+            double maxpoangProdukter = 0;
+            double maxpoangEtik = 0;
+            double poangEkonomi = 0;
+            double poangProdukter = 0;
+            double poangEtik = 0;
+            foreach (Fraga fr in GlobalValues.Fragor)
+            {
+                maxpoang++;
+                if (fr.kategori == "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi")
+                {
+                    maxpoangEkonomi++;
+                }
+                else if (fr.kategori == "Produkter och hantering av kundens affärer ")
+                {
+                    maxpoangProdukter++;
+                }
+                else if (fr.kategori == "Etik och regelverk")
+                {
+                    maxpoangEtik++;
+                }
+
+                int maxratt = 0;
+                if (fr.flerVal)
+                {
+                    maxratt = 2;
+                }
+                else
+                {
+                    maxratt = 1;
+                }
+                int rattbesvarad = 0;
+                foreach (Svar sv in fr.svarLista)
+                {
+                    if (sv.facit == "true" && sv.icheckad)
+                    {
+                        rattbesvarad++;
+                    }
+                }
+                if (rattbesvarad == maxratt)
+                {
+                    poang++;
+                    if (fr.kategori == "Ekonomi – nationalekonomi, finansiell ekonomi och privatekonomi")
+                    {
+                        poangEkonomi++;
+                    }
+                    else if (fr.kategori == "Produkter och hantering av kundens affärer ")
+                    {
+                        poangProdukter++;
+                    }
+                    else if (fr.kategori == "Etik och regelverk")
+                    {
+                        poangEtik++;
+                    }
+                }
+            }
+            double procentTotalt = poang / maxpoang * 100;
+            double procentEkonomi = poangEkonomi / maxpoangEkonomi * 100;
+            double procentProdukter = poangProdukter / maxpoangProdukter * 100;
+            double procentEtik = poangEtik / maxpoangEtik * 100;
+            bool godkand = false;
+            if (procentTotalt >= 70 && procentEkonomi >= 60 && procentProdukter >= 60 && procentEtik >= 60)
+            {
+                godkand = true;
+            }
+
+            provtillfalle.Godkand = godkand;
+            provtillfalle.Provresultat = Convert.ToInt32(procentTotalt);
             nyProvtillfalle(provtillfalle);
         }
 
@@ -502,8 +574,8 @@ namespace LCGBanking
                 command.Transaction = tran;
 
                 string plsql = string.Empty;
-                plsql = plsql + "INSERT INTO lcg_provtillfalle (datum, typ_av_test, fk_person_id)";
-                plsql = plsql + "VALUES (:newDatum, :newTypAvTest, (SELECT fk_person_id FROM lcg_konto WHERE id = :newAnvandarId))";
+                plsql = plsql + "INSERT INTO lcg_provtillfalle (datum, typ_av_test, fk_person_id, provresultat, godkand)";
+                plsql = plsql + "VALUES (:newDatum, :newTypAvTest, (SELECT fk_person_id FROM lcg_konto WHERE id = :newAnvandarId), :newProvresultat, :newGodkand)";
                 plsql = plsql + " RETURNING id";
 
                 command.Parameters.Add(new NpgsqlParameter("newDatum", NpgsqlDbType.Timestamp));
@@ -512,6 +584,10 @@ namespace LCGBanking
                 command.Parameters["newTypAvTest"].Value = provtillfalle.Typ_av_test;
                 command.Parameters.Add(new NpgsqlParameter("newAnvandarId", NpgsqlDbType.Integer));
                 command.Parameters["newAnvandarId"].Value = provtillfalle.Anvandar_id;
+                command.Parameters.Add(new NpgsqlParameter("newProvresultat", NpgsqlDbType.Integer));
+                command.Parameters["newProvresultat"].Value = provtillfalle.Provresultat;
+                command.Parameters.Add(new NpgsqlParameter("newGodkand", NpgsqlDbType.Boolean));
+                command.Parameters["newGodkand"].Value = provtillfalle.Godkand;
                 
                 command.CommandText = plsql;
                 int provtillfalleid = Convert.ToInt32(command.ExecuteScalar());                
@@ -1208,6 +1284,7 @@ namespace LCGBanking
             dt.Columns.Add("Procent rätt", typeof(String));
             dt.Columns.Add("Godkänd", typeof(String));
 
+            int godkandaKategorier = 0;
             foreach (Provstatistik pr in kategorier)
             {
                 DataRow dr = dt.NewRow();
@@ -1218,6 +1295,7 @@ namespace LCGBanking
                 if (Convert.ToInt32(pr.Antal_ratt) >= 60)
                 {
                     dr["Godkänd"] = "Ja";
+                    godkandaKategorier++;
                 }
                 else
                 {
@@ -1231,7 +1309,7 @@ namespace LCGBanking
             drTotal["Antal frågor"] = prov.Antal_fragor;
             drTotal["Poäng"] = prov.Antal_poang;
             drTotal["Procent rätt"] = Convert.ToInt32(prov.Antal_ratt) + "%";
-            if (Convert.ToInt32(prov.Antal_ratt) >= 70)
+            if (Convert.ToInt32(prov.Antal_ratt) >= 70 && godkandaKategorier == 3)
             {
                 drTotal["Godkänd"] = "Ja";
             }
