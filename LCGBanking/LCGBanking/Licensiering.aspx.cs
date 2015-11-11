@@ -259,7 +259,7 @@ namespace LCGBanking
             {
                 string felmeddelande = "Ett fel har uppstått. Mer information: " + ex.Message.ToString();
                 Response.Write("<script>alert('" + felmeddelande + "')</script>");
-                throw;
+                // throw;
             }
         }
 
